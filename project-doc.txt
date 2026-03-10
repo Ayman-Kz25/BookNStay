@@ -5,3 +5,7 @@ npm create vite@latest
 npm install
 npm run dev
 
+2. Tailwind CSS
+npm install tailwindcss @tailwindcss/vite
+
+3. 
