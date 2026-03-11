@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {Menu, Search, X} from 'lucide-react'
+import {Menu, Search, SquareMenu, TextAlignEnd, X} from 'lucide-react'
 const Navbar = () => {
     const navLinks = [
         { name: 'Home', path: '/' },
@@ -25,7 +25,7 @@ const Navbar = () => {
 
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2">
-                    <img src="/logo5.png" alt="logo" className={`h-9 ${isScrolled && "invert opacity-80"} max-sm:h-6`} />
+                    <img src="/logo6.png" alt="logo" className={`h-9 ${isScrolled && "invert opacity-80"} max-sm:h-6`} />
                 </Link>
 
                 {/* Desktop Nav */}
@@ -51,7 +51,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button */}
                 <div className="flex items-center gap-3 md:hidden">
-                    <Menu size={22} color="white" className={`${isScrolled && "invert"}`} onClick={()=>setIsMenuOpen(!isMenuOpen)} />
+                    <TextAlignEnd size={22} color="white" className={`${isScrolled && "invert"}`} onClick={()=>setIsMenuOpen(!isMenuOpen)} />
                 </div>
 
                 {/* Mobile Menu */}
