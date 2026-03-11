@@ -117,21 +117,27 @@ export const exclusiveOffers = [
     title: "Luxury Weekend Escape",
     discount: "30% OFF",
     city: "Hunza",
-    description: "Enjoy a luxury weekend stay with mountain views."
+    description: "Enjoy a luxury weekend stay with mountain views.",
+    img: "/images/offers/hunza.png",
+    expiryDate: "30 June 2026"
   },
   {
     id: 2,
     title: "City Break Special",
     discount: "20% OFF",
     city: "Karachi",
-    description: "Perfect city getaway in premium hotels."
+    description: "Perfect city getaway in premium hotels.",
+    img: "/images/offers/karachi.jpg",
+    expiryDate: "15 July 2026"
   },
   {
     id: 3,
     title: "Northern Adventure Stay",
     discount: "25% OFF",
     city: "Skardu",
-    description: "Book luxury resorts in the northern areas."
+    description: "Book luxury resorts in the northern areas.",
+    img: "/images/offers/skardu.jpg",
+    expiryDate: "10 August 2026"
   }
 ];
 
