@@ -10,3 +10,6 @@ npm install tailwindcss @tailwindcss/vite
 
 3. React Router DOM
 npm install react-router-dom
+
+4. Lucide React Icons
+npm install lucide-react
