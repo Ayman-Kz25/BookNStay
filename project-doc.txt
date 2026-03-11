@@ -13,3 +13,6 @@ npm install react-router-dom
 
 4. Lucide React Icons
 npm install lucide-react
+
+5. Clerk (For Authentication)
+npm install @clerk/react
