@@ -26,3 +26,20 @@
 .font-playfair {
   font-family: "Playfair", serif !important;
 }
+
+.hero-container {
+  @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white h-screen;
+  position: relative;
+  background: url('/hero.jpg') center/cover;
+}
+
+.hero-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 60% dark overlay */
+  z-index: 1;
+}
