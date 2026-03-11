@@ -30,7 +30,7 @@
 /* ===== Components ==== */
 /* Hero */
 .hero-container {
-  @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white h-screen w-full bg-cover bg-center;
+  @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 h-screen w-full bg-cover bg-center text-white;
   position: relative;
   background-image: url('/hero.jpg');
 }

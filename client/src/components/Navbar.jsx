@@ -51,7 +51,7 @@ const Navbar = () => {
         <img
           src="/logo6.png"
           alt="logo"
-          className={`h-9 ${isScrolled && "invert opacity-80"} max-sm:h-6`}
+          className={`h-9 ${isScrolled && "invert opacity-70"} max-sm:h-6`}
         />
       </Link>
 
@@ -81,8 +81,7 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-4">
         <Search
           size={22}
-          color="white"
-          className={`transition-all duration-500${isScrolled && "invert"}`}
+          className={`transition-all duration-500 ${isScrolled ? " inverttext-gray-700" : "text-white"}`}
         />
 
         {user ? (
