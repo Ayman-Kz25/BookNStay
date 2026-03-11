@@ -70,7 +70,7 @@ const Navbar = () => {
           </a>
         ))}
         <button
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? "text-black" : "text-white"} transition-all`}
+          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] ${isScrolled ? "text-black" : "text-white"} transition-all`}
           onClick={() => navigate("/owner")}
         >
           Dashboard
@@ -80,8 +80,8 @@ const Navbar = () => {
       {/* Desktop Right */}
       <div className="hidden md:flex items-center gap-4">
         <Search
-          size={22}
-          className={`transition-all duration-500 ${isScrolled ? " inverttext-gray-700" : "text-white"}`}
+          size={20}
+          className={`transition-all duration-500 cursor-pointer transform hover:scale-105 ${isScrolled ? " inverttext-gray-700" : "text-white"}`}
         />
 
         {user ? (
