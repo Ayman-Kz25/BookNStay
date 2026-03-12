@@ -102,8 +102,8 @@ export const rooms = [
     rating: 4.5,
     pricePerNight: 200,
     imgs: [
-      "/images/rooms/room5.jpg",
-      "/images/rooms/room5-2.jpg"
+      "/images/rooms/room5.png",
+      "/images/rooms/room5-2.png"
     ],
     hotel: hotels[4]
   }
@@ -142,7 +142,6 @@ export const exclusiveOffers = [
 ];
 
 
-// Testimonials
 // Testimonials
 export const testimonials = [
   {
