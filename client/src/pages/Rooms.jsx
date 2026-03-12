@@ -223,7 +223,7 @@ const Rooms = () => {
       </div>
 
       {/* Right Side - Filters */}
-      <div className="bg-white w-80 border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16 rounded-lg">
+      <div className="bg-white w-80 max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16 rounded-lg">
         {/* Filter Header */}
         <div
           className={`flex items-center justify-between px-5 py-2.5 min-lg:border-b border-gray-300 ${showFilters && "border-b"}`}
@@ -245,7 +245,7 @@ const Rooms = () => {
           className={`${showFilters ? "h-auto" : "h-0 lg:h-auto"} overflow-hidden transition-all duration-800 ease-in-out`}
         >
           <div className="px-5 pt-5">
-            <p className="font-medium text-gray-800 pb-2">Room Type</p>
+            <p className="font-medium text-gray-800 pb-2">Popular Filters</p>
             {roomTypes.map((room, index) => (
               <CheckBox
                 key={index}
