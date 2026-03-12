@@ -59,14 +59,16 @@ export const hotels = [
 export const rooms = [
   {
     id: 1,
+    type: "Luxury Suite",
     rating: 4.8,
     pricePerNight: 32000,
-    imgs: ["/images/rooms/room1.jpg", "/images/rooms/room1-2.jpg"],
+    imgs: ["/images/rooms/room1.jpg", "/images/rooms/room1-2.jpg", "/images/rooms/room1-3.jpg", "/images/rooms/room1-4.jpg"],
     hotel: hotels[0],
     amenities: ["WiFi", "Air Conditioning", "TV", "Mini Bar"]
   },
   {
     id: 2,
+    type: "Deluxe Room",
     rating: 4.6,
     pricePerNight: 28000,
     imgs: ["/images/rooms/room2.png", "/images/rooms/room2-2.png"],
@@ -75,6 +77,7 @@ export const rooms = [
   },
   {
     id: 3,
+    type: "Executive Room",
     rating: 4.7,
     pricePerNight: 25000,
     imgs: ["/images/rooms/room3.png", "/images/rooms/room3-2.png"],
@@ -83,6 +86,7 @@ export const rooms = [
   },
   {
     id: 4,
+    type: "Junior Suite",
     rating: 4.9,
     pricePerNight: 42000,
     imgs: ["/images/rooms/room4.png", "/images/rooms/room4-2.png"],
@@ -91,6 +95,7 @@ export const rooms = [
   },
   {
     id: 5,
+    type: "Family Room",
     rating: 4.5,
     pricePerNight: 22000,
     imgs: ["/images/rooms/room5.png", "/images/rooms/room5-2.png"],
