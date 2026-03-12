@@ -71,7 +71,7 @@ export const rooms = [
     type: "Deluxe Room",
     rating: 4.6,
     pricePerNight: 28000,
-    imgs: ["/images/rooms/room2.png", "/images/rooms/room2-2.png"],
+    imgs: ["/images/rooms/room2.png", "/images/rooms/room2-2.jpg", "/images/rooms/room2-3.jpg", "/images/rooms/room2-4.jpg"],
     hotel: hotels[1],
     amenities: ["WiFi", "Breakfast", "Room Service", "TV"]
   },
@@ -80,7 +80,7 @@ export const rooms = [
     type: "Executive Room",
     rating: 4.7,
     pricePerNight: 25000,
-    imgs: ["/images/rooms/room3.png", "/images/rooms/room3-2.png"],
+    imgs: ["/images/rooms/room3.png", "/images/rooms/room3-2.jpg", "/images/rooms/room3-3.jpg", "/images/rooms/room3-4.jpg"],
     hotel: hotels[2],
     amenities: ["WiFi", "Air Conditioning", "Gym", "Swimming Pool"]
   },
@@ -89,7 +89,7 @@ export const rooms = [
     type: "Junior Suite",
     rating: 4.9,
     pricePerNight: 42000,
-    imgs: ["/images/rooms/room4.png", "/images/rooms/room4-2.png"],
+    imgs: ["/images/rooms/room4.jpg", "/images/rooms/room4-2.jpg", "/images/rooms/room4-3.jpg", "/images/rooms/room4-4.jpg"],
     hotel: hotels[3],
     amenities: ["WiFi", "Mountain View", "Breakfast", "Balcony"]
   },
@@ -98,7 +98,7 @@ export const rooms = [
     type: "Family Room",
     rating: 4.5,
     pricePerNight: 22000,
-    imgs: ["/images/rooms/room5.png", "/images/rooms/room5-2.png"],
+    imgs: ["/images/rooms/room5.png", "/images/rooms/room5-2.png", "/images/rooms/room5-3.jpg", "/images/rooms/room5-4.jpg"],
     hotel: hotels[4],
     amenities: ["WiFi", "Lake View", "Breakfast", "Room Service"]
   }
