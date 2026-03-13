@@ -1,4 +1,5 @@
 // data.js
+import { ShieldCheck, Clock, Sparkles, Headset, RefreshCcw } from "lucide-react";
 
 // Top Pakistani cities
 export const cities = [
@@ -26,31 +27,56 @@ export const hotels = [
     id: 1,
     name: "Serena Hotel",
     city: "Islamabad",
-    address: "Khayaban-e-Suhrwardy, Islamabad"
+    address: "Khayaban-e-Suhrwardy, Islamabad",
+    owner: {
+      name: "Ahmed Raza",
+      profile: "https://i.pravatar.cc/150?img=12",
+      rating: 4.8
+    }
   },
   {
     id: 2,
     name: "Pearl Continental",
     city: "Lahore",
-    address: "Shahrah-e-Quaid-e-Azam, Lahore"
+    address: "Shahrah-e-Quaid-e-Azam, Lahore",
+    owner: {
+      name: "Bilal Khan",
+      profile: "https://i.pravatar.cc/150?img=32",
+      rating: 4.7
+    }
   },
   {
     id: 3,
     name: "Avari Towers",
     city: "Karachi",
-    address: "Fatima Jinnah Road, Karachi"
+    address: "Fatima Jinnah Road, Karachi",
+    owner: {
+      name: "Usman Ali",
+      profile: "https://i.pravatar.cc/150?img=15",
+      rating: 4.6
+    }
   },
   {
     id: 4,
     name: "Luxus Hunza Resort",
     city: "Hunza",
-    address: "Attabad Lake Road, Hunza"
+    address: "Attabad Lake Road, Hunza",
+    owner: {
+      name: "Hassan Shah",
+      profile: "https://i.pravatar.cc/150?img=25",
+      rating: 4.9
+    }
   },
   {
     id: 5,
     name: "Shangrila Resort",
     city: "Skardu",
-    address: "Lower Kachura Lake, Skardu"
+    address: "Lower Kachura Lake, Skardu",
+    owner: {
+      name: "Ali Haider",
+      profile: "https://i.pravatar.cc/150?img=45",
+      rating: 4.8
+    }
   }
 ];
 
@@ -205,5 +231,38 @@ export const bookings = [
     checkOut: "2026-05-04",
     totalPrice: 510,
     status: "pending"
+  }
+];
+
+export const commonData = [
+  {
+    icon: Sparkles,
+    title: "Daily Housekeeping",
+    description:
+      "Rooms are cleaned daily to maintain comfort and hygiene."
+  },
+  {
+    icon: Clock,
+    title: "Flexible Check-In",
+    description:
+      "Check-in starts at 11:00 AM with early check-in available based on availability."
+  },
+  {
+    icon: ShieldCheck,
+    title: "24/7 Security",
+    description:
+      "Round-the-clock security ensures a safe stay."
+  },
+  {
+    icon: Headset,
+    title: "Front Desk Support",
+    description:
+      "Our team is available 24/7 for assistance."
+  },
+  {
+    icon: RefreshCcw,
+    title: "Free Cancellation",
+    description:
+      "Free cancellation available before the allowed check-in period."
   }
 ];
