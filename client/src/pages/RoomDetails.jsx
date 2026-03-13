@@ -69,7 +69,7 @@ const RoomDetails = () => {
 
         {/* Room Imgs */}
         <div className="flex flex-col lg:flex-row mt-6 gap-6">
-          <div className="lg:w-1/2 w-full aspect-[4/3">
+          <div className="lg:w-1/2 w-full aspect-[4/3]">
             <img
               src={mainImg}
               alt="Room Image"
