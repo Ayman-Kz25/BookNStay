@@ -213,23 +213,25 @@ export const users = [
 
 
 // Bookings
-export const bookings = [
+export const bookingsData = [
   {
     id: 1,
     userId: 1,
-    roomId: 2,
+    room: rooms[1],
+    guest: 2,
     checkIn: "2026-04-10",
     checkOut: "2026-04-12",
-    totalPrice: 360,
+    totalPrice: 36000,
     status: "confirmed"
   },
   {
     id: 2,
     userId: 2,
-    roomId: 3,
+    room: rooms[2],
+    guest: 1,
     checkIn: "2026-05-01",
     checkOut: "2026-05-04",
-    totalPrice: 510,
+    totalPrice: 45000,
     status: "pending"
   }
 ];
