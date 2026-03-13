@@ -45,17 +45,17 @@ const RadioBtn = ({ label, selected = false, onChange = () => {} }) => {
 const Rooms = () => {
   const navigate = useNavigate();
   const amenityIcons = {
-    WiFi: Wifi,
+    "WiFi": Wifi,
     "Air Conditioning": AirVent,
-    TV: Tv,
+    "TV": Tv,
     "Mini Bar": Coffee,
-    Breakfast: Utensils,
+    "Breakfast": Utensils,
     "Room Service": ConciergeBell,
-    Gym: Dumbbell,
+    "Gym": Dumbbell,
     "Swimming Pool": Waves,
     "Mountain View": Mountain,
     "Lake View": Waves,
-    Balcony: Mountain,
+    "Balcony": Mountain,
   };
 
   const [showFilters, setShowFilters] = useState(false);
