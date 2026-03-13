@@ -88,9 +88,9 @@ const Navbar = () => {
           <UserButton>
             <UserButton.MenuItems>
               <UserButton.Action
-                label="My Bookings"
+                label="My Reservation"
                 labelIcon={<BookUser size={16} />}
-                onClick={() => navigate("/my-bookings")}
+                onClick={() => navigate("/my-reservations")}
               />
             </UserButton.MenuItems>
           </UserButton>
@@ -113,7 +113,7 @@ const Navbar = () => {
               <UserButton.Action
                 label="My Bookings"
                 labelIcon={<BookUser size={16} />}
-                onClick={() => navigate("/my-bookings")}
+                onClick={() => navigate("/my-reservations")}
               />
             </UserButton.MenuItems>
           </UserButton>
