@@ -20,12 +20,17 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname !== "/") setIsScrolled(true);
-    else setIsScrolled(false);
+    if (location.pathname !== "/"){
+      setIsScrolled(true);
+      return;
+    } 
 
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
+
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
+    
   }, [location.pathname]);
 
   return (

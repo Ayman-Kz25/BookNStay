@@ -202,11 +202,11 @@
 }
 
 /* ===== Components ==== */
-/* Home -- Hero */
+/* Home - Hero */
 .hero-container {
   @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 h-screen w-full bg-cover bg-center text-white;
   position: relative;
-  background-image: url('/hero.jpg');
+  background-image: url('/images/hero.jpg');
 }
 
 .hero-container::after {
@@ -445,3 +445,6 @@
 .newsletter-disclaimer {
   @apply text-gray-500/90 mt-6 text-xs text-center;
 }
+
+
+/* Hotel Rooms */
