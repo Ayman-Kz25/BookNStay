@@ -19,10 +19,6 @@
   font-family: "Playfair", serif !important;
 }
 
-.section {
-  @apply flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-30;
-}
-
 /* ===== Components ==== */
 /* Home -- Hero */
 .hero-container {
@@ -142,4 +138,22 @@
 
 .hotel-card-btn {
   @apply px-4 py-2 text-sm font-medium border bg-white border-gray-300 rounded hover:bg-gray-50 transform transition-all cursor-pointer;
+}
+
+/* Home - Exclusive Offers */
+.exclusive-offers {
+  @apply flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-30; 
+}
+
+/* Header row */
+.exclusive-offers-header {
+  @apply flex flex-col md:flex-row items-center justify-between w-full;
+}
+
+.exclusive-offers-btn {
+  @apply cursor-pointer flex items-center gap-2 font-medium max-md:mt-12 text-[var(--secondary)];
+}
+
+.exclusive-offers-btn-icon {
+  @apply group-hover:translate-x-1 transition-transform;
 }

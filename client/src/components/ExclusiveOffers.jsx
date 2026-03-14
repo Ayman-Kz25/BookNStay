@@ -4,24 +4,23 @@ import OfferCard from "./OfferCard";
 
 const ExclusiveOffers = () => {
   return (
-    <div className="section">
-      <div className="flex flex-col md:flex-row items-center justify-between w-full">
+    <section className="exclusive-offers">
+      <div className="exclusive-offers-header">
         <SectionTitle
           title="Exclusive Offers"
           subtitle="Unlock special deals and limited-time discounts on premium hotels."
           align="left"
         />
-        <button className="group cursor-pointer flex items-center gap-2 font-medium max-md:mt-12">
+
+        <button className="exclusive-offers-btn group">
           View All Offers
-          <MoveRight
-            size={18}
-            className="group-hover:translate-x-1 transition-all"
-          />
+          <MoveRight size={18} className="exclusive-offers-btn-icon" />
         </button>
       </div>
 
       <OfferCard />
-    </div>
+    </section>
   );
 };
+
 export default ExclusiveOffers;
