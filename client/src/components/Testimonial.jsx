@@ -4,39 +4,37 @@ import StarRating from "./StarRating";
 
 const Testimonial = () => {
   return (
-    <div className="section bg-slate-50">
+    <section className="testimonial-section">
       <SectionTitle
         title="What Our Guests Say"
         subtitle="Hear from travelers who experienced exceptional stays and seamless bookings."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-20">
+      <div className="testimonial-grid">
         {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.id}
-            className="bg-white p-6 rounded-xl shadow"
-          >
-            <div className="flex items-center gap-3">
+          <div key={testimonial.id} className="testimonial-card">
+            <div className="testimonial-header">
               <img
-                className="w-12 h-12 rounded-full"
+                className="testimonial-img"
                 src={testimonial.image}
                 alt={testimonial.name}
               />
-              <div>
-                <p className="font-playfair text-xl">{testimonial.name}</p>
-                <p className="text-gray-500">{testimonial.city}</p>
+              <div className="testimonial-user">
+                <p className="testimonial-name font-playfair">{testimonial.name}</p>
+                <p className="testimonial-city">{testimonial.city}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 mt-4">
-              <StarRating rating={testimonial.rating}/>
+
+            <div className="testimonial-rating">
+              <StarRating rating={testimonial.rating} />
             </div>
-            <p className="text-gray-500 max-w-90 mt-4">
-              "{testimonial.comment}"
-            </p>
+
+            <p className="testimonial-comment">"{testimonial.comment}"</p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
+
 export default Testimonial;

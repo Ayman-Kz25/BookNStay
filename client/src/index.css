@@ -197,3 +197,44 @@
 .offer-card-btn-icon {
   @apply group-hover:translate-x-1 transition-transform;
 }
+
+/* Home - Testimonials */
+.testimonial-section {
+  @apply flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-30 bg-slate-50;
+}
+
+.testimonial-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-20;
+}
+
+.testimonial-card {
+  @apply bg-white p-6 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.05)];
+}
+
+.testimonial-header {
+  @apply flex items-center gap-3;
+}
+
+.testimonial-img {
+  @apply w-12 h-12 rounded-full;
+}
+
+.testimonial-user {
+  @apply flex flex-col;
+}
+
+.testimonial-name {
+  @apply text-xl text-gray-800;
+}
+
+.testimonial-city {
+  @apply text-gray-500 text-sm;
+}
+
+.testimonial-rating {
+  @apply flex items-center gap-1 mt-4;
+}
+
+.testimonial-comment {
+  @apply text-gray-500 max-w-[360px] mt-4;
+}
