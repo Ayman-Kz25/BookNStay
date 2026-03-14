@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  BookUser,
-  Menu,
-  Search,
-  SquareMenu,
-  TextAlignEnd,
-  X,
-} from "lucide-react";
+import { BookUser, Search, TextAlignEnd, X } from "lucide-react";
 import { useClerk, useUser, UserButton } from "@clerk/react";
+
 const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Hotels", path: "/rooms" },
-    { name: "Experience", path: "experience" },
+    { name: "Experience", path: "/experience" },
     { name: "About", path: "/about" },
   ];
 
@@ -22,68 +16,41 @@ const Navbar = () => {
 
   const { openSignIn } = useClerk();
   const { user } = useUser();
-
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    if (location.pathname !== "/") setIsScrolled(true);
+    else setIsScrolled(false);
 
-    if(location.pathname !== '/'){
-        setIsScrolled(true);
-        return;
-    } else {
-        setIsScrolled(false);
-    }
-    setIsScrolled(prev => location.pathname !== '/' ? true : prev);
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
   return (
-    <nav
-      className={`fixed top-0 left-0  w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 ${isScrolled ? "bg-white/80 shadow-md text-gray-800 backdrop-blur-lg py-3 md:py-4" : "py-4 md:py-6"}`}
-    >
+    <nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-2">
-        <img
-          src="/logo7.png"
-          alt="logo"
-          className={`h-9 ${isScrolled && "invert"} max-sm:h-6`}
-        />
+      <Link to="/" className="navbar-logo">
+        <img src="/logo7.png" alt="logo" className={`navbar-logo-img ${isScrolled ? "invert" : ""}`} />
       </Link>
 
       {/* Desktop Nav */}
-      <div className="hidden md:flex items-center gap-4 lg:gap-8">
+      <div className="navbar-links-desktop">
         {navLinks.map((link, i) => (
-          <a
-            key={i}
-            href={link.path}
-            className={`group flex flex-col gap-0.5 ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
-          >
+          <a key={i} href={link.path} className={`navbar-link group ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}>
             {link.name}
-            <div
-              className={`${isScrolled ? "bg-[var(--secondary)]/90" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`}
-            />
+            <div className={`navbar-link-underline ${isScrolled ? "bg-[var(--primary)]" : "bg-white"}`} />
           </a>
         ))}
-        <button
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer hover:bg-[var(--secondary)] hover:text-white hover:border-[var(--secondary)] ${isScrolled ? "text-[var(--primary)]" : "text-white"} transition-all`}
-          onClick={() => navigate("/owner")}
-        >
+        <button className="navbar-dashboard-btn" onClick={() => navigate("/owner")}>
           Dashboard
         </button>
       </div>
 
       {/* Desktop Right */}
-      <div className="hidden md:flex items-center gap-4">
-        <Search
-          size={20}
-          className={`transition-all duration-500 cursor-pointer transform hover:scale-105 ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
-        />
-
+      <div className="navbar-actions-desktop">
+        <Search size={20} className="navbar-icon" />
         {user ? (
           <UserButton>
             <UserButton.MenuItems>
@@ -95,18 +62,14 @@ const Navbar = () => {
             </UserButton.MenuItems>
           </UserButton>
         ) : (
-          <button
-            className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer hover:bg-[var(--secondary)] ${isScrolled ? "text-white bg-[var(--primary)]" : "bg-white text-[var(--primary)]"}`}
-            onClick={openSignIn}
-          >
+          <button className="navbar-login-btn" onClick={openSignIn}>
             Login
           </button>
         )}
       </div>
 
       {/* Mobile Menu Button */}
-
-      <div className="flex items-center gap-3 md:hidden">
+      <div className="navbar-mobile-btns">
         {user && (
           <UserButton>
             <UserButton.MenuItems>
@@ -118,22 +81,12 @@ const Navbar = () => {
             </UserButton.MenuItems>
           </UserButton>
         )}
-        <TextAlignEnd
-          size={22}
-          color="white"
-          className={`${isScrolled && "invert"}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        />
+        <TextAlignEnd size={22} className="navbar-mobile-menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)} />
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
-      >
-        <button
-          className="absolute top-4 right-4"
-          onClick={() => setIsMenuOpen(false)}
-        >
+      <div className={`navbar-mobile-menu ${isMenuOpen ? "open" : ""}`}>
+        <button className="navbar-mobile-close" onClick={() => setIsMenuOpen(false)}>
           <X size={22} />
         </button>
 
@@ -144,20 +97,13 @@ const Navbar = () => {
         ))}
 
         {user && (
-          <button
-            className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all"
-            onClick={() => navigate("/owner")}
-          >
+          <button className="navbar-dashboard-btn-mobile" onClick={() => navigate("/owner")}>
             Dashboard
           </button>
         )}
 
-        {/* Mobile login Btn */}
         {!user && (
-          <button
-            className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500 cursor-pointer"
-            onClick={openSignIn}
-          >
+          <button className="navbar-login-btn-mobile" onClick={openSignIn}>
             Login
           </button>
         )}

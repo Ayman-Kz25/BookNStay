@@ -20,6 +20,86 @@
 }
 
 /* ===== Main Components ===== */
+/* Navbar */
+.navbar {
+  @apply fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 py-4 md:py-6 transition-all duration-500 z-50 text-white;
+  backdrop-filter: blur(0);
+}
+
+.navbar-scrolled {
+  @apply bg-white/80 shadow-md text-[var(--primary)] py-3 md:py-4;
+  backdrop-filter: blur(12px);
+}
+
+/* Logo */
+.navbar-logo {
+  @apply flex items-center gap-2;
+}
+
+.navbar-logo-img {
+  @apply h-9 max-sm:h-6 transition-all;
+}
+
+/* Desktop Nav Links */
+.navbar-links-desktop {
+  @apply hidden md:flex items-center gap-4 lg:gap-8;
+}
+
+.navbar-link {
+  @apply flex flex-col gap-0.5 transition-colors;
+}
+
+.navbar-link-underline {
+  @apply h-0.5 w-0 group-hover:w-full transition-all duration-300;
+}
+
+.navbar-dashboard-btn {
+  @apply border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all hover:bg-[var(--secondary)] hover:text-white hover:border-[var(--secondary)];
+}
+
+/* Desktop Right Actions */
+.navbar-actions-desktop {
+  @apply hidden md:flex items-center gap-4;
+}
+
+.navbar-icon {
+  @apply cursor-pointer transition-all transform hover:scale-105;
+}
+
+.navbar-login-btn {
+  @apply px-8 py-2.5 rounded-full transition-all cursor-pointer hover:bg-[var(--secondary)] bg-white text-[var(--primary)];
+}
+
+/* Mobile menu buttons */
+.navbar-mobile-btns {
+  @apply flex items-center gap-3 md:hidden;
+}
+
+.navbar-mobile-menu-icon {
+  @apply cursor-pointer text-white transition-all;
+}
+
+/* Mobile Menu */
+.navbar-mobile-menu {
+  @apply fixed top-0 left-0 w-full h-screen bg-white text-gray-800 flex flex-col items-center justify-center gap-6 font-medium transition-all duration-500 -translate-x-full md:hidden;
+}
+
+.navbar-mobile-menu.open {
+  @apply translate-x-0;
+}
+
+.navbar-mobile-close {
+  @apply absolute top-4 right-4 cursor-pointer;
+}
+
+.navbar-dashboard-btn-mobile,
+.navbar-login-btn-mobile {
+  @apply border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all;
+}
+
+.navbar-login-btn-mobile {
+  @apply bg-black text-white;
+}
 
 
 /* ===== Helper Components ===== */
