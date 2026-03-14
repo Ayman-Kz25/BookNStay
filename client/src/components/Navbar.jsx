@@ -51,7 +51,7 @@ const Navbar = () => {
         <img
           src="/logo7.png"
           alt="logo"
-          className={`h-9 ${isScrolled && "invert text-[var(--primary)] opacity-80"} max-sm:h-6`}
+          className={`h-9 ${isScrolled && "invert"} max-sm:h-6`}
         />
       </Link>
 
@@ -61,16 +61,16 @@ const Navbar = () => {
           <a
             key={i}
             href={link.path}
-            className={`group flex flex-col gap-0.5 ${isScrolled ? "text-gray-700" : "text-white"}`}
+            className={`group flex flex-col gap-0.5 ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
           >
             {link.name}
             <div
-              className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`}
+              className={`${isScrolled ? "bg-[var(--secondary)]/90" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`}
             />
           </a>
         ))}
         <button
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] ${isScrolled ? "text-[var(--primary)]" : "text-white"} transition-all`}
+          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer hover:bg-[var(--secondary)] hover:text-white hover:border-[var(--secondary)] ${isScrolled ? "text-[var(--primary)]" : "text-white"} transition-all`}
           onClick={() => navigate("/owner")}
         >
           Dashboard
@@ -81,7 +81,7 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-4">
         <Search
           size={20}
-          className={`transition-all duration-500 cursor-pointer transform hover:scale-105 ${isScrolled ? " text-gray-700" : "text-white"}`}
+          className={`transition-all duration-500 cursor-pointer transform hover:scale-105 ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
         />
 
         {user ? (

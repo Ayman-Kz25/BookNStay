@@ -13,10 +13,10 @@ const Newsletter = () => {
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-6">
         <input
           type="text"
-          className="bg-[var(--secondary)]/20 px-4 py-2.5 border-2 border-[var(--secondary)]/80 text-[var(--text-primary)] rounded-lg outline-none max-w-66 w-full placeholder:text-white/70"
+          className="bg-[var(--secondary)]/20 px-4 py-2.5 border-2 border-[var(--secondary)]/80 text-[var(--text-accent)] rounded-lg outline-none max-w-66 w-full placeholder:text-white/70"
           placeholder="Enter your email"
         />
-        <button className="flex items-center justify-center gap-2 group bg-[var(--secondary)] text-[var(--primary)] px-4 md:px-7 py-2.5 rounded-lg active:scale-95 transition-all cursor-pointer">
+        <button className="flex items-center justify-center gap-2 group bg-[var(--secondary)] text-white px-4 md:px-7 py-2.5 rounded-lg active:scale-95 transition-all cursor-pointer">
           Subscribe
           <MoveRight size={16} className=" group-hover:translate-x-1 transition-all" />
         </button>

@@ -7,24 +7,24 @@ const Footer = () => {
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
 
                 <div className='max-w-80'>
-                    <img src="/logo7.png" alt="logo" className='invert opacity-80 mb-4 h-8 md:h-9' />
+                    <img src="/logo7.png" alt="logo" className='invert mb-4 h-8 md:h-9' />
                     <p className='text-sm'>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                     </p>
                     <div className='flex items-center gap-3 mt-4'>
                         {/* Instagram */}
-                        <Instagram size={22} />
+                        <Instagram size={22} className="hover:scale-105 hover:text-[var(--secondary)] cursor-pointer" />
                         {/* Facebook */}
-                        <Facebook size={22} />
+                        <Facebook size={22} className="hover:scale-105 hover:text-[var(--secondary)] cursor-pointer" />
                         {/* Twitter */}
-                        <Twitter size={22} />
+                        <Twitter size={22} className="hover:scale-105 hover:text-[var(--secondary)] cursor-pointer" />
                         {/* LinkedIn */}
-                        <Linkedin size={22} />
+                        <Linkedin size={22} className="hover:scale-105 hover:text-[var(--secondary)] cursor-pointer" />
                     </div>
                 </div>
 
                 <div>
-                    <p className='text-lg text-gray-800 font-playfair'>COMPANY</p>
+                    <p className='text-lg text-[var(--primary)] font-playfair font-semibold'>COMPANY</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="#">About</a></li>
                         <li><a href="#">Careers</a></li>
@@ -35,7 +35,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <p className='text-lg text-gray-800 font-playfair'>SUPPORT</p>
+                    <p className='text-lg text-[var(--primary)] font-playfair font-semibold'>SUPPORT</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="#">Help Center</a></li>
                         <li><a href="#">Safety Information</a></li>
@@ -46,7 +46,7 @@ const Footer = () => {
                 </div>
 
                 <div className='max-w-80'>
-                    <p className='text-lg text-gray-800 font-playfair'>STAY UPDATED</p>
+                    <p className='text-lg text-[var(--primary)] font-playfair font-semibold'>STAY UPDATED</p>
                     <p className='mt-3 text-sm'>
                         Subscribe to our newsletter for inspiration and special offers.
                     </p>
