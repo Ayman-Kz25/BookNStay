@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Rooms from "./pages/Rooms";
 import RoomDetails from "./pages/RoomDetails";
 import Reservations from "./pages/Reservations";
+import Registration from "./components/Registration";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <div>
       {!isOwnerPath && <Navbar />}
+      {false && <Registration />}
       <div className="min-h-[70vh]">
         <Routes>
           <Route path="/" element={<Home />} />
