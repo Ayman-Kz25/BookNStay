@@ -18,6 +18,23 @@
 .font-playfair {
   font-family: "Playfair", serif !important;
 }
+/* ===== Helper Components ===== */
+/* Section Title */
+.section-title {
+  @apply flex flex-col justify-center items-center text-center;
+}
+
+.section-title-left {
+  @apply md:items-start md:text-left;
+}
+
+.section-title-heading {
+  @apply text-4xl md:text-[40px];
+}
+
+.section-title-subtitle {
+  @apply text-sm md:text-base text-gray-500/90 mt-2 max-w-[696px];
+}
 
 /* ===== Components ==== */
 /* Home -- Hero */
