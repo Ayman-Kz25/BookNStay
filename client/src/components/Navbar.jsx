@@ -51,7 +51,7 @@ const Navbar = () => {
         <img
           src="/logo7.png"
           alt="logo"
-          className={`h-9 ${isScrolled && "invert opacity-80"} max-sm:h-6`}
+          className={`h-9 ${isScrolled && "invert text-[var(--primary)] opacity-80"} max-sm:h-6`}
         />
       </Link>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
           </a>
         ))}
         <button
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] ${isScrolled ? "text-black" : "text-white"} transition-all`}
+          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] ${isScrolled ? "text-[var(--primary)]" : "text-white"} transition-all`}
           onClick={() => navigate("/owner")}
         >
           Dashboard
@@ -96,7 +96,7 @@ const Navbar = () => {
           </UserButton>
         ) : (
           <button
-            className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer hover:bg-[var(--secondary)] ${isScrolled ? "text-white bg-black" : "bg-white text-black"}`}
+            className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer hover:bg-[var(--secondary)] ${isScrolled ? "text-white bg-[var(--primary)]" : "bg-white text-[var(--primary)]"}`}
             onClick={openSignIn}
           >
             Login

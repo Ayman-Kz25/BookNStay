@@ -1,51 +1,82 @@
-import { Calendar, CalendarMinus2, Search } from "lucide-react";
+import { CalendarMinus2, Search } from "lucide-react";
 import { cities } from "../data/data";
 
 const BookingForm = () => {
+  return (
+    <form className="booking-form">
 
-    return (
-        <form className='booking-form'>
+      {/* Destination */}
+      <div className="booking-field">
+        <div className="booking-label-group">
+          <CalendarMinus2 size={14} />
+          <label htmlFor="destinationInput">Destination</label>
+        </div>
 
-            <div>
-                <div className='flex items-center gap-2'>
-                    <CalendarMinus2 size={14}/>
-                    <label htmlFor="destinationInput">Destination</label>
-                </div>
-                <input list='destinations' id="destinationInput" type="text" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" placeholder="Type here" required />
-                <datalist id='destinations'>
-                    {cities.map((city, index)=>(
-                        <option value={city} key={index} />
-                    ))}
-                </datalist>
-            </div>
+        <input
+          list="destinations"
+          id="destinationInput"
+          type="text"
+          className="booking-input"
+          placeholder="Type here"
+          required
+        />
 
-            <div>
-                <div className='flex items-center gap-2'>
-                    <CalendarMinus2 size={14}/>
-                    <label htmlFor="checkIn">Check in</label>
-                </div>
-                <input id="checkIn" type="date" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" />
-            </div>
+        <datalist id="destinations">
+          {cities.map((city, index) => (
+            <option value={city} key={index} />
+          ))}
+        </datalist>
+      </div>
 
-            <div>
-                <div className='flex items-center gap-2'>
-                    <CalendarMinus2 size={14}/>
-                    <label htmlFor="checkOut">Check out</label>
-                </div>
-                <input id="checkOut" type="date" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none" />
-            </div>
+      {/* Check In */}
+      <div className="booking-field">
+        <div className="booking-label-group">
+          <CalendarMinus2 size={14} />
+          <label htmlFor="checkIn">Check in</label>
+        </div>
 
-            <div className='flex md:flex-col max-md:gap-2 max-md:items-center'>
-                <label htmlFor="guests">Guests</label>
-                <input min={1} max={4} id="guests" type="number" className=" rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none  max-w-16" placeholder="0" />
-            </div>
+        <input
+          id="checkIn"
+          type="date"
+          className="booking-input"
+        />
+      </div>
 
-            <button className='flex items-center justify-center gap-2 rounded-md bg-[var(--primary)] py-3 px-4 text-white my-auto cursor-pointer max-md:w-full max-md:py-1 hover:bg-[var(--secondary)]' >
-                <Search size={18}/>
-                <span>Search</span>
-            </button>
-        </form>
-    );
-}
+      {/* Check Out */}
+      <div className="booking-field">
+        <div className="booking-label-group">
+          <CalendarMinus2 size={14} />
+          <label htmlFor="checkOut">Check out</label>
+        </div>
 
-export default BookingForm
+        <input
+          id="checkOut"
+          type="date"
+          className="booking-input"
+        />
+      </div>
+
+      {/* Guests */}
+      <div className="booking-guests">
+        <label htmlFor="guests">Guests</label>
+        <input
+          min={1}
+          max={4}
+          id="guests"
+          type="number"
+          className="booking-guest-input"
+          placeholder="0"
+        />
+      </div>
+
+      {/* Search Button */}
+      <button className="booking-search-btn">
+        <Search size={18} />
+        <span>Search</span>
+      </button>
+
+    </form>
+  );
+};
+
+export default BookingForm;

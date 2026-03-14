@@ -3,20 +3,45 @@
 @import "tailwindcss";
 
 @theme {
-  --primary: #08202B;
-  --secondary: #7DC6E8;
-  
-  --bg: #1C1C1C;
-  --card: #262626;
+  /* ===== Brand Colors ===== */
+  --primary: #1c3a57;      /* Deep Navy – main brand color for headings/buttons */
+  --secondary: #e07a5f;    /* Warm Coral – accent for buttons/highlights */
+  --accent: #f4d35e;       /* Soft Gold – subtle highlights for luxury feel */
 
-  --accent: #d6d2c5;
-  --icons: #0F4057;
-  --icon-bg: #E9F6FB;
+  /* ===== Backgrounds ===== */
+  --bg-main: #ffffff;       /* Clean main background */
+  --bg-soft: #f9f6f2;       /* Soft cream for cards/sections */
+  --bg-muted: #e6e1dc;      /* Muted neutral for subtle backgrounds */
+  --bg-dark: #1c3a57;       /* For dark sections or headers */
 
-  --primary-text: #F6F6F6;
-  --secondary-text: #B3B3B3;
+  /* ===== Text ===== */
+  --text-main: #1c3a57;      /* Dark navy for main text */
+  --text-secondary: #4b4b4b; /* Neutral dark gray for secondary text */
+  --text-muted: #7a7a7a;     /* Lighter gray for muted info */
+  --text-light: #ffffff;     /* Text on dark/navy backgrounds */
 
-  --hover: #E5C558;
+  /* ===== Borders ===== */
+  --border-light: #dcd4cc;   /* Soft border for inputs/cards */
+  --border-muted: #cfc7bf;   /* Subtle muted border */
+
+  /* ===== Status Colors ===== */
+  --success: #3fbf7f;        /* Green success */
+  --warning: #f4a261;        /* Amber warning */
+  --danger: #e76f51;         /* Red danger */
+  --info: #56cfe1;           /* Light blue info */
+
+  /* ===== Cards ===== */
+  --card-bg: #ffffff;
+  --card-shadow: 0 8px 30px rgba(0,0,0,0.08);
+
+  /* ===== Radius ===== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* ===== Transitions ===== */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
 }
 
 
@@ -34,7 +59,7 @@
 }
 
 /* ===== Components ==== */
-/* Hero */
+/* - Hero - */
 .hero-container {
   @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 h-screen w-full bg-cover bg-center text-white;
   position: relative;
@@ -53,7 +78,7 @@
 }
 
 .tagline {
-  @apply bg-[var(--secondary)]/50 px-3.5 py-1 rounded-full mt-20 z-10;
+  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-20 z-10;
 }
 
 .title {
@@ -67,4 +92,31 @@
 /* Booking Form */
 .booking-form {
   @apply bg-white text-[var(--primary)]/60 rounded-lg px-6 py-4 mt-6 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto z-10;
+}
+
+.booking-field {
+  @apply flex flex-col;
+}
+
+.booking-label-group {
+  @apply flex items-center gap-2;
+}
+
+.booking-input {
+  @apply rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none;
+}
+
+.booking-guests {
+  @apply flex md:flex-col max-md:gap-2 max-md:items-center;
+}
+
+.booking-guest-input {
+  @apply rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none max-w-16;
+}
+
+.booking-search-btn {
+  @apply flex items-center justify-center gap-2 rounded-md 
+         bg-[var(--primary)] py-3 px-4 text-white my-auto 
+         cursor-pointer max-md:w-full max-md:py-1 
+         hover:bg-[var(--secondary)] transition-colors duration-300;
 }
