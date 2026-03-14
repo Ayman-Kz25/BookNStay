@@ -26,8 +26,8 @@ const App = () => {
           <Route path="/my-reservations" element={<Reservations />} />
           <Route path="/owner" element={<Layout />}>
             <Route index element={<Dashboard />}/>
-            <Route path="/add-room" element={<AddRoom />}/>
-            <Route path="/rooms-list" element={<RoomsList />}/>
+            <Route path="add-room" element={<AddRoom />}/>
+            <Route path="rooms-list" element={<RoomsList />}/>
           </Route>
         </Routes>
       </div>

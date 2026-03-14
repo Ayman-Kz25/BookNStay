@@ -17,7 +17,7 @@ const Sidebar = () => {
             to={item.path}
             end={item.path === "/owner"}
             className={({ isActive }) =>
-              `flex items-center py-3 px-4 md:px-8 gap-3 ${isActive ? "border-r-4 md:border-r-[6px] bg-[var(--secondary)]/10 text-[var(--secondary)]" : "hover:bg-gray-50 border-gray-50 text-gray-500"}`
+              `flex items-center py-3 px-4 md:px-8 gap-3 ${isActive ? "border-r-4 md:border-r-[6px] bg-[var(--icon-bg)] text-[var(--icon)]" : "hover:bg-gray-50 border-gray-50 text-gray-500"}`
             }
           >
             <Icon size={20} />

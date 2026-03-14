@@ -268,3 +268,10 @@ export const commonData = [
       "Free cancellation available before the allowed check-in period."
   }
 ];
+
+export const dashboardData = {
+  totalBookings: 5,
+  totalRevenue: 75000,
+  totalRooms: 6,
+  totalGuests: 10,
+}

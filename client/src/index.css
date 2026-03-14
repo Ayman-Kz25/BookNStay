@@ -3,13 +3,15 @@
 @import "tailwindcss";
 
 @theme {
-  --primary: #0F0F0F;
-  --secondary: #7fb1e0;
+  --primary: #08202B;
+  --secondary: #7DC6E8;
   
   --bg: #1C1C1C;
   --card: #262626;
 
   --accent: #d6d2c5;
+  --icons: #0F4057;
+  --icon-bg: #E9F6FB;
 
   --primary-text: #F6F6F6;
   --secondary-text: #B3B3B3;
