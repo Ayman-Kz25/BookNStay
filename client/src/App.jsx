@@ -7,6 +7,9 @@ import RoomDetails from "./pages/RoomDetails";
 import Reservations from "./pages/Reservations";
 import Registration from "./components/Registration";
 import Layout from "./pages/owner/Layout";
+import Dashboard from "./pages/owner/Dashboard";
+import AddRoom from "./pages/owner/AddRoom";
+import RoomsList from "./pages/owner/RoomsList";
 
 const App = () => {
 
@@ -22,6 +25,9 @@ const App = () => {
           <Route path="/rooms/:id" element={<RoomDetails />} />
           <Route path="/my-reservations" element={<Reservations />} />
           <Route path="/owner" element={<Layout />}>
+            <Route index element={<Dashboard />}/>
+            <Route path="/add-room" element={<AddRoom />}/>
+            <Route path="/rooms-list" element={<RoomsList />}/>
           </Route>
         </Routes>
       </div>
