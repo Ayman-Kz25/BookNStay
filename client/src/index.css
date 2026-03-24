@@ -517,7 +517,7 @@
 }
 
 .filters {
-  @apply bg-white w-80 max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16 rounded-lg;
+  @apply bg-white w-80 max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16 rounded-lg pb-4;
 }
 
 .filters-header {
@@ -584,4 +584,3 @@
 .amenity-btn.active {
   @apply bg-black text-white border-black;
 }
-
