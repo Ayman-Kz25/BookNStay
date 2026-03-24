@@ -584,3 +584,157 @@
 .amenity-btn.active {
   @apply bg-black text-white border-black;
 }
+
+
+/* Hotel Rooms -> Room Details */
+.rd-container {
+  @apply py-22 md:py-28 px-4 md:px-16 lg:px-24 xl:px-32;
+}
+
+.rd-title-row {
+  @apply flex flex-col md:flex-row items-start md:items-center gap-2;
+}
+
+.rd-title {
+  @apply text-3xl md:text-4xl;
+}
+
+.rd-room-type {
+  @apply text-sm;
+}
+
+.rd-badge {
+  @apply text-xs py-1.5 px-3 text-white bg-[var(--secondary)] rounded-full;
+}
+
+.rd-rating {
+  @apply flex items-center gap-1 mt-2;
+}
+
+.rd-reviews {
+  @apply ml-2;
+}
+
+.rd-location {
+  @apply flex items-center gap-1 mt-2 text-gray-500;
+}
+
+.rd-images {
+  @apply flex flex-col lg:flex-row mt-6 gap-6;
+}
+
+.rd-main-img-wrapper {
+  @apply lg:w-1/2 w-full aspect-[4/3];
+}
+
+.rd-main-img {
+  @apply w-full h-full rounded-xl shadow-lg object-cover transition-all duration-300;
+}
+
+.rd-grid {
+  @apply grid grid-cols-2 gap-4 lg:w-1/2 w-full;
+}
+
+.rd-thumb {
+  @apply w-full aspect-[4/3] rounded-xl shadow-md object-cover cursor-pointer;
+}
+
+.active-thumb {
+  @apply outline-3 outline-[var(--secondary)]/90;
+}
+
+.rd-highlights {
+  @apply flex flex-col md:flex-row md:justify-between mt-10;
+}
+
+.rd-heading {
+  @apply text-3xl md:text-4xl;
+}
+
+.rd-amenities {
+  @apply flex flex-wrap items-center mt-3 mb-6 gap-4;
+}
+
+.rd-amenity {
+  @apply flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full;
+}
+
+.rd-amenity p {
+  @apply text-xs;
+}
+
+.rd-price {
+  @apply text-gray-600;
+}
+
+.rd-price-value {
+  @apply text-2xl font-medium text-gray-800;
+}
+
+.rd-form {
+  @apply flex flex-col md:flex-row items-start md:items-center justify-between bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl;
+}
+
+.rd-form-left {
+  @apply flex flex-col flex-wrap md:flex-row items-start md:items-center gap-4 md:gap-10 text-gray-500;
+}
+
+.rd-input-group {
+  @apply flex flex-col;
+}
+
+.rd-input-group label {
+  @apply font-medium;
+}
+
+.rd-input {
+  @apply w-full rounded-lg border border-gray-300 px-3 py-2 mt-1.5 outline-none;
+}
+
+.rd-input.small {
+  @apply max-w-20;
+}
+
+.rd-divider {
+  @apply w-px h-14 bg-gray-300/70 max-md:hidden;
+}
+
+.rd-btn {
+  @apply bg-[var(--primary)] hover:bg-[var(--secondary)]/90 active:scale-95 transition-all text-white rounded-md max-md:w-full max-md:mt-6 md:px-24 py-3 md:py-4 text-base cursor-pointer;
+}
+
+.rd-specs {
+  @apply mt-24 space-y-4;
+}
+
+.rd-spec {
+  @apply flex items-start gap-2;
+}
+
+.rd-spec-desc {
+  @apply text-gray-500;
+}
+
+.rd-description {
+  @apply max-w-3xl border-y border-gray-300 my-14 py-10 text-gray-500;
+}
+
+.rd-owner {
+  @apply flex flex-col items-start gap-4;
+}
+
+.rd-owner-info {
+  @apply flex gap-4;
+}
+
+.rd-owner-img {
+  @apply h-14 w-14 md:h-18 md:w-18 rounded-full;
+}
+
+.rd-owner-name {
+  @apply text-lg md:text-xl;
+}
+
+.rd-contact-btn {
+  @apply px-6 py-2.5 mt-4 rounded text-white bg-[var(--primary)] hover:bg-[var(--secondary)]/90 transition-all cursor-pointer;
+}
