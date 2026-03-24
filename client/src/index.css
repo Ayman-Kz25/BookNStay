@@ -194,7 +194,7 @@
 }
 
 .section-title-heading {
-  @apply text-4xl md:text-[40px];
+  @apply text-4xl text-white md:text-[40px];
 }
 
 .section-title-subtitle {
@@ -448,3 +448,140 @@
 
 
 /* Hotel Rooms */
+.container {
+  @apply flex flex-col-reverse lg:flex-row items-start justify-between gap-10 lg:gap-32 pt-28 px-4 md:px-16 lg:px-24 xl:px-32;
+}
+
+.header {
+  @apply flex flex-col items-start text-left;
+}
+
+.header .title {
+  @apply text-4xl font-medium md:text-[40px];
+}
+
+.header .subtitle {
+  @apply text-sm md:text-base text-gray-500/90 mt-2 max-w-174;
+}
+
+.room-card {
+  @apply flex flex-col md:flex-row items-start py-10 gap-6 border-b border-gray-300 last:pb-30 last:border-0;
+}
+
+.room-img {
+  @apply max-h-64 md:w-1/2 rounded-xl shadow-lg object-cover cursor-pointer;
+}
+
+.room-info {
+  @apply md:w-1/2 flex flex-col gap-2;
+}
+
+.city {
+  @apply text-gray-500;
+}
+
+.hotel-name {
+  @apply text-gray-800 text-3xl cursor-pointer;
+}
+
+.rating {
+  @apply flex items-center;
+}
+
+.reviews {
+  @apply ml-2;
+}
+
+.location {
+  @apply flex items-center gap-1 text-gray-500 mt-2 text-sm;
+}
+
+.amenities {
+  @apply flex flex-wrap items-center mt-3 mb-6 gap-4;
+}
+
+.amenity {
+  @apply flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full;
+}
+
+.amenity p {
+  @apply text-xs;
+}
+
+.price {
+  @apply text-gray-600;
+}
+
+.price-value {
+  @apply text-xl font-medium text-gray-800;
+}
+
+.filters {
+  @apply bg-white w-80 max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16 rounded-lg;
+}
+
+.filters-header {
+  @apply flex items-center justify-between px-5 py-2.5 min-lg:border-b border-gray-300;
+}
+
+.filters-title {
+  @apply text-base font-medium text-gray-800;
+}
+
+.filters-actions {
+  @apply text-xs cursor-pointer;
+}
+
+.toggle {
+  @apply lg:hidden;
+}
+
+.clear {
+  @apply hidden lg:block;
+}
+
+.filters-body {
+  @apply overflow-hidden transition-all duration-800 ease-in-out h-0 lg:h-auto;
+}
+
+.filters-body.show {
+  @apply h-auto;
+}
+
+.section {
+  @apply px-5 pt-5;
+}
+
+.section-title {
+  @apply font-medium text-gray-800 pb-2;
+}
+
+.range {
+  @apply w-full accent-black cursor-pointer;
+}
+
+.range-labels {
+  @apply flex justify-between text-xs text-gray-500 mt-2;
+}
+
+.checkbox,
+.radio {
+  @apply flex gap-3 items-center cursor-pointer mt-2 text-sm;
+}
+
+.checkbox-text {
+  @apply font-light select-none;
+}
+
+.amenity-buttons {
+  @apply flex flex-wrap gap-2;
+}
+
+.amenity-btn {
+  @apply text-xs px-3 py-1.5 rounded-full border transition cursor-pointer bg-white border-gray-300 hover:bg-gray-100;
+}
+
+.amenity-btn.active {
+  @apply bg-black text-white border-black;
+}
+

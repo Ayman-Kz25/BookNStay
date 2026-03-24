@@ -14,49 +14,49 @@ import {
   ConciergeBell,
 } from "lucide-react";
 import { useState } from "react";
-import BreadCrumbs from "../components/BreadCrumbs";
 
 const CheckBox = ({ label, selected = false, onChange = () => {} }) => {
   return (
-    <label className="flex gap-3 items-center cursor-pointer mt-2 text-sm">
+    <label className="checkbox">
       <input
         type="checkbox"
         checked={selected}
         onChange={(e) => onChange(e.target.checked, label)}
       />
-      <span className="font-light select-none">{label}</span>
+      <span className="checkbox-text">{label}</span>
     </label>
   );
 };
 
 const RadioBtn = ({ label, selected = false, onChange = () => {} }) => {
   return (
-    <label className="flex gap-3 items-center cursor-pointer mt-2 text-sm">
+    <label className="radio">
       <input
         type="radio"
         name="sortOpt"
         checked={selected}
         onChange={() => onChange(label)}
       />
-      <span className="font-light select-none">{label}</span>
+      <span className="checkbox-text">{label}</span>
     </label>
   );
 };
 
 const Rooms = () => {
   const navigate = useNavigate();
+
   const amenityIcons = {
-    "WiFi": Wifi,
+    WiFi: Wifi,
     "Air Conditioning": AirVent,
-    "TV": Tv,
+    TV: Tv,
     "Mini Bar": Coffee,
-    "Breakfast": Utensils,
+    Breakfast: Utensils,
     "Room Service": ConciergeBell,
-    "Gym": Dumbbell,
+    Gym: Dumbbell,
     "Swimming Pool": Waves,
     "Mountain View": Mountain,
     "Lake View": Waves,
-    "Balcony": Mountain,
+    Balcony: Mountain,
   };
 
   const [showFilters, setShowFilters] = useState(false);
@@ -73,13 +73,7 @@ const Rooms = () => {
     "Luxury Suite",
     "Family Room",
   ];
-  const priceRange = [
-    "Under Rs. 10,000",
-    "Rs. 10,000 - Rs. 20,000",
-    "Rs. 20,000 - Rs. 30,000",
-    "Rs. 30,000 - Rs. 40,000",
-    "Above Rs. 40,000",
-  ];
+
   const sortOpt = [
     "Recommended",
     "Price: Low to High",
@@ -87,6 +81,7 @@ const Rooms = () => {
     "Rating: High to Low",
     "Newest First",
   ];
+
   const amenitiesFilter = [
     "WiFi",
     "Breakfast",
@@ -108,73 +103,70 @@ const Rooms = () => {
     setSelectedAmenities((prev) =>
       prev.includes(amenity)
         ? prev.filter((a) => a !== amenity)
-        : [...prev, amenity],
+        : [...prev, amenity]
     );
   };
 
   const filteredRooms = rooms
-  .filter((room) => {
-    // Price filter
-    if (room.pricePerNight > price) return false;
+    .filter((room) => {
+      if (room.pricePerNight > price) return false;
 
-    // Room type filter
-    if (selectedRoomTypes.length > 0 && !selectedRoomTypes.includes(room.type))
-      return false;
+      if (
+        selectedRoomTypes.length > 0 &&
+        !selectedRoomTypes.includes(room.type)
+      )
+        return false;
 
-    // Amenities filter
-    if (
-      selectedAmenities.length > 0 &&
-      !selectedAmenities.every((a) => room.amenities.includes(a))
-    )
-      return false;
+      if (
+        selectedAmenities.length > 0 &&
+        !selectedAmenities.every((a) => room.amenities.includes(a))
+      )
+        return false;
 
-    return true;
-  })
-  .sort((a, b) => {
-    if (selectedSort === "Price: Low to High")
-      return a.pricePerNight - b.pricePerNight;
+      return true;
+    })
+    .sort((a, b) => {
+      if (selectedSort === "Price: Low to High")
+        return a.pricePerNight - b.pricePerNight;
 
-    if (selectedSort === "Price: High to Low")
-      return b.pricePerNight - a.pricePerNight;
+      if (selectedSort === "Price: High to Low")
+        return b.pricePerNight - a.pricePerNight;
 
-    if (selectedSort === "Rating: High to Low")
-      return b.rating - a.rating;
+      if (selectedSort === "Rating: High to Low")
+        return b.rating - a.rating;
 
-    return 0;
-  });
+      return 0;
+    });
 
   return (
-    <div className="flex flex-col-reverse lg:flex-row items-start justify-between gap-10 lg:gap-32 pt-28 md:pt-34 px-4 md:px-16 lg:px-24 xl:px-32">
-      {/* Left Side - Rooms List */}
+    <div className="container">
+      {/* Left */}
       <div>
-        <div className="flex flex-col items-start text-left">
-          <h1 className="font-playfair text-4xl md:text-[40px]">Hotel Rooms</h1>
-          <p className="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">
+        <div className="header">
+          <h1 className="title font-playfair">Hotel Rooms</h1>
+          <p className="subtitle">
             Browse luxury rooms from the finest hotels and resorts. Browse
             luxury rooms from the finest hotels and resorts.
           </p>
         </div>
 
         {filteredRooms.map((room) => (
-          <div
-            key={room.id}
-            className="flex flex-col md:flex-row items-start py-10 gap-6 border-b border-gray-300 last:pb-30 last:border-0"
-          >
+          <div key={room.id} className="room-card">
             <img
               src={room.imgs[0]}
               alt="hotel-img"
-              title="View Room Details"
-              className="max-h-64 md:w-1/2 rounded-xl shadow-lg object-cover cursor-pointer"
+              className="room-img"
               onClick={() => {
                 navigate(`/rooms/${room.id}`);
                 scrollTo(0, 0);
               }}
             />
 
-            <div className="md:w-1/2 flex flex-col gap-2">
-              <p className="text-gray-500">{room.hotel.city}</p>
+            <div className="room-info">
+              <p className="city">{room.hotel.city}</p>
+
               <p
-                className="text-gray-800 text-3xl font-playfair cursor-pointer"
+                className="hotel-name font-playfair"
                 onClick={() => {
                   navigate(`/rooms/${room.id}`);
                   scrollTo(0, 0);
@@ -183,37 +175,30 @@ const Rooms = () => {
                 {room.hotel.name}
               </p>
 
-              <div className="flex items-center">
+              <div className="rating">
                 <StarRating rating={room.rating} />
-                <p className="ml-2">200+ reviews</p>
+                <p className="reviews">200+ reviews</p>
               </div>
 
-              {/* Location */}
-              <div className="flex items-center gap-1 text-gray-500 mt-2 text-sm">
-                <MapPin size={18} className="" />
+              <div className="location">
+                <MapPin size={18} />
                 <span>{room.hotel.address}</span>
               </div>
 
-              {/* Room Amenities */}
-              <div className="flex flex-wrap items-center mt-3 mb-6 gap-4">
-                {room.amenities.map((item, index) => {
+              <div className="amenities">
+                {room.amenities.map((item, i) => {
                   const Icon = amenityIcons[item];
-
                   return (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full"
-                    >
+                    <div key={i} className="amenity">
                       {Icon && <Icon size={16} />}
-                      <p className="text-xs">{item}</p>
+                      <p>{item}</p>
                     </div>
                   );
                 })}
               </div>
 
-              {/* Room Price Per Night */}
-              <p className="text-gray-600">
-                <span className="text-xl font-medium text-gray-800">
+              <p className="price">
+                <span className="price-value">
                   Rs. {room.pricePerNight.toLocaleString()}
                 </span>
                 /night
@@ -223,33 +208,28 @@ const Rooms = () => {
         ))}
       </div>
 
-      {/* Right Side - Filters */}
-      <div className="bg-white w-80 max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:mt-16 rounded-lg">
-        {/* Filter Header */}
-        <div
-          className={`flex items-center justify-between px-5 py-2.5 min-lg:border-b border-gray-300 ${showFilters && "border-b"}`}
-        >
-          <p className="text-base font-medium text-gray-800">FILTERS</p>
-          <div className="text-xs cursor-pointer">
+      {/* Filters */}
+      <div className="filters">
+        <div className="filters-header">
+          <p className="filters-title">FILTERS</p>
+
+          <div className="filters-actions">
             <span
               onClick={() => setShowFilters(!showFilters)}
-              className="lg:hidden"
+              className="toggle"
             >
               {showFilters ? "HIDE" : "SHOW"}
             </span>
-            <span className="hidden lg:block">CLEAR</span>
+            <span className="clear">CLEAR</span>
           </div>
         </div>
 
-        {/* Filter Options */}
-        <div
-          className={`${showFilters ? "h-auto" : "h-0 lg:h-auto"} overflow-hidden transition-all duration-800 ease-in-out`}
-        >
-          <div className="px-5 pt-5">
-            <p className="font-medium text-gray-800 pb-2">Popular Filters</p>
-            {roomTypes.map((room, index) => (
+        <div className={`filters-body ${showFilters ? "show" : ""}`}>
+          <div className="section">
+            <p className="section-title">Popular Filters</p>
+            {roomTypes.map((room, i) => (
               <CheckBox
-                key={index}
+                key={i}
                 label={room}
                 selected={selectedRoomTypes.includes(room)}
                 onChange={toggleRoomType}
@@ -257,45 +237,48 @@ const Rooms = () => {
             ))}
           </div>
 
-          <div className="px-5 pt-5">
-            <p className="font-medium text-gray-800 pb-2">Price Range</p>
+          <div className="section">
+            <p className="section-title">Price Range</p>
+
             <input
               type="range"
               min="5000"
               max="50000"
               step="1000"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              className="w-full accent-black cursor-pointer"
+              onChange={(e) => setPrice(Number(e.target.value))}
+              className="range"
             />
 
-            <div className="flex justify-between text-xs text-gray-500 mt-2">
+            <div className="range-labels">
               <span>Rs. 5,000</span>
-              <span>Rs. {Number(price).toLocaleString()}</span>
+              <span>Rs. {price.toLocaleString()}</span>
             </div>
           </div>
 
-          <div className="px-5 pt-5">
-            <p className="font-medium text-gray-800 pb-2">Sort By</p>
-            {sortOpt.map((option, index) => (
-              <RadioBtn key={index} label={option} selected={selectedSort === option} onChange={setSelectedSort} />
+          <div className="section">
+            <p className="section-title">Sort By</p>
+            {sortOpt.map((opt, i) => (
+              <RadioBtn
+                key={i}
+                label={opt}
+                selected={selectedSort === opt}
+                onChange={setSelectedSort}
+              />
             ))}
           </div>
 
-          <div className="px-5 pt-5 pb-7">
-            <p className="font-medium text-gray-800 pb-2">Filter Amenities</p>
+          <div className="section">
+            <p className="section-title">Filter Amenities</p>
 
-            <div className="flex flex-wrap gap-2">
-              {amenitiesFilter.map((item, index) => (
+            <div className="amenity-buttons">
+              {amenitiesFilter.map((item, i) => (
                 <button
-                  key={index}
+                  key={i}
                   onClick={() => toggleAmenity(item)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition cursor-pointer ${
-                    selectedAmenities.includes(item)
-                      ? "bg-black text-white border-black"
-                      : "bg-white border-gray-300 hover:bg-gray-100"
-                  }
-                    `}
+                  className={`amenity-btn ${
+                    selectedAmenities.includes(item) ? "active" : ""
+                  }`}
                 >
                   {item}
                 </button>
@@ -307,4 +290,5 @@ const Rooms = () => {
     </div>
   );
 };
+
 export default Rooms;
