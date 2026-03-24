@@ -848,3 +848,16 @@
 .bk-pay-btn {
   @apply px-4 py-1.5 mt-4 text-xs border border-gray-400 rounded-full hover:bg-[var(--primary)] hover:text-white active:scale-95 transition-all cursor-pointer;
 }
+
+/* ====== Owner ===== */
+.layout-container {
+  @apply flex flex-col h-screen;
+}
+
+.layout-body {
+  @apply flex h-full;
+}
+
+.layout-content {
+  @apply flex-1 p-4 pt-10 md:px-10 h-full;
+}
