@@ -4,10 +4,12 @@ import SectionTitle from "./SectionTitle";
 const Newsletter = () => {
   return (
     <section className="newsletter-section">
-      <SectionTitle
-        title="Stay Inspired"
-        subtitle="Join our newsletter and be the first to discover new updates, exclusive offers, and inspiration."
-      />
+      <div className="newsletter-container-header">
+          <h1 className="title font-playfair">Stay Inspired</h1>
+          <p className="subtitle">
+            Join our newsletter and be the first to discover new updates, exclusive offers, and inspiration.
+          </p>
+        </div>
 
       <div className="newsletter-form">
         <input
