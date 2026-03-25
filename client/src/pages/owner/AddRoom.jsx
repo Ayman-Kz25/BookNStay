@@ -100,9 +100,10 @@ const AddRoom = () => {
       <p className="ar-label">Amenities</p>
       <div className="ar-amenities">
         {Object.keys(inputs.amenities).map((amenity, i) => (
-          <div key={i}>
+          <div key={i} className="mb-1">
             <input
               type="checkbox"
+              id={`amenity${i}`}
               checked={inputs.amenities[amenity]}
               onChange={() =>
                 setInputs({
@@ -114,7 +115,7 @@ const AddRoom = () => {
                 })
               }
             />
-            <label className="ar-checkbox-label">{amenity}</label>
+            <label htmlFor={`amenity${i}`} className="ar-checkbox-label">{amenity}</label>
           </div>
         ))}
       </div>

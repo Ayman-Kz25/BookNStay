@@ -856,16 +856,38 @@
 }
 
 /* ====== Owner ===== */
+/* Layout */
 .layout-container {
-  @apply flex flex-col h-screen;
+  @apply flex flex-col min-h-screen;
 }
 
 .layout-body {
-  @apply flex h-full;
+  @apply flex flex-1;
 }
 
 .layout-content {
-  @apply flex-1 p-4 pt-10 md:px-10 h-full;
+  @apply flex-1 p-4 pt-10 md:px-10;
+}
+
+/* Sidebar */
+.sidebar {
+  @apply md:w-64 w-16 border-r border-gray-300 pt-4 flex flex-col min-h-screen transition-all duration-300;
+}
+
+.sidebar-link {
+  @apply flex items-center py-3 px-4 md:px-8 gap-3;
+}
+
+.sidebar-link-active {
+  @apply border-r-4 md:border-r-[6px] bg-[var(--icon-bg)] text-[var(--icon)];
+}
+
+.sidebar-link-inactive {
+  @apply hover:bg-gray-50 text-gray-500;
+}
+
+.sidebar-text {
+  @apply hidden md:block text-center;
 }
 
 /* Dashboard */
@@ -931,7 +953,7 @@
 
 /* Add Rooms */
 .ar-label {
-  @apply text-gray-800 mt-4;
+  @apply text-gray-800 mt-4 text-base font-medium;
 }
 
 .ar-images {
@@ -939,7 +961,7 @@
 }
 
 .ar-img {
-  @apply w-12 h-12 md:w-28 md:h-20 rounded-xl cursor-pointer;
+  @apply w-12 h-12 md:w-32 md:h-24 rounded-xl cursor-pointer;
 }
 
 .ar-row {
@@ -959,11 +981,11 @@
 }
 
 .ar-small {
-  @apply text-xs;
+  @apply text-xs font-light;
 }
 
 .ar-amenities {
-  @apply flex flex-col flex-wrap mt-1 text-gray-400 max-w-sm;
+  @apply flex flex-col flex-wrap mt-1 text-gray-500 max-w-sm accent-[var(--secondary)];
 }
 
 .ar-checkbox-label {
@@ -971,5 +993,5 @@
 }
 
 .ar-btn {
-  @apply bg-[var(--primary)] text-white px-8 py-2 rounded-lg mt-8 cursor-pointer hover:bg-[var(--secondary)] transition-colors;
+  @apply bg-[var(--primary)] text-white px-8 py-2 rounded-lg mt-8 cursor-pointer hover:bg-[var(--secondary)] transition-colors mb-4;
 }
