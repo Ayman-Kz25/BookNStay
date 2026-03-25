@@ -131,7 +131,7 @@ export const rooms = [
     imgs: ["/images/rooms/room5.png", "/images/rooms/room5-2.png", "/images/rooms/room5-3.jpg", "/images/rooms/room5-4.jpg"],
     hotel: hotels[4],
     amenities: ["WiFi", "Lake View", "Breakfast", "Room Service"],
-    isAvailable: true,
+    isAvailable: false,
   }
 ];
 

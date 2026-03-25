@@ -924,7 +924,7 @@
 }
 
 .db-recent-list {
-  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll;
+  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-90 overflow-y-scroll;
 }
 
 .db-recent-list-th {
@@ -995,3 +995,13 @@
 .ar-btn {
   @apply bg-[var(--primary)] text-white px-8 py-2 rounded-lg mt-8 cursor-pointer hover:bg-[var(--secondary)] transition-colors mb-4;
 }
+
+/* Rooms List */
+.rl-room-list {
+  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-90 overflow-y-scroll;
+}
+
+.rl-room-list-th {
+  @apply py-3 px-4 text-gray-800 font-medium text-center;
+}
+
