@@ -216,7 +216,7 @@ export const users = [
 export const bookingsData = [
   {
     id: 1,
-    userId: 1,
+    user: users[0],
     room: rooms[1],
     guest: 2,
     checkIn: "2026-04-10",
@@ -226,7 +226,7 @@ export const bookingsData = [
   },
   {
     id: 2,
-    userId: 2,
+    user: users[1],
     room: rooms[2],
     guest: 1,
     checkIn: "2026-05-01",
@@ -274,4 +274,5 @@ export const dashboardData = {
   totalRevenue: 75000,
   totalRooms: 6,
   totalGuests: 10,
+  bookings: bookingsData,
 }

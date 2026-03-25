@@ -19,6 +19,12 @@
   font-family: "Playfair", serif !important;
 }
 
+.no-scrollbar{
+  scrollbar-width: none;
+}
+
+
+
 /* ===== Main Components ===== */
 /* Navbar */
 .navbar {
@@ -896,6 +902,29 @@
 }
 
 .db-recent-list {
-  @apply flex;
+  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll;
 }
 
+.db-recent-list-th {
+  @apply py-3 px-4 text-gray-800 font-medium text-center;
+}
+
+.db-recent-list-td {
+  @apply py-3 px-4 text-center text-gray-700 border-t border-gray-300;
+}
+
+.db-recent-list-btn {
+  @apply py-1 px-3 text-xs rounded-full mx-auto;
+}
+
+.db-confirmed-status-btn {
+ @apply bg-[var(--secondary)]/10 px-2 py-1 text-[var(--secondary)] rounded-full;
+}
+
+.db-pending-status-btn {
+  @apply bg-amber-600/10 px-2 py-1 text-amber-600 rounded-full;
+}
+
+.db-cancelled-status-btn {
+ @apply bg-red-600/10 px-2 py-1 text-red-600 rounded-full;
+}

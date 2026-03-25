@@ -3,6 +3,18 @@ import SectionTitle from "../../components/SectionTitle";
 import { CalendarCheck, Wallet } from "lucide-react";
 import { dashboardData } from "../../data/data";
 
+const statusStyles = {
+  confirmed: {
+    text: "db-confirmed-status-btn",
+  },
+  pending: {
+    text: "db-pending-status-btn",
+  },
+  cancelled: {
+    text: "db-cancelled-status-btn",
+  },
+};
+
 const Dashboard = () => {
   const [dbData] = useState(dashboardData);
 
@@ -30,7 +42,9 @@ const Dashboard = () => {
           <Wallet className="db-card-icon" />
           <div className="db-card-text">
             <p className="db-card-title">Total Revenue</p>
-            <p className="db-card-value">Rs.{dbData.totalRevenue.toLocaleString()}</p>
+            <p className="db-card-value">
+              Rs.{dbData.totalRevenue.toLocaleString()}
+            </p>
           </div>
         </div>
       </div>
@@ -38,7 +52,40 @@ const Dashboard = () => {
       {/* Recent Reservations */}
       <h2 className="db-recent-title">Recent Resevations</h2>
 
-      <div className="db-recent-list"></div>
+      <div className="db-recent-list no-scrollbar">
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="db-recent-list-th">User Name</th>
+              <th className="db-recent-list-th max-sm:hidden">Room Name</th>
+              <th className="db-recent-list-th">Total Amount</th>
+              <th className="db-recent-list-th">Payment Status</th>
+            </tr>
+          </thead>
+          <tbody className="text-sm">
+            {dbData.bookings.map((item, index) => {
+              const status = statusStyles[item.status];
+
+              return (
+                <tr key={index}>
+                  <td className="db-recent-list-td">{item.user.name}</td>
+                  <td className="db-recent-list-td max-sm:hidden">
+                    {item.room.type}
+                  </td>
+                  <td className="db-recent-list-td">Rs. {item.totalPrice}</td>
+                  <td className="db-recent-list-td">
+                    <button
+                      className={`bk-status-text ${status.text}`}
+                    >
+                      {item.status}
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
