@@ -45,3 +45,9 @@ npm install svix
 9. Install Nodemon Pkg to restart server automatically
 npm install --save-dev nodemon
 
+
+
+=> MongoDB User Setup
+username: kamalakz786
+password: RtmdL2A6jhsV63lP
+MongoDB_uri: mongodb+srv://kamalakz786:RtmdL2A6jhsV63lP@cluster0.xijqqv3.mongodb.net/?appName=Cluster0
