@@ -8,7 +8,7 @@ const Sidebar = () => {
     { name: "Rooms List", path: "/owner/rooms-list", icon: BedDouble },
   ];
   return (
-    <div className="md:w-64 w-16 border-r h-full text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
+    <div className="md:w-64 w-16 border-r text-base border-gray-300 pt-4 flex flex-1 flex-col transition-all duration-300">
       {linkItem.map((item, index) => {
         const Icon = item.icon;
         return (

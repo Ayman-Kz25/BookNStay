@@ -928,3 +928,48 @@
 .db-cancelled-status-btn {
  @apply bg-red-600/10 px-2 py-1 text-red-600 rounded-full;
 }
+
+/* Add Rooms */
+.ar-label {
+  @apply text-gray-800 mt-4;
+}
+
+.ar-images {
+  @apply grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap;
+}
+
+.ar-img {
+  @apply w-12 h-12 md:w-28 md:h-20 rounded-xl cursor-pointer;
+}
+
+.ar-row {
+  @apply w-full flex max-sm:flex-col sm:gap-4 mt-4;
+}
+
+.ar-col {
+  @apply flex-1 max-w-48;
+}
+
+.ar-input {
+  @apply border opacity-70 border-gray-300 mt-1 rounded-lg p-2 w-full;
+}
+
+.ar-price {
+  @apply border border-gray-300 mt-1 rounded-lg p-2 w-24;
+}
+
+.ar-small {
+  @apply text-xs;
+}
+
+.ar-amenities {
+  @apply flex flex-col flex-wrap mt-1 text-gray-400 max-w-sm;
+}
+
+.ar-checkbox-label {
+  @apply ml-2;
+}
+
+.ar-btn {
+  @apply bg-[var(--primary)] text-white px-8 py-2 rounded-lg mt-8 cursor-pointer hover:bg-[var(--secondary)] transition-colors;
+}
