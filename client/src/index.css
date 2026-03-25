@@ -861,3 +861,41 @@
 .layout-content {
   @apply flex-1 p-4 pt-10 md:px-10 h-full;
 }
+
+/* Dashboard */
+.db-container {
+  @apply p-6 md:p-8;
+}
+
+.db-stats {
+  @apply flex gap-4 my-8;
+}
+
+.db-card {
+  @apply bg-white border border-[var(--secondary)]/20 rounded-lg flex items-center p-4 pr-8 hover:bg-[var(--secondary)]/4 ;
+}
+
+.db-card-icon {
+  @apply max-sm:hidden text-[var(--secondary)] bg-[var(--secondary)]/10 size-16 p-2 rounded-xl;
+}
+
+.db-card-text {
+  @apply flex flex-col sm:ml-4 font-medium;
+}
+
+.db-card-title {
+  @apply text-[var(--secondary)] text-lg;
+}
+
+.db-card-value {
+  @apply text-neutral-500 text-base;
+}
+
+.db-recent-title {
+  @apply text-2xl text-[var(--primary)] font-medium mb-5;
+}
+
+.db-recent-list {
+  @apply flex;
+}
+
