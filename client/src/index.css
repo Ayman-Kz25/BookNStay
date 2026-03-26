@@ -33,7 +33,7 @@
 }
 
 .navbar-scrolled {
-  @apply bg-white/80 shadow-md text-[var(--primary)] py-3 md:py-4;
+  @apply bg-white/80 shadow-md py-3 md:py-4;
   backdrop-filter: blur(12px);
 }
 
@@ -58,7 +58,7 @@
 }
 
 .navbar-dashboard-btn {
-  @apply border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all hover:bg-[var(--secondary)] hover:text-white hover:border-[var(--secondary)];
+  @apply border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)];
 }
 
 .navbar-actions-desktop {
@@ -70,7 +70,7 @@
 }
 
 .navbar-login-btn {
-  @apply px-8 py-2.5 rounded-full transition-all cursor-pointer hover:bg-[var(--secondary)] bg-white text-[var(--primary)];
+  @apply px-8 py-2.5 rounded-full transition-all cursor-pointer hover:bg-[var(--secondary)] hover:text-white;
 }
 
 /* Mobile Navbar */

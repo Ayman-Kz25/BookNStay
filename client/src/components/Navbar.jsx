@@ -44,18 +44,18 @@ const Navbar = () => {
       <div className="navbar-links-desktop">
         {navLinks.map((link, i) => (
           <a key={i} href={link.path} className={`navbar-link group ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}>
-            {link.name}
-            <div className={`navbar-link-underline ${isScrolled ? "bg-[var(--primary)]" : "bg-white"}`} />
+              {link.name}
+            <div className={`navbar-link-underline ${isScrolled ? 'bg-[var(--primary)]' : "bg-white"}`} />
           </a>
         ))}
-        <button className="navbar-dashboard-btn" onClick={() => navigate("/owner")}>
+        <button className={`navbar-dashboard-btn ${isScrolled ? "border-[var(--primary)] text-[var(--primary)] bg-transparent" : "border-white text-white bg-transparent"}`} onClick={() => navigate("/owner")}>
           Dashboard
         </button>
       </div>
 
       {/* Desktop Right */}
       <div className="navbar-actions-desktop">
-        <Search size={20} className="navbar-icon" />
+        <Search size={20} className={`navbar-icon ${isScrolled ? 'text-[var(--primary)]' : "text-white"}`} />
         {user ? (
           <UserButton>
             <UserButton.MenuItems>
@@ -67,7 +67,7 @@ const Navbar = () => {
             </UserButton.MenuItems>
           </UserButton>
         ) : (
-          <button className="navbar-login-btn" onClick={openSignIn}>
+          <button className={`navbar-login-btn ${isScrolled ? "text-white bg-[var(--primary)]" : "text-[var(--primary)] bg-white"}`} onClick={openSignIn}>
             Login
           </button>
         )}

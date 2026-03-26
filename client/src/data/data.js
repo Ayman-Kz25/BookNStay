@@ -139,7 +139,7 @@ export const rooms = [
 // Exclusive offers
 export const exclusiveOffers = [
   {
-    id: 1,
+    id: "1",
     title: "Luxury Weekend Escape",
     discount: "30% OFF",
     city: "Hunza",
@@ -148,7 +148,7 @@ export const exclusiveOffers = [
     expiryDate: "30 June 2026"
   },
   {
-    id: 2,
+    id: "2",
     title: "City Break Special",
     discount: "20% OFF",
     city: "Karachi",
@@ -157,7 +157,7 @@ export const exclusiveOffers = [
     expiryDate: "15 July 2026"
   },
   {
-    id: 3,
+    id: "3",
     title: "Northern Adventure Stay",
     discount: "25% OFF",
     city: "Skardu",
@@ -171,7 +171,7 @@ export const exclusiveOffers = [
 // Testimonials
 export const testimonials = [
   {
-    id: 1,
+    id: "1",
     name: "Ali Khan",
     image: "https://i.pinimg.com/736x/13/c7/56/13c75665a3b6bc1ff7836f92b2064049.jpg",
     city: "Lahore",
@@ -180,7 +180,7 @@ export const testimonials = [
       "Amazing experience booking hotels through this platform. The interface is very clean, the booking process was smooth, and I found some really great hotel options for my trip. Highly recommended!"
   },
   {
-    id: 2,
+    id: "2",
     name: "Sara Ahmed",
     image: "https://i.pinimg.com/1200x/4b/ac/d3/4bacd354cc8936605be7e20984fc745f.jpg",
     city: "Islamabad",
@@ -189,7 +189,7 @@ export const testimonials = [
       "I was able to discover some fantastic luxury hotels at very reasonable prices. The platform made it easy to compare options and complete the booking within minutes."
   },
   {
-    id: 3,
+    id: "3",
     name: "Jasmine Noor",
     image: "https://i.pinimg.com/736x/42/b7/4c/42b74c2d949bfa432c0b947be07cb482.jpg",
     city: "Karachi",
@@ -203,13 +203,13 @@ export const testimonials = [
 // Users
 export const users = [
   {
-    id: 1,
+    id: "1",
     name: "Ahmed Raza",
     email: "ahmed@example.com",
     phone: "+923001234567"
   },
   {
-    id: 2,
+    id: "2",
     name: "Fatima Noor",
     email: "fatima@example.com",
     phone: "+923451234567"
@@ -220,7 +220,7 @@ export const users = [
 // Bookings
 export const bookingsData = [
   {
-    id: 1,
+    id: "1",
     user: users[0],
     room: rooms[1],
     guest: 2,
@@ -230,7 +230,7 @@ export const bookingsData = [
     status: "confirmed"
   },
   {
-    id: 2,
+    id: "2",
     user: users[1],
     room: rooms[2],
     guest: 1,

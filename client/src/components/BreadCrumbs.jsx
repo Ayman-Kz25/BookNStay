@@ -4,7 +4,7 @@ import { rooms } from "../data/data";
 
 const BreadCrumbs = () => {
   const { id } = useParams();
-  const room = rooms.find((room) => room.id === Number(id));
+  const room = rooms.find((room) => room.id === id);
   return (
     <div className="flex flex-wrap items-center justify-start space-x-2 text-sm text-gray-500 font-medium bg-white pb-6 px-4  rounded-lg">
       <Link to="/" aria-label="Home">
