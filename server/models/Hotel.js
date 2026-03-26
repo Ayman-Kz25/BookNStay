@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose;
+const {Schema} = mongoose;
 
 const hotelSchema = new Schema({
     name: {type: String, required: true},
