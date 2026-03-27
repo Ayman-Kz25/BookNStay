@@ -66,13 +66,16 @@ const Rooms = () => {
   const [selectedSort, setSelectedSort] = useState("");
 
   const roomTypes = [
-    "Standard Room",
-    "Deluxe Room",
-    "Executive Room",
-    "Junior Suite",
-    "Luxury Suite",
-    "Family Room",
-  ];
+  "Standard Room",
+  "Deluxe Room",
+  "Executive Room",
+  "Junior Suite",
+  "Executive Suite",
+  "Family Suite",
+  "Double BedRoom",
+  "Single BedRoom",
+  "Presidential Suite"
+];
 
   const sortOpt = [
     "Recommended",

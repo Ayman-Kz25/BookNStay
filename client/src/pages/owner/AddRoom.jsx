@@ -1,16 +1,19 @@
 import { useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
+import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 const AddRoom = () => {
+  const { axios, getToken } = useAppContext();
+  const [loading, setLoading] = useState(false);
   const [imgs, setImgs] = useState({
     1: null,
     2: null,
     3: null,
     4: null,
   });
-
   const [inputs, setInputs] = useState({
-    roomType: "",
+    type: "",
     pricePerNight: 0,
     amenities: {
       WiFi: false,
@@ -27,8 +30,70 @@ const AddRoom = () => {
     },
   });
 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    //check if all inputs are filled
+    if (
+      !inputs.type ||
+      !inputs.pricePerNight ||
+      !inputs.amenities ||
+      !Object.values(imgs).some((img) => img)
+    ) {
+      toast.error("Please fill in all room details");
+      return;
+    }
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("type", inputs.type);
+      formData.append("pricePerNight", inputs.pricePerNight);
+      //converting amenities to Array & keeping only enable amenities
+      const amenities = Object.keys(inputs.amenities).filter(
+        (key) => inputs.amenities[key],
+      );
+      formData.append("amenities", JSON.stringify(amenities));
+
+      //adding imgs to formData
+      Object.keys(imgs).forEach((key) => {
+        imgs[key] && formData.append("imgs", imgs[key]);
+      });
+
+      const { data } = await axios.post("/api/rooms/", formData, {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      });
+      if (data.success) {
+        toast.success(data.message);
+        setInputs({
+          type: "",
+          pricePerNight: 0,
+          amenities: {
+            WiFi: false,
+            "Air Conditioning": false,
+            TV: false,
+            "Mini Bar": false,
+            Breakfast: false,
+            "Room Service": false,
+            Gym: false,
+            "Swimming Pool": false,
+            "Mountain View": false,
+            "Lake View": false,
+            Balcony: false,
+          },
+        });
+
+        setImgs({ 1: null, 2: null, 3: null, 4: null });
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmitHandler}>
       <SectionTitle
         title="Add Room"
         subtitle="Fill in the accurate room details..."
@@ -52,9 +117,7 @@ const AddRoom = () => {
             <input
               type="file"
               hidden
-              onChange={(e) =>
-                setImgs({ ...imgs, [key]: e.target.files[0] })
-              }
+              onChange={(e) => setImgs({ ...imgs, [key]: e.target.files[0] })}
             />
           </label>
         ))}
@@ -66,10 +129,8 @@ const AddRoom = () => {
           <p className="ar-label">Room Type</p>
           <select
             className="ar-input"
-            value={inputs.roomType}
-            onChange={(e) =>
-              setInputs({ ...inputs, roomType: e.target.value })
-            }
+            value={inputs.type}
+            onChange={(e) => setInputs({ ...inputs, type: e.target.value })}
           >
             <option value="">Select Room Type</option>
             <option>Standard Room</option>
@@ -115,12 +176,16 @@ const AddRoom = () => {
                 })
               }
             />
-            <label htmlFor={`amenity${i}`} className="ar-checkbox-label">{amenity}</label>
+            <label htmlFor={`amenity${i}`} className="ar-checkbox-label">
+              {amenity}
+            </label>
           </div>
         ))}
       </div>
 
-      <button className="ar-btn">Add Room</button>
+      <button className="ar-btn" disabled={loading}>
+        {loading ? "Adding..." : "Add Room"}
+      </button>
     </form>
   );
 };

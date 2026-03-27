@@ -1,10 +1,25 @@
+import { getAuth } from "@clerk/express";
+import User from "../models/User.js";
+
 //GET /api/user/
 export const getUserData = async (req, res) => {
   try {
-    const role = req.user.role;
-    const recentSearchedCities = req.user.recentSearchedCities;
+    const { userId } = getAuth(req);
+    if (!userId) {
+      return res.json({ success: false, message: "Not Authenticated" });
+    }
+    const user = await User.findOne({ id: userId });
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+    // const role = user.role;
+    // const recentSearchedCities = user.recentSearchedCities;
 
-    res.json({ success: true, role, recentSearchedCities });
+    res.json({
+      success: true,
+      role: user.role,
+      recentSearchedCities: user.recentSearchedCities,
+    });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
