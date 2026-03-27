@@ -54,6 +54,7 @@ const AddRoom = () => {
       formData.append("amenities", JSON.stringify(amenities));
 
       //adding imgs to formData
+      console.log("Files being uploaded:", Object.values(imgs).filter(Boolean));
       Object.keys(imgs).forEach((key) => {
         imgs[key] && formData.append("imgs", imgs[key]);
       });
@@ -137,8 +138,11 @@ const AddRoom = () => {
             <option>Deluxe Room</option>
             <option>Executive Room</option>
             <option>Junior Suite</option>
-            <option>Luxury Suite</option>
-            <option>Family Room</option>
+            <option>Executive Suite</option>
+            <option>Family Suite</option>
+            <option>Double BedRoom</option>
+            <option>Single BedRoom</option>
+            <option>Presidential Suite</option>
           </select>
         </div>
 

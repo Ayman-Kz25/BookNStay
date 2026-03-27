@@ -1,43 +1,67 @@
+import Room from "../models/Room.js";
 import Hotel from "../models/Hotel.js";
 import { v2 as cloudinary } from "cloudinary";
-import Room from "../models/Room.js";
 import { getAuth } from "@clerk/express";
 
-// API to create a new room for hotel
 export const createRoom = async (req, res) => {
   try {
     const { type, pricePerNight, amenities } = req.body;
     const { userId } = getAuth(req);
+
+    if (!userId)
+      return res
+        .status(401)
+        .json({ success: false, message: "Not Authenticated" });
+
     const hotel = await Hotel.findOne({ owner: userId });
-
     if (!hotel)
-      return res.json({ success: false, message: " =No Hotel Found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "No Hotel Found" });
 
-    //upload imgs to cloudinary
-    if (!req.files || !req.files.length) {
+    if (!req.files || req.files.length === 0) {
       return res
         .status(400)
         .json({ success: false, message: "No images uploaded" });
     }
-    const uploadImgs = req.files.map(async (file) => {
-      const response = await cloudinary.uploader.upload(file.path);
-      return response.secure_url;
+
+    // Upload each image to Cloudinary
+    const uploadImgs = req.files.map((file) => {
+      return new Promise((resolve, reject) => {
+        if (!file.buffer || file.buffer.length === 0) {
+          return reject(new Error(`Empty file detected: ${file.originalname}`));
+        }
+
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: "image" },
+          (err, result) => {
+            if (err) {
+              console.error("Cloudinary Error:", err);
+              return reject(err);
+            }
+            resolve(result.secure_url);
+          },
+        );
+
+        stream.end(file.buffer); // Pass the actual buffer
+      });
     });
 
     const imgs = await Promise.all(uploadImgs);
 
-    await Room.create({
-      hotel: hotel.id,
+    // Save room to DB
+    const room = await Room.create({
+      hotel: hotel._id,
       type,
-      pricePerNight: +pricePerNight,
+      pricePerNight: Number(pricePerNight),
       amenities: JSON.parse(amenities),
       imgs,
     });
 
-    res.json({ success: true, message: "Room Created Successfully" });
+    res.json({ success: true, message: "Room Created Successfully", room });
   } catch (error) {
-    console.log(error)
-    res.json({ success: false, message: error.message });
+    console.error("Create Room Error:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -63,10 +87,14 @@ export const getRooms = async (req, res) => {
 export const getOwnerRoom = async (req, res) => {
   try {
     const { userId } = getAuth(req);
-    const hotels = await Hotel({ owner: userId });
-    const rooms = await Room.find({ hotel: hotels.id.toString() }).populate(
-      "hotel",
-    );
+    const hotel = await Hotel.findOne({ owner: userId });
+    if (!hotel) {
+      return res.json({
+        success: false,
+        message: "No Hotel found for this owner",
+      });
+    }
+    const rooms = await Room.find({ hotel: hotel.id }).populate("hotel");
 
     res.json({ success: true, rooms });
   } catch (error) {
@@ -79,11 +107,13 @@ export const toggleRoomAvailability = async (req, res) => {
   try {
     const { roomId } = req.body;
     const room = await Room.findById(roomId);
-    if(!room){
-        return res.status(404).json({ success: false, message: "Room not found" });
+    if (!room) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Room not found" });
     }
     room.isAvailable = !room.isAvailable;
-    await roomssave();
+    await room.save();
     res.json({ success: true, message: "Room Availability Updated" });
   } catch (error) {
     res.json({ success: false, message: error.message });
