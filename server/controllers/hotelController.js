@@ -21,7 +21,7 @@ export const registerHotel = async (req, res) => {
 
         await Hotel.create({name, address, contact, city, owner});
 
-        await User.findByIdAndUpdate(owner, {role: "owner"});
+        await User.findOneAndUpdate({id: owner}, {role: "owner"});
 
         res.json({success: true, message: "Hotel Registered Successfully"});
     } catch (error) {
