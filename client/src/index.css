@@ -79,7 +79,7 @@
 }
 
 .navbar-mobile-menu-icon {
-  @apply cursor-pointer text-white transition-all;
+  @apply cursor-pointer transition-all;
 }
 
 .navbar-mobile-menu {
