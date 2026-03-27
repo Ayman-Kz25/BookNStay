@@ -108,7 +108,7 @@ const RoomDetails = () => {
 
           <p className="rd-price">
             <span className="rd-price-value">
-              Rs. {room.pricePerNight.toLocaleString()}
+              PKR {room.pricePerNight.toLocaleString()}
             </span>
             /night
           </p>

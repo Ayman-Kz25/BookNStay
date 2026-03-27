@@ -5,7 +5,7 @@ import { createRoom, getOwnerRoom, getRooms, toggleRoomAvailability } from '../c
 
 const roomRouter = express.Router()
 
-roomRouter.post('/', upload.array("images", 4), protect, createRoom);
+roomRouter.post('/', upload.array("imgs", 4), protect, createRoom);
 roomRouter.get('/', getRooms);
 roomRouter.get('/owner', protect, getOwnerRoom);
 roomRouter.post('/toggle-availability', protect, toggleRoomAvailability);

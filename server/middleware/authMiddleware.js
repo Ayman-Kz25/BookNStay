@@ -10,8 +10,9 @@ export const protect = async (req, res, next) => {
       .status(401)
       .json({ success: false, message: "Not Authenticated" });
   }
-  req.userId = userId;
-//   const user = await User.findById(userId);
-//   req.user = user;
+  // req.userId = userId;
+  
+  const user = await User.findOne(userId);
+  req.user = user;
   next();
 };

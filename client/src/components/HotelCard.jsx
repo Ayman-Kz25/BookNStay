@@ -34,7 +34,7 @@ const HotelCard = ({ room, index }) => {
         <div className="hotel-card-footer">
           <p>
             <span className="hotel-card-price">
-              Rs. {room.pricePerNight.toLocaleString()}
+              PKR {room.pricePerNight.toLocaleString()}
             </span>
             /night
           </p>

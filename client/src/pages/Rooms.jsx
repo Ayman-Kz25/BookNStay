@@ -202,7 +202,7 @@ const Rooms = () => {
 
               <p className="price">
                 <span className="price-value">
-                  Rs. {room.pricePerNight.toLocaleString()}
+                  PKR {room.pricePerNight.toLocaleString()}
                 </span>
                 /night
               </p>
@@ -254,8 +254,8 @@ const Rooms = () => {
             />
 
             <div className="range-labels">
-              <span>Rs. 5,000</span>
-              <span>Rs. {price.toLocaleString()}</span>
+              <span>PKR 5,000</span>
+              <span>PKR {price.toLocaleString()}</span>
             </div>
           </div>
 
