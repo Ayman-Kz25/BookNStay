@@ -1,74 +1,117 @@
 import { SquareX } from "lucide-react";
 import { cities } from "../data/data";
 import { useAppContext } from "../context/AppContext";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Registration = () => {
-  const { setShowHotelReg } = useAppContext();
+  const { setShowHotelReg, axios, getToken, setIsOwner } = useAppContext();
+
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [contact, setContact] = useState("");
+  const [city, setCity] = useState("");
+
+  const onSubmitHandler = async (event) => {
+    try {
+      event.preventDefault();
+      const { data } = await axios.post(
+        `/api/hotels/`,
+        { name, contact, address, city },
+        {
+          headers: { Authorization: `Bearer ${await getToken()}` },
+        },
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        setIsOwner(true);
+        setShowHotelReg(false);
+      } else {
+        console.log(data.message);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error.message)
+      toast.error(error.message);
+    }
+  };
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center justify-center bg-black/70">
-      <form className="flex bg-white rounded-xl max-w-7xl max-md:mx-2">
-        <img
-          src="/images/reg.jpg"
-          className="w-1/2 rounded-xl hidden md:block rounded-br-none rounded-tr-none "
-        />
+    <div className="reg-overlay" onClick={() => setShowHotelReg(false)}>
+      <form
+        className="reg-container"
+        onSubmit={onSubmitHandler}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img src="/images/reg.jpg" className="reg-image" />
 
-        <div className="relative flex flex-col items-center md:w-1/2 p-8 md:p-10">
-          <SquareX className="absolute top-4 right-4 cursor-pointer" onClick={()=>setShowHotelReg(false)} />
+        <div className="reg-form">
+          <SquareX
+            className="reg-close"
+            onClick={() => setShowHotelReg(false)}
+          />
 
-          <p className="text-2xl font-semibold mt-6">Register Your Hotel</p>
+          <p className="reg-title">Register Your Hotel</p>
 
           {/* Hotel Name */}
-          <div className="w-full mt-4">
-            <label htmlFor="name" className="font-medium text-gray-500">
+          <div className="reg-group">
+            <label htmlFor="name" className="reg-label">
               Hotel Name
             </label>
             <input
               type="text"
-              placeholder="Type here"
               id="name"
-              className="border-2 border-gray-200 rounded-lg w-full px-3 py-2.5 mt-1 outline-[var(--secondary)]/90 font-light"
+              placeholder="Type here"
+              className="reg-input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
 
-          {/* Hotel Contact */}
-          <div className="w-full mt-4">
-            <label htmlFor="contact" className="font-medium text-gray-500">
+          {/* Contact */}
+          <div className="reg-group">
+            <label htmlFor="contact" className="reg-label">
               Hotel Contact
             </label>
             <input
               type="text"
               id="contact"
               placeholder="Type here"
-              className="border-2 border-gray-200 rounded-lg w-full px-3 py-2.5 mt-1 outline-[var(--secondary)]/90 font-light"
+              className="reg-input"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
               required
             />
           </div>
 
-          {/* Hotel Address */}
-          <div className="w-full mt-4">
-            <label htmlFor="address" className="font-medium text-gray-500">
+          {/* Address */}
+          <div className="reg-group">
+            <label htmlFor="address" className="reg-label">
               Hotel Address
             </label>
             <input
               type="text"
               id="address"
               placeholder="Type here"
-              className="border-2 border-gray-200 rounded-lg w-full px-3 py-2.5 mt-1 outline-[var(--secondary)]/90 font-light"
+              className="reg-input"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
 
-          {/* City DropDown */}
-          {/* Hotel Name */}
-          <div className="w-full mt-4 max-w-60 mr-auto">
-            <label htmlFor="city" className="font-medium text-gray-500">
+          {/* City */}
+          <div className="reg-group reg-city">
+            <label htmlFor="city" className="reg-label">
               City
             </label>
             <select
               id="city"
-              className="border-2 border-gray-200 rounded-lg w-full px-3 py-2.5 mt-1 outline-[var(--secondary)]/90 font-light"
+              className="reg-input"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               required
             >
               <option value="">Select City</option>
@@ -80,12 +123,11 @@ const Registration = () => {
             </select>
           </div>
 
-          <button className="bg-[var(--primary)] hover:bg-[var(--secondary)]/90 hover:text-[var(--primary)] transition-all text-white mr-auto px-6 py-2 rounded-xl cursor-pointer mt-6 active:scale-95">
-            Register
-          </button>
+          <button className="reg-btn">Register</button>
         </div>
       </form>
     </div>
   );
 };
+
 export default Registration;

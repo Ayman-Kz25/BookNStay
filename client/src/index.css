@@ -208,6 +208,51 @@
 }
 
 /* ===== Components ==== */
+/* Registration Form */
+.reg-overlay {
+  @apply fixed inset-0 z-[100] flex items-center justify-center bg-black/50;
+}
+
+.reg-container {
+  @apply flex bg-white rounded-xl w-full max-w-3xl max-md:mx-2;
+}
+
+.reg-image {
+  @apply w-1/2 rounded-xl hidden md:block rounded-br-none rounded-tr-none;
+}
+
+.reg-form {
+  @apply relative flex flex-col items-center w-full md:w-1/2 p-8 md:p-10;
+}
+
+.reg-close {
+  @apply absolute top-4 right-4 cursor-pointer;
+}
+
+.reg-title {
+  @apply text-2xl font-semibold mt-6;
+}
+
+.reg-group {
+  @apply w-full mt-4;
+}
+
+.reg-city {
+  @apply max-w-60 mr-auto;
+}
+
+.reg-label {
+  @apply font-medium text-gray-500;
+}
+
+.reg-input {
+  @apply border-2 border-gray-200 rounded-lg w-full px-3 py-2.5 mt-1 outline-[var(--secondary)]/90 font-light;
+}
+
+.reg-btn {
+  @apply bg-[var(--primary)] hover:bg-[var(--secondary)] transition-all text-white mr-auto px-6 py-2 rounded-xl cursor-pointer mt-6 active:scale-95;
+}
+
 /* Home - Hero */
 .hero-container {
   @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 h-screen w-full bg-cover bg-center text-white;

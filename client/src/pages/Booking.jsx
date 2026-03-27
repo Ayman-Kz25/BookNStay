@@ -18,13 +18,13 @@ const statusStyles = {
   },
 };
 
-const Reservations = () => {
+const Booking = () => {
   const [bookings, setBookings] = useState(bookingsData);
 
   return (
     <div className="bk-container">
       <SectionTitle 
-      title="My Reservations"
+      title="My Bookings"
       subtitle="View, manage, and track all your hotel bookings with ease"
       align="left"
       />
@@ -113,4 +113,4 @@ const Reservations = () => {
   );
 };
 
-export default Reservations;
+export default Booking;

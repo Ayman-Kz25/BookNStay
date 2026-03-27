@@ -49,8 +49,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Recent Reservations */}
-      <h2 className="db-recent-title">Recent Resevations</h2>
+      {/* Recent Bookings */}
+      <h2 className="db-recent-title">Recent Bookings</h2>
 
       <div className="db-recent-list no-scrollbar">
         <table className="w-full">
