@@ -19,8 +19,8 @@ export const protect = async (req, res, next) => {
         .json({ success: false, message: "User not found" });
     }
 
-    req.user = user;
-    // return res.json({user});
+    // req.user = user;
+    return res.json({user});
     next();
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });

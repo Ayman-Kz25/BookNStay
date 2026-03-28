@@ -67,7 +67,7 @@ export const createRoom = async (req, res) => {
 
     // Save room to DB || Create Room
     const room = await Room.create({
-      hotel: hotel._id,
+      hotel: hotel.id,
       type,
       pricePerNight: Number(pricePerNight),
       amenities: JSON.parse(amenities),
@@ -75,7 +75,7 @@ export const createRoom = async (req, res) => {
     });
     
     //debug log
-    // console.log('Room created:', room._id);
+    // console.log('Room created:', room.id);
     res.json({ success: true, message: "Room Created Successfully", room });
     
   } catch (error) {
@@ -125,7 +125,7 @@ export const getOwnerRoom = async (req, res) => {
 export const toggleRoomAvailability = async (req, res) => {
   try {
     const { roomId } = req.body;
-    const room = await Room.findById(roomId);
+    const room = await Room.findOne({roomId});
     if (!room) {
       return res
         .status(404)

@@ -4,13 +4,20 @@ import User from "../models/User.js";
 //GET /api/user/
 export const getUserData = async (req, res) => {
   try {
-    const { userId } = getAuth(req);
+    const { userId, sessionClaims } = getAuth(req);
     if (!userId) {
       return res.json({ success: false, message: "Not Authenticated" });
     }
-    const user = await User.findOne({ id: userId });
+    let user = await User.findOne({ id: userId });
+    // console.log(userId)
     if (!user) {
-      return res.json({ success: false, message: "User not found" });
+      user = await User.create({
+        id: userId,
+        username: sessionClaims?.name || "User",
+        email: sessionClaims?.email || "",
+        profile: sessionClaims?.image || "",
+      });
+      // return res.json({ success: false, message: "User not found" });
     }
     // const role = user.role;
     // const recentSearchedCities = user.recentSearchedCities;
@@ -29,7 +36,8 @@ export const getUserData = async (req, res) => {
 export const storeRecentSearchedCities = async (req, res) => {
   try {
     const { recentSearchedCities } = req.body;
-    const user = await req.user;
+    const { userId } = getAuth(req);
+    const user = await User.findOne({ id: userId });
 
     if (user.recentSearchedCities.length < 3) {
       user.recentSearchedCities.push(recentSearchedCities);

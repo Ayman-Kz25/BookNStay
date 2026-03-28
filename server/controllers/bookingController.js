@@ -42,7 +42,8 @@ export const checkAvailabilityAPI = async (req, res) => {
 export const createBooking = async (req, res) => {
   try {
     const { room, checkInDate, checkOutDate, guests } = req.body;
-    const user = req.user.id;
+    const { userId } = getAuth(req);
+    const user = await User.findOne({ id: userId });
     //check availability before booking
     const isAvailable = await checkAvailability({
       room,
@@ -55,7 +56,7 @@ export const createBooking = async (req, res) => {
     }
 
     // Get totalPrice for Room
-    const rooms = await Room.findById(room).populate("hotel");
+    const rooms = await Room.findOne({ room }).populate("hotel");
     let totalPrice = rooms.pricePerNight;
 
     //calculate totalPrice based on nights
@@ -89,7 +90,8 @@ export const createBooking = async (req, res) => {
 //GET /api/bookings/user
 export const getUserBookings = async (req, res) => {
   try {
-    const user = req.user.id;
+    const { userId } = getAuth(req);
+    const user = await User.findOne({ id: userId });
     const bookings = await Booking.find({ user })
       .populate("room hotel")
       .sort({ createdAt: -1 });
@@ -106,7 +108,8 @@ export const getUserBookings = async (req, res) => {
 
 export const getHotelBookings = async (req, res) => {
   try {
-    const hotel = await Hotel.findOne({ owner: req.auth.userId });
+    const { userId } = getAuth(req);
+    const hotel = await Hotel.findOne({ owner: userId });
     if (!hotel) {
       return res.json({ success: false, message: "No Hotel Found" });
     }

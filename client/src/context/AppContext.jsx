@@ -9,7 +9,7 @@ axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const currency = import.meta.env.VITE_CURRENCY || "Rs.";
+  const currency = import.meta.env.VITE_CURRENCY || "PKR";
   const navigate = useNavigate();
   const { user } = useUser();
   const { getToken } = useAuth();
@@ -17,6 +17,7 @@ export const AppProvider = ({ children }) => {
   const [isOwner, setIsOwner] = useState(false);
   const [showHotelReg, setShowHotelReg] = useState(false);
   const [searchedCities, setSearchedCities] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const fetchUser = async () => {
     try {
@@ -28,11 +29,27 @@ export const AppProvider = ({ children }) => {
         setSearchedCities(data.recentSearchedCities);
       } else {
         //Retry fetching user details after 5 sec
-        setTimeout(() => {
-          fetchUser();
-        }, 5000);
+        // setTimeout(() => {
+        //   fetchUser();
+        // }, 5000);
+        console.log(data.message)
       }
     } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const fetchRooms = async () => {
+    try {
+      const { data } = await axios.get("/api/rooms");
+      if (data.success) {
+        setRooms(data.rooms);
+      } else {
+        console.log(data.message)
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
       toast.error(error.message);
     }
   };
@@ -42,6 +59,10 @@ export const AppProvider = ({ children }) => {
       fetchUser();
     }
   }, [user]);
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
 
   const value = {
     currency,
@@ -55,6 +76,8 @@ export const AppProvider = ({ children }) => {
     setShowHotelReg,
     searchedCities,
     setSearchedCities,
+    rooms,
+    setRooms
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -34,12 +34,12 @@ const clerkWebhooks = async (req, res) => {
       }
 
       case "user.updated": {
-        await User.findByIdAndUpdate(data.id, userData);
+        await User.findOneAndUpdate({id: data.id}, {$set: userData}, {new: true, upsert: true});
         break;
       }
 
       case "user.deleted": {
-        await User.findByIdAndDelete(data.id);
+        await User.findOneAndDelete({id: data.id});
         break;
       }
 
