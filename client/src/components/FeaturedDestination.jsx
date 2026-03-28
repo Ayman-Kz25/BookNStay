@@ -4,7 +4,7 @@ import { useAppContext } from "../context/AppContext";
 
 const FeaturedDestination = () => {
   const { rooms, navigate } = useAppContext();
-  // console.log(rooms);
+  console.log(rooms);
   return (
     rooms.length > 0 && (
       <section className="featured-destination">

@@ -1,5 +1,6 @@
 import Room from "../models/Room.js";
 import Hotel from "../models/Hotel.js";
+import User from "../models/User.js";
 import { v2 as cloudinary } from "cloudinary";
 import { getAuth } from "@clerk/express";
 
@@ -13,18 +14,26 @@ export const createRoom = async (req, res) => {
     // console.log('Body:', { type, pricePerNight, amenities: JSON.parse(amenities) });
 
     if (!userId)
-      return res.status(401).json({ success: false, message: "Not Authenticated" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Not Authenticated" });
 
     const hotel = await Hotel.findOne({ owner: userId });
     if (!hotel)
-      return res.status(404).json({ success: false, message: "No Hotel Found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "No Hotel Found" });
 
     if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ success: false, message: "No images uploaded" });
+      return res
+        .status(400)
+        .json({ success: false, message: "No images uploaded" });
     }
 
-    if(req.files.length > 4){
-      return res.status(400).json({ success: false, message: "Max 4 images allowed" });
+    if (req.files.length > 4) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Max 4 images allowed" });
     }
 
     // Upload each image to Cloudinary
@@ -38,14 +47,14 @@ export const createRoom = async (req, res) => {
         // console.log(`Uploading image ${index+1}/${req.files.length}: ${file.originalname}`);
 
         const stream = cloudinary.uploader.upload_stream(
-          { 
+          {
             resource_type: "image",
-            folder: 'rooms', //Organize in cloudinary
+            folder: "rooms", //Organize in cloudinary
             transformation: [
-              {width: 1000, height: 667, crop: "limit",}, // optimize size
-              {quality: "auto"}
-            ]
-           },
+              { width: 1000, height: 667, crop: "limit" }, // optimize size
+              { quality: "auto" },
+            ],
+          },
           (err, result) => {
             if (err) {
               console.error(`Cloudinary failed for ${file.originalname}:`, err);
@@ -73,11 +82,10 @@ export const createRoom = async (req, res) => {
       amenities: JSON.parse(amenities),
       imgs,
     });
-    
+
     //debug log
     // console.log('Room created:', room.id);
     res.json({ success: true, message: "Room Created Successfully", room });
-    
   } catch (error) {
     // console.error("Create Room Error:", error);
     res.status(500).json({ success: false, message: error.message });
@@ -88,15 +96,23 @@ export const createRoom = async (req, res) => {
 export const getRooms = async (req, res) => {
   try {
     const rooms = await Room.find({ isAvailable: true })
-      .populate({
-        path: "hotel",
-        populate: {
-          path: "owner",
-          select: "profile",
-        },
-      })
+      .populate("hotel")
       .sort({ createdAt: -1 });
-    res.json({ success: true, rooms });
+
+    const roomsWithOwner = await Promise.all(
+      rooms.map(async (room) => {
+        let ownerProfile = null;
+        if(room.hotel?.owner) {
+          const user = await User.findOne({id: room.hotel.owner});
+          ownerProfile = user?.profile || null;
+        }
+        return {
+          ...room.toObject(),
+          ownerProfile,
+        };
+      })
+    );
+    res.json({ success: true, rooms: roomsWithOwner });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

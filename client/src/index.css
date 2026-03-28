@@ -596,10 +596,6 @@
   @apply text-xs cursor-pointer;
 }
 
-.toggle {
-  @apply lg:hidden;
-}
-
 .clear {
   @apply hidden lg:block;
 }

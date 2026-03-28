@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { rooms } from "../data/data";
 import StarRating from "../components/StarRating";
 import { MapPin } from "lucide-react";
 import {
@@ -14,6 +12,8 @@ import {
   ConciergeBell,
 } from "lucide-react";
 import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
+import { useSearchParams } from "react-router-dom";
 
 const CheckBox = ({ label, selected = false, onChange = () => {} }) => {
   return (
@@ -43,7 +43,14 @@ const RadioBtn = ({ label, selected = false, onChange = () => {} }) => {
 };
 
 const Rooms = () => {
-  const navigate = useNavigate();
+  const { rooms, navigate, currency } = useAppContext();
+
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedSort, setSelectedSort] = useState("");
+
+  const [price, setPrice] = useState(500000);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
 
   const amenityIcons = {
     WiFi: Wifi,
@@ -59,23 +66,17 @@ const Rooms = () => {
     Balcony: Mountain,
   };
 
-  const [showFilters, setShowFilters] = useState(false);
-  const [price, setPrice] = useState(50000);
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
-  const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
-  const [selectedSort, setSelectedSort] = useState("");
-
   const roomTypes = [
     "Single BedRoom",
     "Double BedRoom",
-  "Standard Room",
-  "Deluxe Room",
-  "Luxury Suite",
-  "Junior Suite",
-  "Executive Suite",
-  "Family Suite",
-  "Presidential Suite"
-];
+    "Standard Room",
+    "Deluxe Room",
+    "Luxury Suite",
+    "Junior Suite",
+    "Executive Suite",
+    "Family Suite",
+    "Presidential Suite",
+  ];
 
   const sortOpt = [
     "Recommended",
@@ -106,191 +107,227 @@ const Rooms = () => {
     setSelectedAmenities((prev) =>
       prev.includes(amenity)
         ? prev.filter((a) => a !== amenity)
-        : [...prev, amenity]
+        : [...prev, amenity],
     );
   };
 
   const filteredRooms = rooms
     .filter((room) => {
+      //Price filter
       if (room.pricePerNight > price) return false;
 
+      //Roomtype filter
       if (
         selectedRoomTypes.length > 0 &&
         !selectedRoomTypes.includes(room.type)
-      )
+      ) {
         return false;
+      }
 
       if (
-        selectedAmenities.length > 0 &&
+        (selectedAmenities.length > 0 && !room.amenities) ||
         !selectedAmenities.every((a) => room.amenities.includes(a))
-      )
+      ) {
         return false;
+      }
 
       return true;
     })
     .sort((a, b) => {
-      if (selectedSort === "Price: Low to High")
-        return a.pricePerNight - b.pricePerNight;
+      switch (selectedSort) {
+        case "Price: Low to High":
+          return a.pricePerNight - b.pricePerNight;
 
-      if (selectedSort === "Price: High to Low")
-        return b.pricePerNight - a.pricePerNight;
+        case "Price: High to Low":
+          return b.pricePerNight - a.pricePerNight;
 
-      if (selectedSort === "Rating: High to Low")
-        return b.rating - a.rating;
+        case "Rating: High to Low":
+          return b.rating - a.rating;
 
-      return 0;
+        case "Newest First":
+          return new Date(b.createAt) - new Date(a.createAt);
+
+        case "Recommended":
+          return (b.rating || 0) - (a.rating || 0);
+
+        default:
+          return 0;
+      }
     });
 
+  const clearFilters = () => {
+    setPrice(500000);
+    setSelectedAmenities([]);
+    setSelectedRoomTypes([]);
+    setSelectedSort("");
+  };
+
+  const activeFiltersCount =
+    selectedRoomTypes.length +
+    selectedAmenities.length +
+    (selectedSort ? 1 : 0);
+
   return (
-    <div className="container">
-      {/* Left */}
-      <div>
-        <div className="header">
-          <h1 className="title font-playfair">Hotel Rooms</h1>
-          <p className="subtitle">
-            Browse luxury rooms from the finest hotels and resorts. Browse
-            luxury rooms from the finest hotels and resorts.
-          </p>
-        </div>
+    rooms.length > 0 && (
+      <div className="container">
+        {/* Left */}
+        <div>
+          <div className="header">
+            <h1 className="title font-playfair">Hotel Rooms</h1>
+            <p className="subtitle">
+              Browse luxury rooms from the finest hotels and resorts. Browse
+              luxury rooms from the finest hotels and resorts.
+            </p>
+          </div>
 
-        {filteredRooms.map((room) => (
-          <div key={room._id} className="room-card">
-            <img
-              src={room.imgs[0]}
-              alt="hotel-img"
-              className="room-img"
-              onClick={() => {
-                navigate(`/rooms/${room._id}`);
-                scrollTo(0, 0);
-              }}
-            />
-
-            <div className="room-info">
-              <p className="city">{room.hotel.city}</p>
-
-              <p
-                className="hotel-name font-playfair"
+          {filteredRooms.length === 0 && (
+            <p className="mt-10 text-2xl font-outfit text-gray-700">
+              No rooms match your filters
+            </p>
+          )}
+          {filteredRooms.map((room) => (
+            <div key={room._id} className="room-card">
+              <img
+                src={room.imgs[0]}
+                alt="hotel-img"
+                className="room-img"
                 onClick={() => {
                   navigate(`/rooms/${room._id}`);
                   scrollTo(0, 0);
                 }}
-              >
-                {room.hotel.name}
-              </p>
+              />
 
-              <div className="rating">
-                <StarRating rating={room.rating} />
-                <p className="reviews">200+ reviews</p>
+              <div className="room-info">
+                <p className="city">{room.hotel.city}</p>
+
+                <p
+                  className="hotel-name font-playfair"
+                  onClick={() => {
+                    navigate(`/rooms/${room._id}`);
+                    scrollTo(0, 0);
+                  }}
+                >
+                  {room.hotel.name}
+                </p>
+
+                <div className="rating">
+                  <StarRating rating={room.rating} />
+                  <p className="reviews">200+ reviews</p>
+                </div>
+
+                <div className="location">
+                  <MapPin size={18} />
+                  <span>{room.hotel.address}</span>
+                </div>
+
+                <div className="amenities">
+                  {room.amenities.map((item, i) => {
+                    const Icon = amenityIcons[item];
+                    return (
+                      <div key={i} className="amenity">
+                        {Icon && <Icon size={16} />}
+                        <p>{item}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <p className="price">
+                  <span className="price-value">
+                    {currency} {room.pricePerNight.toLocaleString()}
+                  </span>
+                  /night
+                </p>
               </div>
-
-              <div className="location">
-                <MapPin size={18} />
-                <span>{room.hotel.address}</span>
-              </div>
-
-              <div className="amenities">
-                {room.amenities.map((item, i) => {
-                  const Icon = amenityIcons[item];
-                  return (
-                    <div key={i} className="amenity">
-                      {Icon && <Icon size={16} />}
-                      <p>{item}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <p className="price">
-                <span className="price-value">
-                  PKR {room.pricePerNight.toLocaleString()}
-                </span>
-                /night
-              </p>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Filters */}
-      <div className="filters">
-        <div className="filters-header">
-          <p className="filters-title">FILTERS</p>
-
-          <div className="filters-actions">
-            <span
-              onClick={() => setShowFilters(!showFilters)}
-              className="toggle"
-            >
-              {showFilters ? "HIDE" : "SHOW"}
-            </span>
-            <span className="clear">CLEAR</span>
-          </div>
+          ))}
         </div>
 
-        <div className={`filters-body ${showFilters ? "show" : ""}`}>
-          <div className="section">
-            <p className="section-title">Popular Filters</p>
-            {roomTypes.map((room, i) => (
-              <CheckBox
-                key={i}
-                label={room}
-                selected={selectedRoomTypes.includes(room)}
-                onChange={toggleRoomType}
-              />
-            ))}
-          </div>
+        {/* Filters */}
+        <div className="filters">
+          <div className="filters-header">
+            <p className="filters-title">FILTERS <span className="text-xs">({activeFiltersCount})</span></p>
 
-          <div className="section">
-            <p className="section-title">Price Range</p>
-
-            <input
-              type="range"
-              min="5000"
-              max="50000"
-              step="1000"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-              className="range"
-            />
-
-            <div className="range-labels">
-              <span>PKR 5,000</span>
-              <span>PKR {price.toLocaleString()}</span>
+            <div className="filters-actions">
+              <span
+                onClick={() => setShowFilters(!showFilters)}
+                className="lg:hidden"
+              >
+                {showFilters ? "HIDE" : "SHOW"}
+              </span>
+              <span className="clear" onClick={() => clearFilters()}>
+                CLEAR
+              </span>
             </div>
           </div>
 
-          <div className="section">
-            <p className="section-title">Sort By</p>
-            {sortOpt.map((opt, i) => (
-              <RadioBtn
-                key={i}
-                label={opt}
-                selected={selectedSort === opt}
-                onChange={setSelectedSort}
-              />
-            ))}
-          </div>
-
-          <div className="section">
-            <p className="section-title">Filter Amenities</p>
-
-            <div className="amenity-buttons">
-              {amenitiesFilter.map((item, i) => (
-                <button
+          <div className={`filters-body ${showFilters ? "show" : ""}`}>
+            <div className="section">
+              <p className="section-title">Popular Filters</p>
+              {roomTypes.map((room, i) => (
+                <CheckBox
                   key={i}
-                  onClick={() => toggleAmenity(item)}
-                  className={`amenity-btn ${
-                    selectedAmenities.includes(item) ? "active" : ""
-                  }`}
-                >
-                  {item}
-                </button>
+                  label={room}
+                  selected={selectedRoomTypes.includes(room)}
+                  onChange={toggleRoomType}
+                />
               ))}
             </div>
+
+            <div className="section">
+              <p className="section-title">Price Range</p>
+
+              <input
+                type="range"
+                min="20000"
+                max="1000000"
+                step="1000"
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value))}
+                className="range"
+              />
+
+              <div className="range-labels">
+                <span>{currency} 20,000</span>
+                <span>
+                  {currency} {price.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            <div className="section">
+              <p className="section-title">Sort By</p>
+              {sortOpt.map((opt, i) => (
+                <RadioBtn
+                  key={i}
+                  label={opt}
+                  selected={selectedSort === opt}
+                  onChange={setSelectedSort}
+                />
+              ))}
+            </div>
+
+            <div className="section">
+              <p className="section-title">Filter Amenities</p>
+
+              <div className="amenity-buttons">
+                {amenitiesFilter.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => toggleAmenity(item)}
+                    className={`amenity-btn ${
+                      selectedAmenities.includes(item) ? "active" : ""
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
