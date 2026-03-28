@@ -1043,10 +1043,92 @@
 
 /* Rooms List */
 .rl-room-list {
-  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-90 overflow-y-scroll;
+  @apply w-full max-w-4xl text-left border border-gray-300 rounded-lg max-h-90 overflow-y-scroll;
 }
 
 .rl-room-list-th {
   @apply py-3 px-4 text-gray-800 font-medium text-center;
 }
 
+.rl-container {
+  padding: 20px;
+}
+
+.rl-subtitle {
+  margin-top: 20px;
+  color: #6b7280;
+}
+
+.rl-table-wrapper {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.rl-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rl-table th {
+  background: #f9fafb;
+  padding: 12px;
+  text-align: center;
+}
+
+.rl-table td {
+  padding: 12px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.hide-sm {
+  display: table-cell;
+}
+
+@media (max-width: 640px) {
+  .hide-sm {
+    display: none;
+  }
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 50px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle input:checked + .slider {
+  background-color: var(--secondary);
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(24px);
+}
