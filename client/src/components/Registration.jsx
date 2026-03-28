@@ -1,6 +1,6 @@
 import { SquareX } from "lucide-react";
 import { cities } from "../data/data";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../context/AppContext.jsx";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -16,12 +16,14 @@ const Registration = () => {
     try {
       event.preventDefault();
       const { data } = await axios.post(
-        `/api/hotels/`,
+        '/api/hotels/',
         { name, contact, address, city },
         {
           headers: { Authorization: `Bearer ${await getToken()}` },
         },
       );
+      console.log(data)
+
 
       if (data.success) {
         toast.success(data.message);
