@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const RoomsList = () => {
   const [rooms, setRooms] = useState([]);
-  const { axios, getToken, user } = useAppContext();
+  const { axios, getToken, user, currency } = useAppContext();
 
   const fetchRooms = async () => {
     try {
@@ -30,7 +30,7 @@ const RoomsList = () => {
         { roomId },
         {
           headers: { Authorization: `Bearer ${await getToken()}` },
-        }
+        },
       );
 
       if (data.success) {
@@ -40,8 +40,8 @@ const RoomsList = () => {
           prev.map((room) =>
             room._id === roomId
               ? { ...room, isAvailable: !room.isAvailable }
-              : room
-          )
+              : room,
+          ),
         );
       } else {
         toast.error(data.message);
@@ -71,7 +71,7 @@ const RoomsList = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th className="hide-sm">Facility</th>
+              <th className="max-sm:hidden">Facility</th>
               <th>Price /night</th>
               <th>Actions</th>
             </tr>
@@ -81,10 +81,10 @@ const RoomsList = () => {
             {rooms.map((item) => (
               <tr key={item._id}>
                 <td>{item.type}</td>
-                <td className="hide-sm">
-                  {item.amenities.join(", ")}
+                <td className="max-sm:hidden">{item.amenities.join(", ")}</td>
+                <td>
+                  {currency} {item.pricePerNight}
                 </td>
-                <td>{item.pricePerNight}</td>
 
                 <td>
                   <label className="toggle">

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import { CalendarCheck, Wallet } from "lucide-react";
-import { dashboardData } from "../../data/data";
+import { useAppContext } from "../../context/AppContext";
+import { useEffect } from "react";
 
 const statusStyles = {
   confirmed: {
@@ -16,10 +17,37 @@ const statusStyles = {
 };
 
 const Dashboard = () => {
-  const [dbData] = useState(dashboardData);
+  const { currency, user, getToken, toast, axios } = useAppContext();
+  const [dbData, setDbData] = useState({
+    bookings: [],
+    totalBookings: 0,
+    totalRevenue: 0,
+  });
+
+  const fetchDbData = async () => {
+    try {
+      const { data } = await axios.get("/api/bookings/hotel", {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      });
+
+      if (data.success) {
+        setDbData(data.dbData);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchDbData();
+    }
+  }, [user]);
 
   return (
-    <div className="db-container">
+    <div>
       <SectionTitle
         align="left"
         font="outfit"
@@ -43,7 +71,7 @@ const Dashboard = () => {
           <div className="db-card-text">
             <p className="db-card-title">Total Revenue</p>
             <p className="db-card-value">
-              Rs.{dbData.totalRevenue.toLocaleString()}
+              {currency} {dbData.totalRevenue.toLocaleString()}
             </p>
           </div>
         </div>
@@ -72,11 +100,10 @@ const Dashboard = () => {
                   <td className="db-recent-list-td max-sm:hidden">
                     {item.room.type}
                   </td>
-                  <td className="db-recent-list-td">Rs. {item.totalPrice}</td>
                   <td className="db-recent-list-td">
-                    <button
-                      className={`bk-status-text ${status.text}`}
-                    >
+                    {currency} {item.totalPrice}</td>
+                  <td className="db-recent-list-td">
+                    <button className={`bk-status-text ${status.text}`}>
                       {item.status}
                     </button>
                   </td>

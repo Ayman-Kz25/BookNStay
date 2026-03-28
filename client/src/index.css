@@ -936,10 +936,6 @@
 }
 
 /* Dashboard */
-.db-container {
-  @apply p-6 md:p-8;
-}
-
 .db-stats {
   @apply flex gap-4 my-8;
 }
@@ -1042,75 +1038,36 @@
 }
 
 /* Rooms List */
-.rl-room-list {
-  @apply w-full max-w-4xl text-left border border-gray-300 rounded-lg max-h-90 overflow-y-scroll;
-}
-
-.rl-room-list-th {
-  @apply py-3 px-4 text-gray-800 font-medium text-center;
-}
-
-.rl-container {
-  padding: 20px;
-}
-
 .rl-subtitle {
-  margin-top: 20px;
-  color: #6b7280;
+  @apply mt-5 text-[var(--primary)];
 }
 
 .rl-table-wrapper {
-  margin-top: 10px;
-  overflow-x: auto;
+  @apply mt-2 rounded-xl overflow-x-auto;
 }
 
 .rl-table {
-  width: 100%;
-  border-collapse: collapse;
+  @apply max-w-4xl border-collapse;
 }
 
 .rl-table th {
-  background: #f9fafb;
-  padding: 12px;
-  text-align: center;
+  @apply bg-gray-50 p-3 font-medium text-center;
 }
 
 .rl-table td {
-  padding: 12px;
-  border-top: 1px solid #e5e7eb;
-  text-align: center;
-}
-
-.hide-sm {
-  display: table-cell;
-}
-
-@media (max-width: 640px) {
-  .hide-sm {
-    display: none;
-  }
+  @apply p-3 border-t-gray-500 text-center;
 }
 
 .toggle {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
+  @apply relative inline-block w-[50px] h-[26px];
 }
 
 .toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+  @apply opacity-0 w-0 h-0;
 }
 
 .slider {
-  position: absolute;
-  inset: 0;
-  background-color: #ccc;
-  border-radius: 50px;
-  transition: 0.3s;
-  cursor: pointer;
+  @apply absolute inset-0 bg-gray-300 rounded-[50px] transition-all duration-300 ease-in-out cursor-pointer;
 }
 
 .slider::before {
