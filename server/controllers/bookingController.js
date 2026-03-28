@@ -2,6 +2,7 @@ import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 import User from "../models/User.js";
+import {getAuth} from '@clerk/express'
 
 // Function to check room availability
 export const checkAvailability = async (checkInDate, checkOutDate, room) => {
@@ -92,7 +93,7 @@ export const createBooking = async (req, res) => {
 export const getUserBookings = async (req, res) => {
   try {
     const { userId } = getAuth(req);
-    const user = await User.findOne({ id: userId });
+    const user = await User.findOne({ userId });
     const bookings = await Booking.find({ user })
       .populate("room hotel")
       .sort({ createdAt: -1 });

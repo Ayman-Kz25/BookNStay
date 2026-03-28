@@ -24,7 +24,7 @@ export const registerHotel = async (req, res) => {
 
     await User.findOneAndUpdate({ id: owner }, { role: "owner" });
 
-    return res.json({ success: true, message: "Hotel Registered Successfully" });
+    res.json({ success: true, message: "Hotel Registered Successfully" });
 } catch (error) {
     return res.json({ success: false, message: error.message });
   }

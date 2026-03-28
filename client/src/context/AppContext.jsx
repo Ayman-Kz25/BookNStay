@@ -68,6 +68,7 @@ export const AppProvider = ({ children }) => {
   const value = {
     currency,
     navigate,
+    toast,
     user,
     getToken,
     isOwner,

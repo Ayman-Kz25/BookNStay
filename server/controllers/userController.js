@@ -11,13 +11,7 @@ export const getUserData = async (req, res) => {
     let user = await User.findOne({ id: userId });
     // console.log(userId)
     if (!user) {
-      user = await User.create({
-        id: userId,
-        username: sessionClaims?.name || "User",
-        email: sessionClaims?.email || "",
-        profile: sessionClaims?.image || "",
-      });
-      // return res.json({ success: false, message: "User not found" });
+      return res.json({ success: false, message: "User not found" });
     }
     // const role = user.role;
     // const recentSearchedCities = user.recentSearchedCities;

@@ -101,7 +101,8 @@ const Dashboard = () => {
                     {item.room.type}
                   </td>
                   <td className="db-recent-list-td">
-                    {currency} {item.totalPrice}</td>
+                    {currency} {item.totalPrice}
+                  </td>
                   <td className="db-recent-list-td">
                     <button className={`bk-status-text ${status.text}`}>
                       {item.status}

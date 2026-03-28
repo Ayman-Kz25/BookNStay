@@ -15,15 +15,14 @@ const Registration = () => {
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
-      const { data } = await axios.post(
+      const {data} = await axios.post(
         '/api/hotels/',
         { name, contact, address, city },
         {
           headers: { Authorization: `Bearer ${await getToken()}` },
         },
       );
-      console.log(data)
-
+      // console.log(data)
 
       if (data.success) {
         toast.success(data.message);
