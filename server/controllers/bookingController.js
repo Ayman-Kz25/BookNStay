@@ -69,7 +69,7 @@ export const createBooking = async (req, res) => {
     const booking = await Booking.create({
       user,
       rooms,
-      hotel: rooms.hotel.id,
+      hotel: rooms.hotel._id,
       guests: +guests,
       checkInDate,
       checkOutDate,
@@ -114,7 +114,7 @@ export const getHotelBookings = async (req, res) => {
       return res.json({ success: false, message: "No Hotel Found" });
     }
 
-    const bookings = await Booking.find({ hotel: hotel.id })
+    const bookings = await Booking.find({ hotel: hotel._id })
       .populate("room hotel user")
       .sort({ createdAt: -1 });
 
