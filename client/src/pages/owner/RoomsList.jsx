@@ -38,7 +38,7 @@ const RoomsList = () => {
 
         setRooms((prev) =>
           prev.map((room) =>
-            room.id === roomId
+            room._id === roomId
               ? { ...room, isAvailable: !room.isAvailable }
               : room,
           ),
@@ -79,7 +79,7 @@ const RoomsList = () => {
 
           <tbody>
             {rooms.map((item) => (
-              <tr key={item.id}>
+              <tr key={item._id}>
                 <td>{item.type}</td>
                 <td className="max-sm:hidden">{item.amenities.join(", ")}</td>
                 <td>
@@ -91,7 +91,7 @@ const RoomsList = () => {
                     <input
                       type="checkbox"
                       checked={item.isAvailable}
-                      onChange={() => toggleAvailability(item.id)}
+                      onChange={() => toggleAvailability(item._id)}
                     />
                     <span className="slider"></span>
                   </label>

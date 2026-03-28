@@ -12,7 +12,7 @@ const Testimonial = () => {
 
       <div className="testimonial-grid">
         {testimonials.map((testimonial) => (
-          <div key={testimonial.id} className="testimonial-card">
+          <div key={testimonial._id} className="testimonial-card">
             <div className="testimonial-header">
               <img
                 className="testimonial-img"

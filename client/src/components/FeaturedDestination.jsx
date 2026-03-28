@@ -4,7 +4,7 @@ import { useAppContext } from "../context/AppContext";
 
 const FeaturedDestination = () => {
   const { rooms, navigate } = useAppContext();
-
+  console.log(rooms);
   return (
     rooms.length > 0 && (
       <section className="featured-destination">
@@ -15,7 +15,7 @@ const FeaturedDestination = () => {
 
         <div className="featured-destination-list">
           {rooms.slice(0, 4).map((room, index) => (
-            <HotelCard key={room.id} room={room} index={index} />
+            <HotelCard key={room._id} room={room} index={index} />
           ))}
         </div>
 

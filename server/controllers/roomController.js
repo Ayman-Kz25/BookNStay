@@ -67,7 +67,7 @@ export const createRoom = async (req, res) => {
 
     // Save room to DB || Create Room
     const room = await Room.create({
-      hotel: hotel.id,
+      hotel: hotel._id,
       type,
       pricePerNight: Number(pricePerNight),
       amenities: JSON.parse(amenities),
@@ -92,7 +92,7 @@ export const getRooms = async (req, res) => {
         path: "hotel",
         populate: {
           path: "owner",
-          select: "image",
+          select: "profile",
         },
       })
       .sort({ createdAt: -1 });
@@ -113,7 +113,7 @@ export const getOwnerRoom = async (req, res) => {
         message: "No Hotel found for this owner",
       });
     }
-    const rooms = await Room.find({ hotel: hotel.id }).populate("hotel");
+    const rooms = await Room.find({ hotel: hotel._id }).populate("hotel");
 
     res.json({ success: true, rooms });
   } catch (error) {
@@ -125,7 +125,7 @@ export const getOwnerRoom = async (req, res) => {
 export const toggleRoomAvailability = async (req, res) => {
   try {
     const { roomId } = req.body;
-    const room = await Room.findOne({roomId});
+    const room = await Room.findById(roomId);
     if (!room) {
       return res
         .status(404)

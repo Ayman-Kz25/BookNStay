@@ -29,12 +29,13 @@ export const AppProvider = ({ children }) => {
         setSearchedCities(data.recentSearchedCities);
       } else {
         //Retry fetching user details after 5 sec
-        // setTimeout(() => {
-        //   fetchUser();
-        // }, 5000);
-        console.log(data.message)
+        setTimeout(() => {
+          fetchUser();
+        }, 5000);
+        // console.log(data.message)
       }
     } catch (error) {
+      console.log(error.message)
       toast.error(error.message);
     }
   };

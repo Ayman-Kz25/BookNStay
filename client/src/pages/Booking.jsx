@@ -41,7 +41,7 @@ const Booking = () => {
           const status = statusStyles[booking.status];
 
           return (
-            <div key={booking.id} className="bk-row">
+            <div key={booking._id} className="bk-row">
               {/* Hotel */}
               <div className="bk-hotel">
                 <img

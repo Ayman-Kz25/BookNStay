@@ -6,7 +6,7 @@ const OfferCard = () => {
     <div className="offer-card-grid">
       {exclusiveOffers.map((item) => (
         <div
-          key={item.id}
+          key={item._id}
           className="offer-card"
           style={{ backgroundImage: `url(${item.img})` }}
         >

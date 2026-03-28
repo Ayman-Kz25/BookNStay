@@ -154,13 +154,13 @@ const Rooms = () => {
         </div>
 
         {filteredRooms.map((room) => (
-          <div key={room.id} className="room-card">
+          <div key={room._id} className="room-card">
             <img
               src={room.imgs[0]}
               alt="hotel-img"
               className="room-img"
               onClick={() => {
-                navigate(`/rooms/${room.id}`);
+                navigate(`/rooms/${room._id}`);
                 scrollTo(0, 0);
               }}
             />
@@ -171,7 +171,7 @@ const Rooms = () => {
               <p
                 className="hotel-name font-playfair"
                 onClick={() => {
-                  navigate(`/rooms/${room.id}`);
+                  navigate(`/rooms/${room._id}`);
                   scrollTo(0, 0);
                 }}
               >
