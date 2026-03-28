@@ -43,6 +43,8 @@ const RadioBtn = ({ label, selected = false, onChange = () => {} }) => {
 };
 
 const Rooms = () => {
+  const [searchParams] = useSearchParams();
+  const destination = searchParams.get('destination');
   const { rooms, navigate, currency } = useAppContext();
 
   const [showFilters, setShowFilters] = useState(false);
@@ -113,6 +115,9 @@ const Rooms = () => {
 
   const filteredRooms = rooms
     .filter((room) => {
+      //filter destination
+      if(destination && room.hotel.city.toLowerCase() !== destination.toLowerCase()) return false;
+
       //Price filter
       if (room.pricePerNight > price) return false;
 

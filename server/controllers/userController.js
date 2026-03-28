@@ -31,7 +31,7 @@ export const storeRecentSearchedCities = async (req, res) => {
   try {
     const { recentSearchedCities } = req.body;
     const { userId } = getAuth(req);
-    const user = await User.findOne({ id: userId });
+    const user = await User.findOne({ userId });
 
     if (user.recentSearchedCities.length < 3) {
       user.recentSearchedCities.push(recentSearchedCities);

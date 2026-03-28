@@ -1,10 +1,41 @@
 import { CalendarMinus2, Search } from "lucide-react";
 import { cities } from "../data/data";
+import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
 
 const BookingForm = () => {
-  return (
-    <form className="booking-form">
+  const [destination, setDestination] = useState("");
+  const { navigate, getToken, axios, setSearchedCities } = useAppContext();
 
+  const onSearch = async (e) => {
+    e.preventDefault();
+
+    //call API to save recent searched cities
+    try {
+      await axios.post(
+        "/api/user/store-recent-search",
+        { recentSearchedCities: destination },
+        {
+          headers: { Authorization: `Bearer ${await getToken()}` },
+        },
+      );
+      //add destination to searched cities max 3  cities
+    setSearchedCities((prev) => {
+      const updatedSearchCities = [...prev, destination];
+      if (updatedSearchCities.length > 3) {
+        updatedSearchCities.shift();
+      }
+      return updatedSearchCities;
+    });
+    } catch (err) {
+      console.log("Search API Error:", err.message);
+    }
+    
+    navigate(`/rooms?destination=${destination}`);
+    
+  };
+  return (
+    <form className="booking-form" onSubmit={onSearch}>
       {/* Destination */}
       <div className="booking-field">
         <div className="booking-label-group">
@@ -18,6 +49,8 @@ const BookingForm = () => {
           type="text"
           className="booking-input"
           placeholder="Type here"
+          onChange={(e) => setDestination(e.target.value)}
+          value={destination}
           required
         />
 
@@ -35,11 +68,7 @@ const BookingForm = () => {
           <label htmlFor="checkIn">Check in</label>
         </div>
 
-        <input
-          id="checkIn"
-          type="date"
-          className="booking-input"
-        />
+        <input id="checkIn" type="date" className="booking-input" />
       </div>
 
       {/* Check Out */}
@@ -49,11 +78,7 @@ const BookingForm = () => {
           <label htmlFor="checkOut">Check out</label>
         </div>
 
-        <input
-          id="checkOut"
-          type="date"
-          className="booking-input"
-        />
+        <input id="checkOut" type="date" className="booking-input" />
       </div>
 
       {/* Guests */}
@@ -74,7 +99,6 @@ const BookingForm = () => {
         <Search size={18} />
         <span>Search</span>
       </button>
-
     </form>
   );
 };
