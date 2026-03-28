@@ -134,14 +134,14 @@ const AddRoom = () => {
             onChange={(e) => setInputs({ ...inputs, type: e.target.value })}
           >
             <option value="">Select Room Type</option>
+            <option>Single BedRoom</option>
+            <option>Double BedRoom</option>
             <option>Standard Room</option>
             <option>Deluxe Room</option>
-            <option>Executive Room</option>
+            <option>Luxury Suite</option>
             <option>Junior Suite</option>
             <option>Executive Suite</option>
             <option>Family Suite</option>
-            <option>Double BedRoom</option>
-            <option>Single BedRoom</option>
             <option>Presidential Suite</option>
           </select>
         </div>

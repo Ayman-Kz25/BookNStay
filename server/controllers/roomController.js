@@ -8,48 +8,64 @@ export const createRoom = async (req, res) => {
     const { type, pricePerNight, amenities } = req.body;
     const { userId } = getAuth(req);
 
+    //Debug Logs
+    // console.log("Files received:", req.files?.map(f=>f.originalname));
+    // console.log('Body:', { type, pricePerNight, amenities: JSON.parse(amenities) });
+
     if (!userId)
-      return res
-        .status(401)
-        .json({ success: false, message: "Not Authenticated" });
+      return res.status(401).json({ success: false, message: "Not Authenticated" });
 
     const hotel = await Hotel.findOne({ owner: userId });
     if (!hotel)
-      return res
-        .status(404)
-        .json({ success: false, message: "No Hotel Found" });
+      return res.status(404).json({ success: false, message: "No Hotel Found" });
 
     if (!req.files || req.files.length === 0) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No images uploaded" });
+      return res.status(400).json({ success: false, message: "No images uploaded" });
+    }
+
+    if(req.files.length > 4){
+      return res.status(400).json({ success: false, message: "Max 4 images allowed" });
     }
 
     // Upload each image to Cloudinary
-    const uploadImgs = req.files.map((file) => {
+    const uploadImgs = req.files.map((file, index) => {
       return new Promise((resolve, reject) => {
         if (!file.buffer || file.buffer.length === 0) {
           return reject(new Error(`Empty file detected: ${file.originalname}`));
         }
 
+        //Debug log
+        // console.log(`Uploading image ${index+1}/${req.files.length}: ${file.originalname}`);
+
         const stream = cloudinary.uploader.upload_stream(
-          { resource_type: "image" },
+          { 
+            resource_type: "image",
+            folder: 'rooms', //Organize in cloudinary
+            transformation: [
+              {width: 1000, height: 667, crop: "limit",}, // optimize size
+              {quality: "auto"}
+            ]
+           },
           (err, result) => {
             if (err) {
-              console.error("Cloudinary Error:", err);
+              console.error(`Cloudinary failed for ${file.originalname}:`, err);
               return reject(err);
             }
+
+            //debug log
+            // console.log(`uploaded: ${result.secure_url}`);
+
             resolve(result.secure_url);
           },
         );
 
-        stream.end(file.buffer); // Pass the actual buffer
+        stream.end(file.buffer);
       });
     });
 
     const imgs = await Promise.all(uploadImgs);
 
-    // Save room to DB
+    // Save room to DB || Create Room
     const room = await Room.create({
       hotel: hotel._id,
       type,
@@ -57,10 +73,13 @@ export const createRoom = async (req, res) => {
       amenities: JSON.parse(amenities),
       imgs,
     });
-
+    
+    //debug log
+    // console.log('Room created:', room._id);
     res.json({ success: true, message: "Room Created Successfully", room });
+    
   } catch (error) {
-    console.error("Create Room Error:", error);
+    // console.error("Create Room Error:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
