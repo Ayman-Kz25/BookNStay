@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { commonData, rooms } from "../data/data";
 import StarRating from "../components/StarRating";
 import {
   Wifi,
@@ -15,31 +14,38 @@ import {
   ConciergeBell,
 } from "lucide-react";
 import BreadCrumbs from "../components/BreadCrumbs";
+import { useAppContext } from "../context/AppContext";
+import { commonData } from "../data/data";
+
+const amenityIcons = {
+  WiFi: Wifi,
+  "Air Conditioning": AirVent,
+  TV: Tv,
+  "Mini Bar": Coffee,
+  Breakfast: Utensils,
+  "Room Service": ConciergeBell,
+  Gym: Dumbbell,
+  "Swimming Pool": Waves,
+  "Mountain View": Mountain,
+  "Lake View": Waves,
+  Balcony: Mountain,
+};
 
 const RoomDetails = () => {
   const { id } = useParams();
+  const { rooms, getToken, axios, navigate } = useAppContext();
   const [room, setRoom] = useState(null);
   const [mainImg, setMainImg] = useState(null);
-
-  const amenityIcons = {
-    WiFi: Wifi,
-    "Air Conditioning": AirVent,
-    TV: Tv,
-    "Mini Bar": Coffee,
-    Breakfast: Utensils,
-    "Room Service": ConciergeBell,
-    Gym: Dumbbell,
-    "Swimming Pool": Waves,
-    "Mountain View": Mountain,
-    "Lake View": Waves,
-    Balcony: Mountain,
-  };
+  const [guests, setGuests] = useState(1);
+  const [isAvailable, setIsAvailable] = useState(false);
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
 
   useEffect(() => {
     const room = rooms.find((room) => room._id === id);
     room && setRoom(room);
     room && setMainImg(room.imgs[0]);
-  }, []);
+  }, [rooms]);
 
   return (
     room && (
@@ -133,7 +139,13 @@ const RoomDetails = () => {
 
             <div className="rd-input-group">
               <label>Guests</label>
-              <input type="number" min={1} max={5} placeholder={1} className="rd-input small" />
+              <input
+                type="number"
+                min={1}
+                max={5}
+                placeholder={1}
+                className="rd-input small"
+              />
             </div>
           </div>
 
@@ -167,16 +179,11 @@ const RoomDetails = () => {
         {/* Owner */}
         <div className="rd-owner">
           <div className="rd-owner-info">
-            <img
-              src={room.hotel.owner.profile}
-              className="rd-owner-img"
-            />
+            <img src={room.ownerProfile} className="rd-owner-img" />
             <div>
-              <p className="rd-owner-name">
-                Hosted by {room.hotel.owner.name}
-              </p>
+              <p className="rd-owner-name">Hosted by {room.ownerName}</p>
               <div className="rd-rating">
-                <StarRating rating={room.hotel.owner.rating} />
+                <StarRating/>
                 <p className="rd-reviews">200+ reviews</p>
               </div>
             </div>

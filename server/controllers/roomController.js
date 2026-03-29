@@ -102,12 +102,15 @@ export const getRooms = async (req, res) => {
     const roomsWithOwner = await Promise.all(
       rooms.map(async (room) => {
         let ownerProfile = null;
+        let ownerName = null;
         if(room.hotel?.owner) {
           const user = await User.findOne({id: room.hotel.owner});
           ownerProfile = user?.profile || null;
+          ownerName = user?.username || null;
         }
         return {
           ...room.toObject(),
+          ownerName,
           ownerProfile,
         };
       })
