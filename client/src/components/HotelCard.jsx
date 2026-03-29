@@ -2,6 +2,7 @@ import { MapPin, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const HotelCard = ({ room, index }) => {
+  const rating = (Math.random()*2+3).toFixed(1);
   return (
     <Link
       to={`/rooms/${room._id}`}
@@ -14,7 +15,7 @@ const HotelCard = ({ room, index }) => {
         className="hotel-card-img"
       />
 
-      {index % 2 === 0 && (
+      {rating > 4 && (
         <p className="hotel-card-badge">Best Seller</p>
       )}
 
@@ -22,7 +23,7 @@ const HotelCard = ({ room, index }) => {
         <div className="hotel-card-header">
           <p className="hotel-card-title font-playfair">{room.hotel.name}</p>
           <div className="hotel-card-rating">
-            <Star color="goldenrod" fill="goldenrod" size={18} /> {room.rating}
+            <Star color="goldenrod" fill="goldenrod" size={18} /> {rating}
           </div>
         </div>
 
@@ -32,11 +33,11 @@ const HotelCard = ({ room, index }) => {
         </div>
 
         <div className="hotel-card-footer">
-          <p>
-            <span className="hotel-card-price">
+          <p className="hotel-card-price">
               PKR {room.pricePerNight.toLocaleString()}
-            </span>
+            <span className="text-sm font-medium">
             /night
+            </span>
           </p>
 
           <button className="hotel-card-btn">

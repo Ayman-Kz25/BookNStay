@@ -50,7 +50,7 @@ const Rooms = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSort, setSelectedSort] = useState("");
 
-  const [price, setPrice] = useState(500000);
+  const [price, setPrice] = useState(60000);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
 
@@ -161,7 +161,7 @@ const Rooms = () => {
     });
 
   const clearFilters = () => {
-    setPrice(500000);
+    setPrice(60000);
     setSelectedAmenities([]);
     setSelectedRoomTypes([]);
     setSelectedSort("");
@@ -284,16 +284,16 @@ const Rooms = () => {
 
               <input
                 type="range"
-                min="20000"
-                max="1000000"
-                step="1000"
+                min="1500"
+                max="60000"
+                step="500"
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 className="range"
               />
 
               <div className="range-labels">
-                <span>{currency} 20,000</span>
+                <span>{currency} 1,500</span>
                 <span>
                   {currency} {price.toLocaleString()}
                 </span>

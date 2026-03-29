@@ -366,7 +366,7 @@
 }
 
 .hotel-card-price {
-  @apply text-xl text-gray-800 font-semibold;
+  @apply text-lg text-gray-800 font-semibold;
 }
 
 .hotel-card-btn {
