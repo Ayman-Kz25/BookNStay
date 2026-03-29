@@ -42,10 +42,58 @@ const RadioBtn = ({ label, selected = false, onChange = () => {} }) => {
   );
 };
 
+const amenityIcons = {
+  WiFi: Wifi,
+  "Air Conditioning": AirVent,
+  TV: Tv,
+  "Mini Bar": Coffee,
+  Breakfast: Utensils,
+  "Room Service": ConciergeBell,
+  Gym: Dumbbell,
+  "Swimming Pool": Waves,
+  "Mountain View": Mountain,
+  "Lake View": Waves,
+  Balcony: Mountain,
+};
+
+const roomTypes = [
+  "Single BedRoom",
+  "Double BedRoom",
+  "Standard Room",
+  "Deluxe Room",
+  "Luxury Suite",
+  "Junior Suite",
+  "Executive Suite",
+  "Family Suite",
+  "Presidential Suite",
+];
+
+const sortOpt = [
+  "Recommended",
+  "Price: Low to High",
+  "Price: High to Low",
+  "Rating: High to Low",
+  "Newest First",
+];
+
+const amenitiesFilter = [
+  "WiFi",
+  "Air Conditioning",
+  "TV",
+  "Mini Bar",
+  "Breakfast",
+  "Room Service",
+  "Gym",
+  "Swimming Pool",
+  "Mountain View",
+  "Lake View",
+  "Balcony",
+];
+
 const Rooms = () => {
+  const { rooms, navigate, currency, addReview, getRoomsReviews } = useAppContext();
   const [searchParams] = useSearchParams();
-  const destination = searchParams.get('destination');
-  const { rooms, navigate, currency } = useAppContext();
+  const destination = searchParams.get("destination");
 
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSort, setSelectedSort] = useState("");
@@ -53,49 +101,6 @@ const Rooms = () => {
   const [price, setPrice] = useState(60000);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
-
-  const amenityIcons = {
-    WiFi: Wifi,
-    "Air Conditioning": AirVent,
-    TV: Tv,
-    "Mini Bar": Coffee,
-    Breakfast: Utensils,
-    "Room Service": ConciergeBell,
-    Gym: Dumbbell,
-    "Swimming Pool": Waves,
-    "Mountain View": Mountain,
-    "Lake View": Waves,
-    Balcony: Mountain,
-  };
-
-  const roomTypes = [
-    "Single BedRoom",
-    "Double BedRoom",
-    "Standard Room",
-    "Deluxe Room",
-    "Luxury Suite",
-    "Junior Suite",
-    "Executive Suite",
-    "Family Suite",
-    "Presidential Suite",
-  ];
-
-  const sortOpt = [
-    "Recommended",
-    "Price: Low to High",
-    "Price: High to Low",
-    "Rating: High to Low",
-    "Newest First",
-  ];
-
-  const amenitiesFilter = [
-    "WiFi",
-    "Breakfast",
-    "Swimming Pool",
-    "Gym",
-    "Parking",
-    "Room Service",
-  ];
 
   const toggleRoomType = (checked, type) => {
     if (checked) {
@@ -116,7 +121,11 @@ const Rooms = () => {
   const filteredRooms = rooms
     .filter((room) => {
       //filter destination
-      if(destination && room.hotel.city.toLowerCase() !== destination.toLowerCase()) return false;
+      if (
+        destination &&
+        room.hotel.city.toLowerCase() !== destination.toLowerCase()
+      )
+        return false;
 
       //Price filter
       if (room.pricePerNight > price) return false;
@@ -217,7 +226,7 @@ const Rooms = () => {
 
                 <div className="rating">
                   <StarRating rating={room.rating} />
-                  <p className="reviews">200+ reviews</p>
+                  <p className="reviews">{room.reviewCount}</p>
                 </div>
 
                 <div className="location">
@@ -251,7 +260,9 @@ const Rooms = () => {
         {/* Filters */}
         <div className="filters">
           <div className="filters-header">
-            <p className="filters-title">FILTERS <span className="text-xs">({activeFiltersCount})</span></p>
+            <p className="filters-title">
+              FILTERS <span className="text-xs">({activeFiltersCount})</span>
+            </p>
 
             <div className="filters-actions">
               <span

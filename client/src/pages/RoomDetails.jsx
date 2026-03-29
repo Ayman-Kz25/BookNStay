@@ -33,19 +33,46 @@ const amenityIcons = {
 
 const RoomDetails = () => {
   const { id } = useParams();
-  const { rooms, getToken, axios, navigate } = useAppContext();
+  const { rooms, getToken, axios, navigate, addReview, getRoomsReviews } =
+    useAppContext();
   const [room, setRoom] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
   const [mainImg, setMainImg] = useState(null);
   const [guests, setGuests] = useState(1);
   const [isAvailable, setIsAvailable] = useState(false);
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
 
+  const handleSubmit = async () => {
+    const res = await addReview(room._id, rating, comment);
+
+    if (res.success) {
+      const updated = await getRoomsReviews(room._id);
+      setReviews(updated.reviews);
+    }
+    setRoom(prev => ({
+      ...prev,
+      rating: updated.averageRating
+    }))
+  };
+
   useEffect(() => {
     const room = rooms.find((room) => room._id === id);
     room && setRoom(room);
     room && setMainImg(room.imgs[0]);
   }, [rooms]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await getRoomsReviews(id);
+      if (res.success) {
+        setReviews(res.reviews);
+      }
+    };
+    fetch();
+  }, [id]);
 
   return (
     room && (
@@ -61,10 +88,21 @@ const RoomDetails = () => {
           <p className="rd-badge font-inter">25% OFF</p>
         </div>
 
-        {/* Rating */}
-        <div className="rd-rating">
-          <StarRating rating={room.rating} />
-          <p className="rd-reviews">200+ reviews</p>
+        {/* Rating & Reviews */}
+        <div className="rd-reviews-list">
+          {/* <h3>Customer Reviews</h3> */}
+          {reviews.length === 0 && (
+            <p className="text-sm font-medium">No reviews yet</p>
+          )}
+          {reviews.map((rev, i) => (
+            <div key={i} className="rd-review">
+              <p>
+                <strong>{rev.userName || "User"}</strong>
+              </p>
+              <StarRating rating={rev.rating} />
+              <p>{rev.comment}</p>
+            </div>
+          ))}
         </div>
 
         {/* Address */}
@@ -176,16 +214,42 @@ const RoomDetails = () => {
           </p>
         </div>
 
+        {/* Add Review */}
+        <div className="rd-review-form">
+          <h3>Add Your Review</h3>
+          <div className="">
+            <label htmlFor="rating" className="mr-3">Ratings:</label>
+          <input
+            type="number"
+            min={1}
+            max={5}
+            id="rating"
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+            placeholder="Rating (1-5)"
+          />
+          </div>
+
+          <textarea
+          id="comment"
+          className="resize-none"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Write your review"
+          ></textarea>
+
+          <button type="button" onClick={handleSubmit}>
+            Submit Review
+          </button>
+        </div>
+
         {/* Owner */}
         <div className="rd-owner">
           <div className="rd-owner-info">
             <img src={room.ownerProfile} className="rd-owner-img" />
             <div>
               <p className="rd-owner-name">Hosted by {room.ownerName}</p>
-              <div className="rd-rating">
-                <StarRating/>
-                <p className="rd-reviews">200+ reviews</p>
-              </div>
+              <div className="rd-rating"></div>
             </div>
           </div>
 

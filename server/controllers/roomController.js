@@ -106,7 +106,7 @@ export const getRooms = async (req, res) => {
         if(room.hotel?.owner) {
           const user = await User.findOne({id: room.hotel.owner});
           ownerProfile = user?.profile || null;
-          ownerName = user?.username || null;
+          ownerName = user?.username || "Host";
         }
         return {
           ...room.toObject(),

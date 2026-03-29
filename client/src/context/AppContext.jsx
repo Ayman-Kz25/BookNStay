@@ -35,7 +35,7 @@ export const AppProvider = ({ children }) => {
         // console.log(data.message)
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       toast.error(error.message);
     }
   };
@@ -46,7 +46,7 @@ export const AppProvider = ({ children }) => {
       if (data.success) {
         setRooms(data.rooms);
       } else {
-        console.log(data.message)
+        console.log(data.message);
         toast.error(data.message);
       }
     } catch (error) {
@@ -54,6 +54,24 @@ export const AppProvider = ({ children }) => {
       toast.error(error.message);
     }
   };
+
+  const addReview = async (roomId, rating, comment) => {
+    const { data } = await axios.post(
+      "/api/review/add",
+      { roomId, rating, comment },
+      {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      },
+    );
+
+    await fetchRooms()
+    return data;
+  };
+
+  const getRoomsReviews = async (roomId) => {
+    const { data } = await axios.get(`/api/review/${roomId}`);
+    return data;
+  }
 
   useEffect(() => {
     if (user) {
@@ -79,7 +97,9 @@ export const AppProvider = ({ children }) => {
     searchedCities,
     setSearchedCities,
     rooms,
-    setRooms
+    setRooms,
+    addReview,
+    getRoomsReviews,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

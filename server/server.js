@@ -32,7 +32,7 @@ app.use('/api/user', userRouter);
 app.use('/api/hotels', hotelRouter);
 app.use('/api/rooms', roomRouter);
 app.use('/api/bookings', bookingRouter);
-app.use('/api/reviews', reviewRouter);
+app.use('/api/review', reviewRouter);
 
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

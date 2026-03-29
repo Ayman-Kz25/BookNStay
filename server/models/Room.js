@@ -11,7 +11,7 @@ const roomSchema = new Schema(
     imgs: [{ type: String }],
     isAvailable: { type: Boolean, default: true },
     rating: {type: Number, default: 0},
-    reviewsCount: {type: Number, default: 0},
+    reviewCount: {type: Number, default: 0},
   },
   { timestamps: true },
 );
