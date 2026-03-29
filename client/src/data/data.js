@@ -20,6 +20,25 @@ export const cities = [
   "Chitral"
 ];
 
+//Amenities
+const amenities = [
+  "WiFi",
+  "Air Conditioning",
+  "TV",
+  "Mini Bar",
+  "Breakfast",
+  "Room Service",
+  "Gym",
+  "Swimming Pool",
+  "Mountain View",
+  "Lake View",
+  "City View",
+  "Garden View",
+  "Balcony",
+  "Terrace",
+  "Free Parking",
+]
+
 
 // Hotels
 export const hotels = [

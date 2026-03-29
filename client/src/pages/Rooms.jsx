@@ -1,8 +1,8 @@
 import StarRating from "../components/StarRating";
-import { MapPin } from "lucide-react";
 import {
   Wifi,
   AirVent,
+  MapPin,
   Tv,
   Coffee,
   Dumbbell,
@@ -10,6 +10,18 @@ import {
   Mountain,
   Utensils,
   ConciergeBell,
+  Building,
+  Trees,
+  Sun,
+  Car,
+  ShieldCheck,
+  ParkingCircle,
+  Bath,
+  Refrigerator,
+  Wind,
+  DoorOpen,
+  Snowflake,
+  Martini,
 } from "lucide-react";
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
@@ -44,16 +56,22 @@ const RadioBtn = ({ label, selected = false, onChange = () => {} }) => {
 
 const amenityIcons = {
   WiFi: Wifi,
-  "Air Conditioning": AirVent,
+  "Air Conditioning": Snowflake,
   TV: Tv,
-  "Mini Bar": Coffee,
+  "Mini Bar": Martini,
   Breakfast: Utensils,
   "Room Service": ConciergeBell,
   Gym: Dumbbell,
   "Swimming Pool": Waves,
+
   "Mountain View": Mountain,
   "Lake View": Waves,
-  Balcony: Mountain,
+  "City View": Building,
+  "Garden View": Trees,
+
+  Balcony: DoorOpen,
+  Terrace: Sun,
+  "Free Parking": Car,
 };
 
 const roomTypes = [
@@ -91,7 +109,8 @@ const amenitiesFilter = [
 ];
 
 const Rooms = () => {
-  const { rooms, navigate, currency, addReview, getRoomsReviews } = useAppContext();
+  const { rooms, navigate, currency, addReview, getRoomsReviews } =
+    useAppContext();
   const [searchParams] = useSearchParams();
   const destination = searchParams.get("destination");
 
