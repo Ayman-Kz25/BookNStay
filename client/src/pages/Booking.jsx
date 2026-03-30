@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { MapPin, Users } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
 import { useAppContext } from "../context/AppContext";
-import toast from "react-hot-toast";
 
 const statusStyles = {
   confirmed: {
@@ -20,7 +19,7 @@ const statusStyles = {
 };
 
 const Booking = () => {
-  const { axios, getToken, user, currency } = useAppContext();
+  const { axios, getToken, toast, user, currency } = useAppContext();
   const [bookings, setBookings] = useState([]);
 
   const fetchUserBookings = async () => {

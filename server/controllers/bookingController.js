@@ -1,8 +1,10 @@
+import "dotenv/config";
+import transporter from "../configs/nodemailer.js";
 import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 import User from "../models/User.js";
-import { getAuth } from "@clerk/express";
+import { clerkClient, getAuth } from "@clerk/express";
 
 // Function to check room availability
 export const checkAvailability = async (checkInDate, checkOutDate, room) => {
@@ -75,7 +77,7 @@ export const createBooking = async (req, res) => {
       });
     }
 
-    await Booking.create({
+    const booking = await Booking.create({
       user: user._id,
       room,
       hotel: rooms.hotel._id,
@@ -85,13 +87,41 @@ export const createBooking = async (req, res) => {
       totalPrice,
     });
 
+    const mailBody = `
+          <h2>Your Booking Details</h2>
+          <p>Dear ${req.user.username},</p>
+          <p>
+            Thank you for your booking! Here are your booking details:
+          </p>
+          <ul>
+            <li><strong>Booking ID:</strong> ${booking._id}</li>
+            <li><strong>Hotel Name:</strong> ${rooms.hotel.name}</li>
+            <li><strong>Location:</strong> ${rooms.hotel.address}</li>
+            <li><strong>Date:</strong> ${booking.checkInDate.toDateString()}</li>
+            <li><strong>Total Amount:</strong>${process.env.currency || "PKR"} ${booking.totalPrice} /night</li>
+          </ul>
+        <p>We look forward to welcome you!</p>
+        <p>If you need to make any changes, feel free to contact us.</p>
+      `;
 
-    res.json({
+      const clerkUser = await clerkClient.users.getUser(userId);
+      const email = clerkUser.emailAddresses[0].emailAddress;
+    console.log("User Email:", email);
+    if (email) {
+      await transporter.sendMail({
+        from: process.env.SENDER_EMAIL, // sender address
+        to: email, // list of recipients
+        subject: "Hotel Booking Details", // subject line
+        html: mailBody,
+      });
+    }
+
+    return res.json({
       success: true,
       message: "Booking Created Successfully",
     });
   } catch (error) {
-    console.log(error.message);
+    console.log("Booking Error:", error.message);
     res.json({ success: false, message: "Failed to Create Booking" });
   }
 };
@@ -103,14 +133,14 @@ export const getUserBookings = async (req, res) => {
     const { userId } = getAuth(req);
 
     const user = await User.findOne({ id: userId });
-    if(!user){
+    if (!user) {
       return res.json({ success: false, message: "User Not Found" });
     }
 
     // console.log("Clerk Id:", userId);
     // console.log("Mongo User:", user);
 
-    const bookings = await Booking.find({user: user._id})
+    const bookings = await Booking.find({ user: user._id })
       .populate("room hotel")
       .sort({ createdAt: -1 });
 
@@ -118,7 +148,6 @@ export const getUserBookings = async (req, res) => {
       success: true,
       bookings,
     });
-
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: "Failed to fetch Bookings" });
