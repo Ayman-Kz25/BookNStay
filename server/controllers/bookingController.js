@@ -107,13 +107,15 @@ export const createBooking = async (req, res) => {
       const clerkUser = await clerkClient.users.getUser(userId);
       const email = clerkUser.emailAddresses[0].emailAddress;
     console.log("User Email:", email);
-    if (email) {
+    try {
       await transporter.sendMail({
         from: process.env.SENDER_EMAIL, // sender address
         to: email, // list of recipients
         subject: "Hotel Booking Details", // subject line
         html: mailBody,
       });
+    } catch(err) {
+      console.log("Email Err:", err.message);
     }
 
     return res.json({
