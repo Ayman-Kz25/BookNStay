@@ -96,7 +96,12 @@ const amenitiesFilter = [
   "Swimming Pool",
   "Mountain View",
   "Lake View",
+  "City View",
+  "Garden View",
   "Balcony",
+  "Terrace",
+  "Free Parking",
+  "Barbecue"
 ];
 
 const Rooms = () => {
