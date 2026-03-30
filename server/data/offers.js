@@ -40,22 +40,6 @@ export const offers = [
     expiryDate: "20 August 2026"
   },
   {
-    title: "Heritage Stay",
-    discount: "22% OFF",
-    city: "Peshawar",
-    description: "Experience the historic charm of Peshawar with boutique heritage hotels.",
-    img: "https://res.cloudinary.com/dhjf7rok5/image/upload/v1774875113/rooms/exterior4_mzravc.jpg",
-    expiryDate: "18 July 2026"
-  },
-  {
-    title: "Desert Luxury Deal",
-    discount: "27% OFF",
-    city: "Quetta",
-    description: "Enjoy premium hospitality and scenic desert landscapes in Quetta.",
-    img: "https://res.cloudinary.com/dhjf7rok5/image/upload/v1774875173/rooms/quetta-exterior_jctbr8.jpg",
-    expiryDate: "12 August 2026"
-  },
-  {
     title: "Cultural Escape",
     discount: "24% OFF",
     city: "Multan",
@@ -111,12 +95,4 @@ export const offers = [
     img: "https://res.cloudinary.com/dhjf7rok5/image/upload/v1774875716/rooms/night-view_sa0qze.jpg",
     expiryDate: "25 August 2026"
   },
-  {
-    title: "Explorer Package",
-    discount: "23% OFF",
-    city: "Chitral",
-    description: "Adventure stays near Kalash Valley with cultural tours included.",
-    img: "https://res.cloudinary.com/dhjf7rok5/image/upload/v1774875835/rooms/maxresdefault_cqovcx.jpg",
-    expiryDate: "05 September 2026"
-  }
 ];

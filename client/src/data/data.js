@@ -12,12 +12,9 @@ export const cities = [
   "Gilgit",
   "Naran",
   "Kaghan",
-  "Peshawar",
-  "Quetta",
   "Multan",
   "Faisalabad",
   "Swat",
-  "Chitral"
 ];
 
 //Amenities
