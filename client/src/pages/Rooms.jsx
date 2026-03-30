@@ -316,7 +316,7 @@ const Rooms = () => {
 
               <input
                 type="range"
-                min="1500"
+                min="10000"
                 max="500000"
                 step="1000"
                 value={price}
@@ -325,7 +325,7 @@ const Rooms = () => {
               />
 
               <div className="range-labels">
-                <span>{currency} 1,500</span>
+                <span>{currency} 10,000</span>
                 <span>
                   {currency} {price.toLocaleString()}
                 </span>

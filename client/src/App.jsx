@@ -12,6 +12,7 @@ import AddRoom from "./pages/owner/AddRoom";
 import RoomsList from "./pages/owner/RoomsList";
 import { Toaster } from "react-hot-toast";
 import { useAppContext } from "./context/AppContext.jsx";
+import About from "./pages/About.jsx";
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner");
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="add-room" element={<AddRoom />} />
             <Route path="rooms-list" element={<RoomsList />} />
           </Route>
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
       <Footer />
