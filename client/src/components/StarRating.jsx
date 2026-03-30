@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 
 const StarRating = ({ rating = 5 }) => {
   return (
-    <>
+    <div className="flex items-start">
       {Array(5)
         .fill("")
         .map((_, index) =>
@@ -12,7 +12,7 @@ const StarRating = ({ rating = 5 }) => {
             <Star key={index} size={18} color="goldenrod" />
           ),
         )}
-    </>
+    </div>
   );
 };
 export default StarRating;

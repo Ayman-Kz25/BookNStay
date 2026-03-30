@@ -88,23 +88,11 @@ const RoomDetails = () => {
           <p className="rd-badge font-inter">25% OFF</p>
         </div>
 
-        {/* Rating & Reviews */}
-        <div className="rd-reviews-list">
-          {/* <h3>Customer Reviews</h3> */}
-          {reviews.length === 0 && (
-            <p className="text-sm font-medium">No reviews yet</p>
-          )}
-          {reviews.map((rev, i) => (
-            <div key={i} className="rd-review">
-              <p>
-                <strong>{rev.userName || "User"}</strong>
-              </p>
-              <StarRating rating={rev.rating} />
-              <p>{rev.comment}</p>
-            </div>
-          ))}
+        <div className="my-2 flex items-center gap-2">
+          <StarRating rating={room.rating} />
+          <span>({room.rating})</span>
         </div>
-
+        
         {/* Address */}
         <div className="rd-location">
           <MapPin size={18} />
@@ -212,6 +200,23 @@ const RoomDetails = () => {
             Experience comfort, elegance, and convenience in our thoughtfully
             designed hotel rooms...
           </p>
+        </div>
+
+        {/* Rating & Reviews */}
+        <div className="rd-reviews-list">
+          <h3 className="text-xl font-medium">Customer Reviews</h3>
+          {reviews.length === 0 && (
+            <p className="text-sm font-medium">No reviews yet</p>
+          )}
+          {reviews.map((rev, i) => (
+            <div key={i} className="rd-review">
+              <p>
+                <strong>{rev.userName || "User"}</strong>
+              </p>
+              <StarRating rating={rev.rating} />
+              <p>{rev.comment}</p>
+            </div>
+          ))}
         </div>
 
         {/* Add Review */}

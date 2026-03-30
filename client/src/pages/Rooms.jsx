@@ -22,6 +22,9 @@ import {
   DoorOpen,
   Snowflake,
   Martini,
+  WavesLadder,
+  TreeDeciduous,
+  Hamburger,
 } from "lucide-react";
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
@@ -60,31 +63,19 @@ const amenityIcons = {
   TV: Tv,
   "Mini Bar": Martini,
   Breakfast: Utensils,
+  Barbecue: Hamburger,
   "Room Service": ConciergeBell,
   Gym: Dumbbell,
-  "Swimming Pool": Waves,
-
+  "Swimming Pool": WavesLadder,
   "Mountain View": Mountain,
+  "River View": Waves,
   "Lake View": Waves,
   "City View": Building,
   "Garden View": Trees,
-
-  Balcony: DoorOpen,
+  Balcony: TreeDeciduous,
   Terrace: Sun,
   "Free Parking": Car,
 };
-
-const roomTypes = [
-  "Single BedRoom",
-  "Double BedRoom",
-  "Standard Room",
-  "Deluxe Room",
-  "Luxury Suite",
-  "Junior Suite",
-  "Executive Suite",
-  "Family Suite",
-  "Presidential Suite",
-];
 
 const sortOpt = [
   "Recommended",
@@ -117,15 +108,19 @@ const Rooms = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSort, setSelectedSort] = useState("");
 
-  const [price, setPrice] = useState(60000);
+  const [price, setPrice] = useState(500000);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
+
+  const roomTypes = [...new Set(rooms.map((room) => room.type))];
 
   const toggleRoomType = (checked, type) => {
     if (checked) {
       setSelectedRoomTypes([...selectedRoomTypes, type]);
     } else {
-      setSelectedRoomTypes(selectedRoomTypes.filter((t) => t !== type));
+      setSelectedRoomTypes(
+        selectedRoomTypes.filter((t) => t.toLowerCase() !== type.toLowerCase()),
+      );
     }
   };
 
@@ -152,7 +147,9 @@ const Rooms = () => {
       //Roomtype filter
       if (
         selectedRoomTypes.length > 0 &&
-        !selectedRoomTypes.includes(room.type)
+        !selectedRoomTypes.some(
+          (type) => type.toLowerCase() === room.type.toLowerCase(),
+        )
       ) {
         return false;
       }
@@ -189,7 +186,7 @@ const Rooms = () => {
     });
 
   const clearFilters = () => {
-    setPrice(60000);
+    setPrice(500000);
     setSelectedAmenities([]);
     setSelectedRoomTypes([]);
     setSelectedSort("");
@@ -315,8 +312,8 @@ const Rooms = () => {
               <input
                 type="range"
                 min="1500"
-                max="60000"
-                step="500"
+                max="500000"
+                step="1000"
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 className="range"

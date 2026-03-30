@@ -37,6 +37,7 @@ const amenities = [
   "Balcony",
   "Terrace",
   "Free Parking",
+  "Barbecue"
 ]
 
 
