@@ -1,11 +1,11 @@
 import { MoveRight } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 
-const OfferCard = ({limit}) => {
-  const {offers} = useAppContext();
+const OfferCard = ({ limit }) => {
+  const { offers, navigate } = useAppContext();
   let displayOffers = offers;
 
-  if(limit) {
+  if (limit) {
     displayOffers = [...offers].sort(() => 0.5 - Math.random()).slice(0, limit);
   }
 
@@ -13,7 +13,7 @@ const OfferCard = ({limit}) => {
     <div className="offer-card-grid">
       {displayOffers.map((item) => (
         <div
-          key={item.id}
+          key={item._id || item.id}
           className="offer-card"
           style={{ backgroundImage: `url(${item.img})` }}
         >
@@ -26,7 +26,13 @@ const OfferCard = ({limit}) => {
             <p className="offer-card-description">{item.description}</p>
             <p className="offer-card-expiry">Expires {item.expiryDate}</p>
 
-            <button className="offer-card-btn group">
+            <button
+              className="offer-card-btn group"
+              onClick={() => {
+                navigate(`/offers/${item._id || item.id}`);
+                scrollTo(0, 0);
+              }}
+            >
               View Offers
               <MoveRight size={18} className="offer-card-btn-icon" />
             </button>

@@ -1,8 +1,9 @@
 import express from 'express'
-import { getOffers } from '../controllers/offerController.js';
+import { getOfferById, getOffers } from '../controllers/offerController.js';
 
 const offerRouter = express.Router();
 
 offerRouter.get('/', getOffers);
+offerRouter.get('/:id', getOfferById);
 
 export default offerRouter

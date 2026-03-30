@@ -81,6 +81,11 @@ export const AppProvider = ({ children }) => {
     return data;
   }
 
+  const getOfferById = async (id) => {
+    const {data} = await axios.get(`/api/offers/${id}`);
+    return data;
+  }
+
   useEffect(() => {
     if (user) {
       fetchUser();
@@ -114,6 +119,7 @@ export const AppProvider = ({ children }) => {
     addReview,
     getRoomsReviews,
     offers,
+    getOfferById,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
