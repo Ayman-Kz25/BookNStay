@@ -200,7 +200,7 @@
 }
 
 .section-title-heading {
-  @apply text-4xl md:text-[40px];
+  @apply text-4xl md:text-[40px] font-medium;
 }
 
 .section-title-subtitle {

@@ -1,4 +1,6 @@
+import { BadgeCent, Building, Building2, Hotel, Map, MapPin, Search, Star, Zap } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
+import Stats from "../components/Stats";
 
 const About = () => {
   return (
@@ -22,7 +24,7 @@ const About = () => {
         />
 
         <div>
-          <h2 className="text-3xl font-semibold">Discover Amazing Hotels</h2>
+          <h2 className="text-2xl font-medium font-outfit">Discover Amazing Hotels</h2>
 
           <p className="text-slate-500 mt-3">
             Our platform connects travelers with the best hotels, resorts, and
@@ -33,8 +35,8 @@ const About = () => {
 
           <div className="flex flex-col gap-8 mt-8">
             <div className="flex gap-4">
-              <div className="size-10 flex items-center justify-center bg-indigo-50 border border-indigo-200 rounded">
-                🏨
+              <div className="size-10 flex items-center justify-center bg-[var(--secondary)]/10 border border-[var(--secondary)]/50 rounded">
+                <Hotel size={20} className="text-[var(--secondary)]" />
               </div>
               <div>
                 <h3 className="font-medium">Wide Selection of Hotels</h3>
@@ -45,8 +47,8 @@ const About = () => {
             </div>
 
             <div className="flex gap-4">
-              <div className="size-10 flex items-center justify-center bg-indigo-50 border border-indigo-200 rounded">
-                🔎
+              <div className="size-10 flex items-center justify-center bg-[var(--secondary)]/10 border border-[var(--secondary)]/50 rounded">
+                <Search size={20} className="text-[var(--secondary)]" />
               </div>
               <div>
                 <h3 className="font-medium">Easy Search & Filters</h3>
@@ -57,8 +59,8 @@ const About = () => {
             </div>
 
             <div className="flex gap-4">
-              <div className="size-10 flex items-center justify-center bg-indigo-50 border border-indigo-200 rounded">
-                ⭐
+              <div className="size-10 flex items-center justify-center bg-[var(--secondary)]/10 border border-[var(--secondary)]/50 rounded">
+                <Star size={20} className="text-[var(--secondary)]" />
               </div>
               <div>
                 <h3 className="font-medium">Real Customer Reviews</h3>
@@ -90,8 +92,8 @@ const About = () => {
 
           <div className="flex flex-col gap-8 mt-8">
             <div className="flex gap-4">
-              <div className="size-10 flex items-center justify-center bg-indigo-50 border border-indigo-200 rounded">
-                🗺
+              <div className="size-10 flex items-center justify-center bg-gray-100 border border-[var(--primary)]/50 rounded-xl">
+                <MapPin size={20} className="text-[var(--primary)]" />
               </div>
               <div>
                 <h3 className="font-medium">Popular Destinations</h3>
@@ -102,8 +104,8 @@ const About = () => {
             </div>
 
             <div className="flex gap-4">
-              <div className="size-10 flex items-center justify-center bg-indigo-50 border border-indigo-200 rounded">
-                💰
+              <div className="size-10 flex items-center justify-center bg-gray-100 border border-[var(--primary)]/50 rounded-xl">
+                <BadgeCent size={20} className="text-[var(--primary)]" />
               </div>
               <div>
                 <h3 className="font-medium">Affordable Options</h3>
@@ -114,8 +116,8 @@ const About = () => {
             </div>
 
             <div className="flex gap-4">
-              <div className="size-10 flex items-center justify-center bg-indigo-50 border border-indigo-200 rounded">
-                ⚡
+              <div className="size-10 flex items-center justify-center bg-gray-100 border border-[var(--primary)]/50 rounded-xl">
+                <Zap size={20} className="text-[var(--primary)]" />
               </div>
               <div>
                 <h3 className="font-medium">Fast & Simple Booking</h3>
@@ -130,24 +132,24 @@ const About = () => {
 
       {/* Stats Section */}
       <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-24">
-        <div>
+        <div className="bg-[var(--secondary)] p-5 rounded-lg text-gray-50">
           <h3 className="text-3xl font-semibold">10+</h3>
-          <p className="text-slate-500 text-sm mt-1">Cities</p>
+          <p className="text-gray-300 text-sm mt-1">Cities</p>
         </div>
 
-        <div>
+        <div className="bg-[var(--secondary)] p-5 rounded-lg text-gray-50">
           <h3 className="text-3xl font-semibold">30+</h3>
-          <p className="text-slate-500 text-sm mt-1">Hotels</p>
+          <p className="text-gray-300 text-sm mt-1">Hotels</p>
         </div>
 
-        <div>
+        <div className="bg-[var(--secondary)] p-5 rounded-lg text-gray-50">
           <h3 className="text-3xl font-semibold">80+</h3>
-          <p className="text-slate-500 text-sm mt-1">Rooms</p>
+          <p className="text-gray-300 text-sm mt-1">Rooms</p>
         </div>
 
-        <div>
+        <div className="bg-[var(--secondary)] p-5 rounded-lg text-gray-50">
           <h3 className="text-3xl font-semibold">100+</h3>
-          <p className="text-slate-500 text-sm mt-1">Happy Guests</p>
+          <p className="text-gray-300 text-sm mt-1">Happy Guests</p>
         </div>
       </div>
     </div>
