@@ -1,10 +1,17 @@
 import { MoveRight } from "lucide-react";
-import { exclusiveOffers } from "../data/data";
+import { useAppContext } from "../context/AppContext";
 
-const OfferCard = () => {
+const OfferCard = ({limit}) => {
+  const {offers} = useAppContext();
+  let displayOffers = offers;
+
+  if(limit) {
+    displayOffers = [...offers].sort(() => 0.5 - Math.random()).slice(0, limit);
+  }
+
   return (
     <div className="offer-card-grid">
-      {exclusiveOffers.map((item) => (
+      {displayOffers.map((item) => (
         <div
           key={item.id}
           className="offer-card"

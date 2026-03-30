@@ -18,6 +18,7 @@ export const AppProvider = ({ children }) => {
   const [showHotelReg, setShowHotelReg] = useState(false);
   const [searchedCities, setSearchedCities] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [offers, setOffers] = useState([]);
 
   const fetchUser = async () => {
     try {
@@ -55,6 +56,13 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const fetchOffers = async () => {
+    const {data} = await axios.get('/api/offers');
+    if(data.success){
+      setOffers(data.offers);
+    }
+  };
+
   const addReview = async (roomId, rating, comment) => {
     const { data } = await axios.post(
       "/api/review/add",
@@ -82,6 +90,11 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     fetchRooms();
   }, []);
+  
+  useEffect(()=>{
+    fetchOffers();
+  }, [])
+
 
   const value = {
     currency,
@@ -100,6 +113,7 @@ export const AppProvider = ({ children }) => {
     setRooms,
     addReview,
     getRoomsReviews,
+    offers,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
