@@ -10,6 +10,7 @@ import connectCloudinary from "./configs/cloudinary.js";
 import roomRouter from "./routes/roomRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 import reviewRouter from "./routes/reviewRoutes.js";
+import offerRouter from "./routes/offerRoutes.js";
 
 
 connectDB();
@@ -33,6 +34,7 @@ app.use('/api/hotels', hotelRouter);
 app.use('/api/rooms', roomRouter);
 app.use('/api/bookings', bookingRouter);
 app.use('/api/review', reviewRouter);
+app.use('/api/offers', offerRouter);
 
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
