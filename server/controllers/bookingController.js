@@ -2,15 +2,15 @@ import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 import User from "../models/User.js";
-import {getAuth} from '@clerk/express'
+import { getAuth } from "@clerk/express";
 
 // Function to check room availability
 export const checkAvailability = async (checkInDate, checkOutDate, room) => {
   try {
     const bookings = await Booking.find({
-      room,
       checkInDate: { $lte: checkOutDate },
       checkOutDate: { $gte: checkInDate },
+      room,
     });
 
     const isAvailable = bookings.length === 0;
@@ -26,11 +26,11 @@ export const checkAvailabilityAPI = async (req, res) => {
   try {
     const { room, checkInDate, checkOutDate } = req.body;
 
-    const isAvailable = await checkAvailability({
-      room,
+    const isAvailable = await checkAvailability(
       checkInDate,
       checkOutDate,
-    });
+      room,
+    );
 
     res.json({ success: true, isAvailable });
   } catch (error) {
@@ -47,18 +47,18 @@ export const createBooking = async (req, res) => {
     const { userId } = getAuth(req);
     const user = await User.findOne({ id: userId });
     //check availability before booking
-    const isAvailable = await checkAvailability({
-      room,
+    const isAvailable = await checkAvailability(
       checkInDate,
       checkOutDate,
-    });
+      room,
+    );
 
     if (!isAvailable) {
       return res.json({ success: false, message: "Room Not Available" });
     }
 
     // Get totalPrice for Room
-    const rooms = await Room.findOne({ room }).populate("hotel");
+    const rooms = await Room.findById(room).populate("hotel");
     let totalPrice = rooms.pricePerNight;
 
     //calculate totalPrice based on nights
@@ -68,15 +68,23 @@ export const createBooking = async (req, res) => {
     const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
     totalPrice *= nights;
 
-    const booking = await Booking.create({
-      user,
-      rooms,
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User Not found",
+      });
+    }
+
+    await Booking.create({
+      user: user._id,
+      room,
       hotel: rooms.hotel._id,
       guests: +guests,
       checkInDate,
       checkOutDate,
       totalPrice,
     });
+
 
     res.json({
       success: true,
@@ -93,8 +101,16 @@ export const createBooking = async (req, res) => {
 export const getUserBookings = async (req, res) => {
   try {
     const { userId } = getAuth(req);
-    const user = await User.findOne({ userId });
-    const bookings = await Booking.find({ user })
+
+    const user = await User.findOne({ id: userId });
+    if(!user){
+      return res.json({ success: false, message: "User Not Found" });
+    }
+
+    // console.log("Clerk Id:", userId);
+    // console.log("Mongo User:", user);
+
+    const bookings = await Booking.find({user: user._id})
       .populate("room hotel")
       .sort({ createdAt: -1 });
 
@@ -102,6 +118,7 @@ export const getUserBookings = async (req, res) => {
       success: true,
       bookings,
     });
+
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: "Failed to fetch Bookings" });

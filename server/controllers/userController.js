@@ -46,3 +46,30 @@ export const storeRecentSearchedCities = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const syncUser = async (req, res) => {
+  try {
+    const {userId} = getAuth(req);
+
+    const {id, username, email, profile} = req.body;
+
+    let user = await User.findOne({id});
+
+    if(!user){
+      user = await User.create({
+        id,
+        username,
+        email,
+        profile,
+        role: "user"
+      })
+    }
+
+    res.json({
+      success: true
+    });
+
+  } catch (error) {
+    res.json({success: false, message: error.message});
+  }
+}

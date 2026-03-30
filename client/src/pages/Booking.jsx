@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { bookingsData } from "../data/data";
+import { useEffect, useState } from "react";
 import { MapPin, Users } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const statusStyles = {
   confirmed: {
@@ -19,14 +20,37 @@ const statusStyles = {
 };
 
 const Booking = () => {
-  const [bookings, setBookings] = useState(bookingsData);
+  const { axios, getToken, user, currency } = useAppContext();
+  const [bookings, setBookings] = useState([]);
+
+  const fetchUserBookings = async () => {
+    try {
+      const { data } = await axios.get("/api/bookings/user", {
+        headers: { Authorization: `Bearer ${await getToken()}` },
+      });
+
+      if (data.success) {
+        setBookings(data.bookings);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchUserBookings();
+    }
+  }, [user]);
 
   return (
     <div className="bk-container">
-      <SectionTitle 
-      title="My Bookings"
-      subtitle="View, manage, and track all your hotel bookings with ease"
-      align="left"
+      <SectionTitle
+        title="My Bookings"
+        subtitle="View, manage, and track all your hotel bookings with ease"
+        align="left"
       />
 
       <div className="bk-table">
@@ -44,14 +68,11 @@ const Booking = () => {
             <div key={booking._id} className="bk-row">
               {/* Hotel */}
               <div className="bk-hotel">
-                <img
-                  src={booking.room.imgs[0]}
-                  className="bk-img"
-                />
+                <img src={booking.room.imgs[0]} className="bk-img" />
 
                 <div className="bk-info">
                   <p className="bk-hotel-name font-playfair">
-                    {booking.room.hotel.name}
+                    {booking.hotel.name}
                     <span className="bk-room-type font-inter">
                       ({booking.room.type})
                     </span>
@@ -59,16 +80,16 @@ const Booking = () => {
 
                   <div className="bk-meta">
                     <MapPin size={16} />
-                    <span>{booking.room.hotel.address}</span>
+                    <span>{booking.hotel.address}</span>
                   </div>
 
                   <div className="bk-meta">
                     <Users size={16} />
-                    <span>Guests: {booking.guest}</span>
+                    <span>Guests: {booking.guests}</span>
                   </div>
 
                   <p className="bk-total">
-                    Total: Rs.{booking.totalPrice.toLocaleString()}
+                    Total: {currency} {booking.totalPrice.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -78,14 +99,14 @@ const Booking = () => {
                 <div>
                   <p>Check-In:</p>
                   <p className="bk-date-text">
-                    {new Date(booking.checkIn).toDateString()}
+                    {new Date(booking.checkInDate).toDateString()}
                   </p>
                 </div>
 
                 <div>
                   <p>Check-Out:</p>
                   <p className="bk-date-text">
-                    {new Date(booking.checkOut).toDateString()}
+                    {new Date(booking.checkOutDate).toDateString()}
                   </p>
                 </div>
               </div>
@@ -100,9 +121,7 @@ const Booking = () => {
                 </div>
 
                 {booking.status === "pending" && (
-                  <button className="bk-pay-btn">
-                    Pay Now
-                  </button>
+                  <button className="bk-pay-btn">Pay Now</button>
                 )}
               </div>
             </div>

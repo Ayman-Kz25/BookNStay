@@ -16,6 +16,7 @@ import {
 import BreadCrumbs from "../components/BreadCrumbs";
 import { useAppContext } from "../context/AppContext";
 import { commonData } from "../data/data";
+import toast from "react-hot-toast";
 
 const amenityIcons = {
   WiFi: Wifi,
@@ -33,8 +34,14 @@ const amenityIcons = {
 
 const RoomDetails = () => {
   const { id } = useParams();
-  const { rooms, getToken, axios, navigate, addReview, getRoomsReviews } =
-    useAppContext();
+  const {
+    rooms,
+    getToken,
+    axios,
+    navigate,
+    addReview,
+    getRoomsReviews,
+  } = useAppContext();
   const [room, setRoom] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
@@ -45,17 +52,83 @@ const RoomDetails = () => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
 
+  //function to handle Review form submission
   const handleSubmit = async () => {
     const res = await addReview(room._id, rating, comment);
 
     if (res.success) {
       const updated = await getRoomsReviews(room._id);
       setReviews(updated.reviews);
+      setRoom((prev) => ({
+        ...prev,
+        rating: updated.averageRating,
+      }));
     }
-    setRoom(prev => ({
-      ...prev,
-      rating: updated.averageRating
-    }))
+  };
+
+  //check if the room is available
+  const checkAvailability = async () => {
+    try {
+
+      //check is Check-In Date is greater than Check-Out Date
+      if (checkInDate >= checkOutDate) {
+        toast.error("Check-In Date should be less than Check-Out Date");
+        return;
+      }
+
+      const { data } = await axios.post("/api/bookings/check-availability", {
+        room: id,
+        checkInDate,
+        checkOutDate,
+      });
+
+      if (data.success) {
+        if (data.isAvailable) {
+          setIsAvailable(true);
+          toast.success("Room is Available");
+        } else {
+          setIsAvailable(false);
+          toast.error("Room is not Available");
+        }
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  //function to check room availability and book the room
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+
+      if (!isAvailable) {
+        return checkAvailability();
+      } else {
+        const { data } = await axios.post(
+          "/api/bookings/book",
+          {
+            room: id,
+            checkInDate,
+            checkOutDate,
+            guests,
+            paymentMethod: "Pay At Hotel",
+          },
+          { headers: { Authorization: `Bearer ${await getToken()}` } },
+        );
+
+        if (data.success) {
+          toast.success(data.message);
+          navigate("/my-bookings");
+          scrollTo(0, 0);
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -92,7 +165,7 @@ const RoomDetails = () => {
           <StarRating rating={room.rating} />
           <span>({room.rating})</span>
         </div>
-        
+
         {/* Address */}
         <div className="rd-location">
           <MapPin size={18} />
@@ -147,18 +220,29 @@ const RoomDetails = () => {
         </div>
 
         {/* Form */}
-        <form className="rd-form">
+        <form className="rd-form" onSubmit={onSubmitHandler}>
           <div className="rd-form-left">
             <div className="rd-input-group">
               <label>Check-In</label>
-              <input type="date" className="rd-input" />
+              <input
+                type="date"
+                className="rd-input"
+                onChange={(e) => setCheckInDate(e.target.value)}
+                min={new Date().toISOString().split("T")[0]}
+              />
             </div>
 
             <div className="rd-divider"></div>
 
             <div className="rd-input-group">
               <label>Check-Out</label>
-              <input type="date" className="rd-input" />
+              <input
+                type="date"
+                className="rd-input"
+                onChange={(e) => setCheckOutDate(e.target.value)}
+                min={checkInDate}
+                disabled={!checkInDate}
+              />
             </div>
 
             <div className="rd-divider"></div>
@@ -171,11 +255,15 @@ const RoomDetails = () => {
                 max={5}
                 placeholder={1}
                 className="rd-input small"
+                onChange={(e) => setGuests(e.target.value)}
+                value={guests}
               />
             </div>
           </div>
 
-          <button className="rd-btn">Check Availability</button>
+          <button className="rd-btn">
+            {isAvailable ? "Book Now" : "Check Availability"}
+          </button>
         </form>
 
         {/* Specs */}
@@ -223,21 +311,23 @@ const RoomDetails = () => {
         <div className="rd-review-form">
           <h3>Add Your Review</h3>
           <div className="">
-            <label htmlFor="rating" className="mr-3">Ratings:</label>
-          <input
-            type="number"
-            min={1}
-            max={5}
-            id="rating"
-            value={rating}
-            onChange={(e) => setRating(Number(e.target.value))}
-            placeholder="Rating (1-5)"
-          />
+            <label htmlFor="rating" className="mr-3">
+              Ratings:
+            </label>
+            <input
+              type="number"
+              min={1}
+              max={5}
+              id="rating"
+              value={rating}
+              onChange={(e) => setRating(Number(e.target.value))}
+              placeholder="Rating (1-5)"
+            />
           </div>
 
           <textarea
-          id="comment"
-          className="resize-none"
+            id="comment"
+            className="resize-none"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Write your review"

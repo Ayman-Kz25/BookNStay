@@ -857,7 +857,7 @@
 }
 
 .bk-img {
-  @apply md:w-44 rounded-lg shadow object-cover;
+  @apply w-52 h-38 rounded-lg shadow object-cover;
 }
 
 .bk-info {

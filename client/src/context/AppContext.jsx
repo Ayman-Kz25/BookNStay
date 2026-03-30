@@ -86,6 +86,21 @@ export const AppProvider = ({ children }) => {
     return data;
   }
 
+  useEffect(()=>{
+    if(user){
+      axios.post('/api/user/sync', {
+        id: user.id,
+        username: user.fullName,
+        email: user.primaryEmailAddress.emailAddress,
+        profile: user.imageUrl
+      },
+      {headers: {
+        Authorization: `Bearer ${getToken()}`
+      }}
+    );
+    }
+  }, [user])
+
   useEffect(() => {
     if (user) {
       fetchUser();

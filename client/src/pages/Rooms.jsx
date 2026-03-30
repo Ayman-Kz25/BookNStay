@@ -210,8 +210,7 @@ const Rooms = () => {
           <div className="header">
             <h1 className="title font-playfair">Hotel Rooms</h1>
             <p className="subtitle">
-              Browse luxury rooms from the finest hotels and resorts. Browse
-              luxury rooms from the finest hotels and resorts.
+              Browse luxury rooms from the finest hotels and resorts.
             </p>
           </div>
 
