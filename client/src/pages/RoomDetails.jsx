@@ -63,6 +63,8 @@ const RoomDetails = () => {
         ...prev,
         rating: updated.averageRating,
       }));
+      setRating(0);
+      setComment("");
     }
   };
 
@@ -158,7 +160,6 @@ const RoomDetails = () => {
             {room.hotel.name}
             <span className="rd-room-type font-inter">({room.type})</span>
           </h1>
-          <p className="rd-badge font-inter">25% OFF</p>
         </div>
 
         <div className="my-2 flex items-center gap-2">
@@ -291,15 +292,15 @@ const RoomDetails = () => {
         </div>
 
         {/* Rating & Reviews */}
-        <div className="rd-reviews-list">
-          <h3 className="text-xl font-medium">Customer Reviews</h3>
+        <div className="my-3">
+          <h3 className="text-xl font-medium mb-3">Customer Reviews</h3>
           {reviews.length === 0 && (
             <p className="text-sm font-medium">No reviews yet</p>
           )}
           {reviews.map((rev, i) => (
             <div key={i} className="rd-review">
               <p>
-                <strong>{rev.userName || "User"}</strong>
+                <strong>{rev.user || "User"}</strong>
               </p>
               <StarRating rating={rev.rating} />
               <p>{rev.comment}</p>

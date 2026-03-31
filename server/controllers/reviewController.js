@@ -1,15 +1,22 @@
 import Review from "../models/Review.js";
 import Room from "../models/Room.js";
-import { getAuth } from "@clerk/express";
+import { clerkClient, getAuth } from "@clerk/express";
 
 export const addReview = async (req, res) => {
   try {
     const { rating, comment, roomId } = req.body;
     const { userId } = getAuth(req);
+    const user = clerkClient.users.getUser(userId);
 
     if (!userId) {
       return res.json({ success: false, message: "Not Authenticated" });
     }
+
+    // const user = await User.findOne({userId});
+
+    // if (!user) {
+    //   return res.json({ success: false, message: "User Not Found" });
+    // }
 
     const existing = await Review.findOne({user: userId, room: roomId});
 
@@ -19,7 +26,7 @@ export const addReview = async (req, res) => {
 
     //create review
     await Review.create({
-      user: userId,
+      user: user,
       room: roomId,
       rating,
       comment,
