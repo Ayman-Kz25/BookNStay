@@ -59,3 +59,25 @@ export const getRoomReviews = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+export const getLatestReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find()
+      .populate("user", "username profile")
+      .sort({ createdAt: -1 })
+      .limit(3); // show 3 testimonials
+
+      console.log("Reviews Data:", reviews)
+
+    res.json({
+      success: true,
+      reviews
+    });
+
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};

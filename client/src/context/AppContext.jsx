@@ -86,6 +86,11 @@ export const AppProvider = ({ children }) => {
     return data;
   }
 
+  const getLatestReviews = async () => {
+  const { data } = await axios.get("/api/review/latest");
+  return data;
+};
+
   useEffect(()=>{
     if(user){
       axios.post('/api/user/sync', {
@@ -135,6 +140,7 @@ export const AppProvider = ({ children }) => {
     getRoomsReviews,
     offers,
     getOfferById,
+    getLatestReviews,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
