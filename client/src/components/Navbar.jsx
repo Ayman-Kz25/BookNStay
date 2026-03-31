@@ -5,7 +5,7 @@ import { useClerk, UserButton } from "@clerk/react";
 import { useAppContext } from "../context/AppContext";
 import SearchBar from "./SearchBar";
 
-const Navbar = () => {
+const Navbar = ({ setShowSearch }) => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Hotels", path: "/rooms" },
@@ -15,12 +15,10 @@ const Navbar = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
 
   const { openSignIn } = useClerk();
   const location = useLocation();
   const { user, navigate, isOwner, setShowHotelReg } = useAppContext();
-
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -77,7 +75,7 @@ const Navbar = () => {
         <Search
           size={20}
           className={`navbar-icon ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
-          onClick={()=>setShowSearch(true)}
+          onClick={() => setShowSearch(true)}
         />
         {user ? (
           <UserButton>
@@ -114,7 +112,7 @@ const Navbar = () => {
         )}
         <TextAlignEnd
           size={22}
-          className={`navbar-mobile-menu-icon ${isScrolled ? 'text-[var(--primary)]' : 'text-white'}`}
+          className={`navbar-mobile-menu-icon ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       </div>
@@ -151,9 +149,6 @@ const Navbar = () => {
           </button>
         )}
       </div>
-
-      {showSearch && <SearchBar onClose={() => setShowSearch(false)} />}
-
     </nav>
   );
 };

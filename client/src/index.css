@@ -789,7 +789,7 @@
 }
 
 .rd-owner-img {
-  @apply h-14 w-14 md:h-18 md:w-18 rounded-full;
+  @apply object-cover h-14 w-14 md:h-18 md:w-18 rounded-full;
 }
 
 .rd-owner-name {
@@ -1129,11 +1129,11 @@
 
 /* Home - Searchbar */
 .search-overlay {
-  @apply fixed top-0 left-0 w-full h-full flex justify-center items-start pt-[100px] z-10;
+  @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-[999] flex items-start justify-center pt-32;
 }
 
 .search-box {
-  @apply bg-white w-[600px] max-w-[90%] rounded-[10px] p-5 relative text-black;
+  @apply bg-white w-[600px] max-w-[90%] rounded-xl p-6 relative text-black;
 }
 
 .search-input {

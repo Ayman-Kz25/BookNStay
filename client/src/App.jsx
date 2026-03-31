@@ -15,15 +15,23 @@ import { useAppContext } from "./context/AppContext.jsx";
 import About from "./pages/About.jsx";
 import Offers from "./pages/Offers.jsx";
 import OfferDetails from "./pages/OfferDetails.jsx";
+import { useState } from "react";
+import SearchBar from "./components/SearchBar.jsx";
 
 const App = () => {
+
   const isOwnerPath = useLocation().pathname.includes("owner");
   const {showHotelReg} = useAppContext();
+  
+  const [showSearch, setShowSearch] = useState(false);
 
   return (
     <div>
       <Toaster />
-      {!isOwnerPath && <Navbar />}
+      {!isOwnerPath && <Navbar setShowSearch={setShowSearch} />}
+
+      {showSearch && <SearchBar setShowSearch={setShowSearch} />}
+      
       {showHotelReg && <Registration />}
       <div className="min-h-[70vh]">
         <Routes>
