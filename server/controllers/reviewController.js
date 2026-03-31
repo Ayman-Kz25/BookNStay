@@ -1,32 +1,32 @@
 import Review from "../models/Review.js";
 import Room from "../models/Room.js";
-import { clerkClient, getAuth } from "@clerk/express";
+import User from "../models/User.js";
+import { getAuth } from "@clerk/express";
 
 export const addReview = async (req, res) => {
   try {
     const { rating, comment, roomId } = req.body;
     const { userId } = getAuth(req);
-    const user = clerkClient.users.getUser(userId);
 
     if (!userId) {
       return res.json({ success: false, message: "Not Authenticated" });
     }
 
-    // const user = await User.findOne({userId});
+    const user = await User.findOne({id: userId});
 
-    // if (!user) {
-    //   return res.json({ success: false, message: "User Not Found" });
-    // }
+    if (!user) {
+      return res.json({ success: false, message: "User Not Found" });
+    }
 
-    const existing = await Review.findOne({user: userId, room: roomId});
+    const existing = await Review.findOne({user: user._id, room: roomId});
 
     if(existing){
-        res.json({success: false, message: "Already Reviewed"});
+        return res.json({success: false, message: "Already Reviewed"});
     }
 
     //create review
     await Review.create({
-      user: user,
+      user: user._id,
       room: roomId,
       rating,
       comment,
@@ -38,7 +38,7 @@ export const addReview = async (req, res) => {
     const avgRating =
       reviews.reduce((acc, item) => acc + item.rating, 0) / reviews.length;
 
-    await Room.findOneAndUpdate(roomId, {
+    await Room.findByIdAndUpdate(roomId, {
       rating: avgRating.toFixed(1),
       reviewsCount: reviews.length,
     });
@@ -52,7 +52,7 @@ export const addReview = async (req, res) => {
 export const getRoomReviews = async (req, res) => {
   try {
     const { roomId } = req.params;
-    const reviews = await Review.find({ room: roomId }).sort({ createdAt: -1 });
+    const reviews = await Review.find({ room: roomId }).populate("user", "username profile").sort({ createdAt: -1 });
 
     res.json({ success: true, reviews });
   } catch (error) {

@@ -65,6 +65,10 @@ const RoomDetails = () => {
       }));
       setRating(0);
       setComment("");
+      toast.success(res.message)
+    } else {
+      console.log(res.message);
+      toast.error(res.message)
     }
   };
 
@@ -299,9 +303,13 @@ const RoomDetails = () => {
           )}
           {reviews.map((rev, i) => (
             <div key={i} className="rd-review">
-              <p>
-                <strong>{rev.user || "User"}</strong>
-              </p>
+              <div className="flex items-center gap-2">
+                <img 
+                  src={rev.user?.profile}
+                  className="w-8 h-8 rounded-full"
+                />
+                <strong>{rev.user?.username || "User"}</strong>
+              </div>
               <StarRating rating={rev.rating} />
               <p>{rev.comment}</p>
             </div>

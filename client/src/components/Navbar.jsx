@@ -47,16 +47,16 @@ const Navbar = ({ setShowSearch }) => {
       {/* Desktop Nav */}
       <div className="navbar-links-desktop">
         {navLinks.map((link, i) => (
-          <a
+          <Link
             key={i}
-            href={link.path}
+            to={link.path}
             className={`navbar-link group ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
           >
             {link.name}
             <div
               className={`navbar-link-underline ${isScrolled ? "bg-[var(--primary)]" : "bg-white"}`}
             />
-          </a>
+          </Link>
         ))}
         {user && (
           <button
