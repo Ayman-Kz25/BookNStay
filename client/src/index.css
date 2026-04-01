@@ -1067,7 +1067,7 @@
 }
 
 .ar-images {
-  @apply grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap;
+  @apply grid grid-cols-2 gap-4 my-2;
 }
 
 .ar-img {
