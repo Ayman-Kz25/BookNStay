@@ -195,6 +195,7 @@ export const stripePayment = async (req, res) => {
     const { origin } = req.headers;
 
     const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
+    console.log("Stripe Secret Key", process.env.STRIPE_SECRET_KEY)
 
     const line_items = [
       {
