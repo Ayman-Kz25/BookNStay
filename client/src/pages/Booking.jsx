@@ -67,7 +67,9 @@ const Booking = () => {
             <div key={booking._id} className="bk-row">
               {/* Hotel */}
               <div className="bk-hotel">
-                <img src={booking.room.imgs[0]} className="bk-img" />
+                <div className="md:max-w-48 md:max-h-32">
+                  <img src={booking.room.imgs[0]} className="bk-img" />
+                </div>
 
                 <div className="bk-info">
                   <p className="bk-hotel-name font-playfair">

@@ -84,7 +84,7 @@
 }
 
 .navbar-mobile-menu {
-  @apply fixed top-0 left-0 w-full h-screen bg-white text-gray-800 flex flex-col items-center justify-center gap-6 font-medium transition-all duration-500 -translate-x-full md:hidden;
+  @apply fixed top-0 left-0 w-full h-[calc(100vh-64px)] md:h-screen bg-white text-gray-800 flex flex-col items-center justify-center gap-6 font-medium transition-all duration-500 -translate-x-full md:hidden;
 }
 
 .navbar-mobile-menu.open {
@@ -193,7 +193,7 @@
 /* ===== Helper Components ===== */
 /* Section Title */
 .section-title {
-  @apply flex flex-col justify-center items-center text-center;
+  @apply flex flex-col justify-center items-center text-center ;
 }
 
 .section-title-left {
@@ -201,7 +201,7 @@
 }
 
 .section-title-heading {
-  @apply text-4xl md:text-[40px] font-medium;
+  @apply text-2xl md:text-3xl lg:text-4xl font-medium;
 }
 
 .section-title-subtitle {
@@ -211,7 +211,7 @@
 /* ===== Components ==== */
 /* Registration Form */
 .reg-overlay {
-  @apply fixed inset-0 z-[100] flex items-center justify-center bg-black/50;
+  @apply fixed inset-0 z-40 flex items-center justify-center bg-black/50;
 }
 
 .reg-container {
@@ -256,37 +256,74 @@
 
 /* Home - Hero */
 .hero-container {
-  @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 h-screen w-full bg-cover bg-center text-white;
+  @apply flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 w-full aspect-auto md:aspect-video bg-cover bg-center text-white;
   position: relative;
   background-image: url('/images/hero.jpg');
 }
 
 .hero-container::after {
+  @apply z-30;
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* 60% dark overlay */
-  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4); /* 40% dark overlay */
 }
 
 .tagline {
-  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-20 z-10;
+  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-24 max-sm:text-xs z-50;
 }
 
 .title {
-  @apply text-2xl md:text-[56px] md:leading-14 tracking-wide font-bold md:font-extrabold max-w-xl mt-4 z-10;
+  @apply text-lg sm:text-xl md:text-2xl lg:text-4xl md:leading-14 tracking-wide font-bold md:font-extrabold max-w-xl mt-2 md:mt-4 z-50;
 }
 
 .subtitle {
-  @apply max-w-104 mt-2 text-sm md:text-base z-10;
+  @apply max-w-104 mt-2 text-sm md:text-base z-50;
+}
+
+/* Home - Searchbar */
+.search-overlay {
+  @apply fixed inset-0 h-[calc(100vh-64px)] md:h-screen bg-black/40 backdrop-blur-sm z-40 flex items-start justify-center pt-32;
+}
+
+.search-box {
+  @apply bg-white w-full max-w-[min(100%,20rem)] rounded-xl max-sm:mx-6 p-6 relative text-black;
+}
+
+.search-input {
+  @apply w-full py-3 px-4 border border-[#ddd] rounded-lg outline-none;
+}
+
+.close-btn {
+  @apply absolute right-3 top-3 p-1 bg-[var(--secondary)] text-white rounded-full cursor-pointer hover:scale-105;
+}
+
+.search-results {
+  @apply mt-5;
+}
+
+.search-item {
+  @apply px-3 py-4 cursor-pointer border-b border-[#eee];
+}
+
+.search-item:last-child {
+  @apply border-none;
+}
+
+.search-item:hover {
+  @apply bg-gray-100;
+}
+
+.search-heading {
+  @apply mt-3 text-lg font-medium;
 }
 
 /* Home - Hero - Booking Form */
 .booking-form {
-  @apply bg-white text-[var(--primary)]/60 rounded-lg px-6 py-4 mt-6 flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto z-10;
+  @apply bg-white text-[var(--primary)]/60 rounded-lg p-6 mt-6 mb-12 grid grid-cols-1 md:grid-cols-2 lg:flex flex-row max-md:items-start gap-4 max-md:mx-auto z-50;
 }
 
 .booking-field {
@@ -306,13 +343,13 @@
 }
 
 .booking-guest-input {
-  @apply rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none max-w-16;
+  @apply rounded border border-gray-200 px-3 py-1.5 mt-1.5 text-sm outline-none w-full max-w-[min(100%,20rem)];
 }
 
 .booking-search-btn {
   @apply flex items-center justify-center gap-2 rounded-md 
          bg-[var(--primary)] py-3 px-4 text-white my-auto 
-         cursor-pointer max-md:w-full max-md:py-1 
+         cursor-pointer w-full
          hover:bg-[var(--secondary)] transition-colors duration-300;
 }
 
@@ -322,7 +359,7 @@
 }
 
 .featured-destination-list {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-20 mx-12;
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-12;
 }
 
 .featured-destination-btn {
@@ -335,7 +372,7 @@
 }
 
 .hotel-card-img {
-  @apply w-full aspect-[4/3] object-cover;
+  @apply w-full aspect-video object-cover rounded-xl;
 }
 
 .hotel-card-badge {
@@ -376,7 +413,7 @@
 
 /* Home - Exclusive Offers */
 .exclusive-offers {
-  @apply flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-30; 
+  @apply flex flex-col items-center px-4 sm:px-6 md:px-12 lg:px-24 pt-20 pb-30; 
 }
 
 .exclusive-offers-header {
@@ -393,7 +430,7 @@
 
 /* Home - Exclusive Offers - Offer Card */
 .offer-card-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 w-full;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-12 w-full;
 }
 
 .offer-card {
@@ -413,19 +450,19 @@
 }
 
 .offer-card-title {
-  @apply text-2xl font-medium;
+  @apply text-lg sm:text-xl md:text-2xl font-medium;
 }
 
 .offer-card-description {
-  @apply mt-1;
+  @apply mt-1 text-sm md:text-base;
 }
 
 .offer-card-expiry {
-  @apply text-xs text-white/70 mt-3;
+  @apply text-xs md:text-sm text-white/70 mt-3;
 }
 
 .offer-card-btn {
-  @apply flex items-center gap-2 font-medium cursor-pointer mt-4 mb-5;
+  @apply flex items-center gap-2 font-medium cursor-pointer mt-4 mb-5 text-sm md:text-lg;
 }
 
 .offer-card-btn-icon {
@@ -438,11 +475,11 @@
 }
 
 .testimonial-grid {
-  @apply flex items-center justify-center max-md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-20 mx-auto;
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12 mt-20;
 }
 
 .testimonial-card {
-  @apply bg-white p-6 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.05)];
+  @apply w-full max-w-[min(100%,20rem)] bg-white p-6 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.05)];
 }
 
 .testimonial-header {
@@ -458,7 +495,7 @@
 }
 
 .testimonial-name {
-  @apply text-xl text-gray-800;
+  @apply text-lg md:text-xl text-gray-800;
 }
 
 .testimonial-city {
@@ -475,7 +512,7 @@
 
 /* Home - Newsletter */
 .newsletter-section {
-  @apply flex flex-col items-center max-w-5xl lg:w-full rounded-2xl px-4 py-12 md:py-16 mx-2 lg:mx-auto my-30 bg-[var(--primary)] text-white;
+  @apply flex flex-col items-center w-full max-w-[calc(100%-4rem)] md:max-w-[calc(100%-12rem)] mx-auto px-6 rounded-2xl py-12 md:py-16 my-30 bg-[var(--primary)] text-white;
 }
 
 
@@ -484,11 +521,11 @@
 }
 
 .newsletter-container-header .title {
-  @apply text-4xl font-medium md:text-[40px] text-white;
+  @apply text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium text-white;
 }
 
 .newsletter-container-header .subtitle {
-  @apply text-sm md:text-base text-gray-500/90 mt-2 max-w-[696px];
+  @apply text-sm md:text-base lg:text-lg text-gray-500/90 mt-2 max-w-[696px];
 }
 
 .newsletter-form {
@@ -496,7 +533,7 @@
 }
 
 .newsletter-input {
-  @apply bg-[var(--secondary)]/20 px-4 py-2.5 border-2 border-[var(--secondary)]/80 text-[var(--text-accent)] rounded-lg outline-none max-w-[264px] w-full placeholder:text-white/70;
+  @apply bg-[var(--secondary)]/20 px-4 py-2.5 border-2 border-[var(--secondary)]/80 text-[var(--text-accent)] rounded-lg outline-none w-full sm:w-64 md:w-80 placeholder:text-white/70;
 }
 
 .newsletter-btn {
@@ -534,7 +571,7 @@
 }
 
 .room-img {
-  @apply max-h-64 md:w-1/2 rounded-xl shadow-lg object-cover cursor-pointer;
+  @apply max-h-64 md:w-1/2 w-full rounded-xl shadow-lg object-cover cursor-pointer;
 }
 
 .room-info {
@@ -542,11 +579,11 @@
 }
 
 .city {
-  @apply text-gray-500;
+  @apply text-sm md:text-base text-gray-500;
 }
 
 .hotel-name {
-  @apply text-gray-800 text-3xl cursor-pointer;
+  @apply text-gray-800 text-xl md:text-2xl lg:text-3xl cursor-pointer;
 }
 
 .rating {
@@ -554,7 +591,7 @@
 }
 
 .reviews {
-  @apply ml-2;
+  @apply ml-2 text-sm md:text-base;
 }
 
 .location {
@@ -582,7 +619,7 @@
 }
 
 .filters {
-  @apply bg-white w-80 max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:my-16 rounded-lg pb-4;
+  @apply bg-white w-full max-w-[min(100%,20rem)] max-sm:mx-auto border border-gray-300 text-gray-600 max-lg:mb-8 min-lg:my-16 rounded-lg pb-4;
 }
 
 .filters-header {
@@ -602,7 +639,7 @@
 }
 
 .filters-body {
-  @apply overflow-hidden transition-all duration-800 ease-in-out h-0 lg:h-auto;
+  @apply overflow-y-auto sm:overflow-y-hidden transition-all duration-800 ease-in-out h-0 lg:h-auto;
 }
 
 .filters-body.show {
@@ -657,11 +694,11 @@
 }
 
 .rd-title {
-  @apply text-3xl md:text-4xl;
+  @apply text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl;
 }
 
 .rd-room-type {
-  @apply text-sm;
+  @apply text-sm md:text-base;
 }
 
 .rd-badge {
@@ -685,7 +722,7 @@
 }
 
 .rd-main-img-wrapper {
-  @apply lg:w-1/2 w-full aspect-[4/3];
+  @apply lg:w-1/2 w-full aspect-auto md:aspect-video object-cover rounded-xl;
 }
 
 .rd-main-img {
@@ -709,7 +746,7 @@
 }
 
 .rd-heading {
-  @apply text-3xl md:text-4xl;
+  @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
 }
 
 .rd-amenities {
@@ -849,15 +886,15 @@
 }
 
 .bk-row {
-  @apply grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] w-full border-b border-gray-300 py-6 first:border-t hover:bg-gray-50 transition;
+  @apply grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] w-full border-b border-gray-300 py-6 first:border-t hover:bg-gray-50 transition mx-auto;
 }
 
 .bk-hotel {
-  @apply flex flex-col md:flex-row;
+  @apply flex flex-col md:flex-row md:items-center;
 }
 
 .bk-img {
-  @apply w-52 h-38 rounded-lg shadow object-cover;
+  @apply w-full aspect-auto md:aspect-video rounded-lg shadow object-cover;
 }
 
 .bk-info {
@@ -865,7 +902,7 @@
 }
 
 .bk-hotel-name {
-  @apply text-2xl;
+  @apply text-lg md:text-xl lg:text-2xl;
 }
 
 .bk-room-type {
@@ -948,7 +985,7 @@
 
 /* Sidebar */
 .sidebar {
-  @apply md:w-64 w-16 border-r border-gray-300 pt-4 flex flex-col min-h-screen transition-all duration-300;
+  @apply w-16 sm:w-20 md:w-64 border-r border-gray-300 pt-4 flex flex-col min-h-screen transition-all duration-300;
 }
 
 .sidebar-link {
@@ -964,7 +1001,7 @@
 }
 
 .sidebar-text {
-  @apply hidden md:block text-center;
+  @apply hidden sm:block md:block text-center;
 }
 
 /* Dashboard */
@@ -993,11 +1030,11 @@
 }
 
 .db-recent-title {
-  @apply text-2xl text-[var(--primary)] font-medium mb-5;
+  @apply text-xl md:text-2xl text-[var(--primary)] font-medium mb-5;
 }
 
 .db-recent-list {
-  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-90 overflow-y-scroll;
+  @apply w-full max-w-3xl text-left border border-gray-300 rounded-lg overflow-y-scroll sm:overflow-y-hidden;
 }
 
 .db-recent-list-th {
@@ -1042,7 +1079,7 @@
 }
 
 .ar-col {
-  @apply flex-1 max-w-48;
+  @apply w-full max-w-[min(100%,20rem)];
 }
 
 .ar-input {
@@ -1075,7 +1112,7 @@
 }
 
 .rl-table-wrapper {
-  @apply mt-2 rounded-xl overflow-x-auto;
+  @apply mt-2 rounded-xl overflow-y-scroll sm:overflow-y-hidden;
 }
 
 .rl-table {
@@ -1127,39 +1164,5 @@
   @apply flex flex-col items-center px-6 md:px-16 lg:px-24 xl:px-32 pt-20 pb-30 mt-12;
 }
 
-/* Home - Searchbar */
-.search-overlay {
-  @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-[999] flex items-start justify-center pt-32;
-}
+/* Offers Page - Offer Details */
 
-.search-box {
-  @apply bg-white w-[600px] max-w-[90%] rounded-xl p-6 relative text-black;
-}
-
-.search-input {
-  @apply w-full p-3 border border-[#ddd] rounded-lg outline-none;
-}
-
-.close-btn {
-  @apply absolute right-3 top-3 p-1 bg-[var(--secondary)] text-white rounded-full cursor-pointer hover:scale-105;
-}
-
-.search-results {
-  @apply mt-5;
-}
-
-.search-item {
-  @apply px-3 py-4 cursor-pointer border-b border-[#eee];
-}
-
-.search-item:last-child {
-  @apply border-none;
-}
-
-.search-item:hover {
-  @apply bg-gray-100;
-}
-
-.search-heading {
-  @apply mt-3;
-}
