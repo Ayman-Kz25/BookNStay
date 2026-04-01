@@ -1165,4 +1165,76 @@
 }
 
 /* Offers Page - Offer Details */
+.offer-not-found {
+  @apply text-center mt-20;
+}
 
+.offer-details-container {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24;
+}
+
+.offer-hero {
+  @apply h-[280px] sm:h-[340px] md:h-[420px] w-full rounded-2xl 
+         bg-cover bg-center relative overflow-hidden;
+}
+
+.offer-overlay {
+  @apply absolute inset-0 bg-black/40;
+}
+
+.offer-hero-content {
+  @apply absolute bottom-6 left-4 sm:left-6 md:left-8 text-white;
+}
+
+.offer-discount {
+  @apply bg-white text-black px-3 py-1 rounded-md text-sm w-fit mb-3;
+}
+
+.offer-title {
+  @apply text-2xl sm:text-3xl md:text-4xl;
+}
+
+.offer-meta {
+  @apply flex items-center gap-4 mt-2 text-sm;
+}
+
+.offer-meta-item {
+  @apply flex items-center gap-1;
+}
+
+.offer-content {
+  @apply mt-10 grid md:grid-cols-2 gap-10;
+}
+
+.offer-about-title {
+  @apply text-xl sm:text-2xl md:text-3xl mb-3;
+}
+
+.offer-description {
+  @apply text-gray-600 leading-relaxed;
+}
+
+.offer-features {
+  @apply mt-6 space-y-3;
+}
+
+.offer-feature {
+  @apply flex items-center gap-2;
+}
+
+.offer-details-card {
+  @apply bg-gray-50 rounded-xl p-5 sm:p-6;
+}
+
+.offer-details-title {
+  @apply text-xl font-medium tracking-wide mb-4;
+}
+
+.offer-details-list {
+  @apply space-y-3 text-sm text-gray-600;
+}
+
+.offer-btn {
+  @apply mt-6 w-full px-2 bg-[var(--primary)] text-white py-3 rounded-lg 
+         hover:bg-[var(--secondary)] transition-colors cursor-pointer;
+}
