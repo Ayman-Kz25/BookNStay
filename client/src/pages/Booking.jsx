@@ -38,6 +38,24 @@ const Booking = () => {
     }
   };
 
+  const handlePayment = async (bookingId) => {
+    try {
+      const { data } = axios.post(
+        "/api/bookings/stripe-payment",
+        { bookingId },
+        { headers: { Authorization: `Bearer ${await getToken()}` } },
+      );
+
+      if (data.success) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       fetchUserBookings();
@@ -122,7 +140,7 @@ const Booking = () => {
                 </div>
 
                 {booking.status === "pending" && (
-                  <button className="bk-pay-btn">Pay Now</button>
+                  <button className="bk-pay-btn" onClick={()=>handlePayment(booking._id)}>Pay Now</button>
                 )}
               </div>
             </div>
