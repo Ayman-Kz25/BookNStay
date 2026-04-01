@@ -57,54 +57,74 @@ export const AppProvider = ({ children }) => {
   };
 
   const fetchOffers = async () => {
-    const {data} = await axios.get('/api/offers');
-    if(data.success){
+    const { data } = await axios.get("/api/offers");
+    if (data.success) {
       setOffers(data.offers);
     }
   };
 
   const addReview = async (roomId, rating, comment) => {
-    const { data } = await axios.post(
-      "/api/review/add",
-      { roomId, rating, comment },
-      {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      },
-    );
+    try {
+      console.log("Sending review request...");
 
-    await fetchRooms()
-    return data;
+      const token = await getToken();
+      console.log("Token:", token);
+
+      const { data } = await axios.post(
+        "/api/review/add",
+        { roomId, rating, comment },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      await fetchRooms();
+      return data;
+    } catch (error) {
+      console.log("Review error:", error.response?.data || error.message);
+      return { success: false, message: "Failed to submit review" };
+    }
   };
 
   const getRoomsReviews = async (roomId) => {
     const { data } = await axios.get(`/api/review/${roomId}`);
     return data;
-  }
+  };
 
   const getOfferById = async (id) => {
-    const {data} = await axios.get(`/api/offers/${id}`);
+    const { data } = await axios.get(`/api/offers/${id}`);
     return data;
-  }
+  };
 
   const getLatestReviews = async () => {
-  const { data } = await axios.get("/api/review/latest");
-  return data;
-};
+    const { data } = await axios.get("/api/review/latest");
+    return data;
+  };
 
-  useEffect(()=>{
-    if(user){
-      axios.post('/api/user/sync', {
-        id: user.id,
-        username: user.fullName,
-        email: user.primaryEmailAddress.emailAddress,
-        profile: user.imageUrl
-      },
-      {headers: {
-        Authorization: `Bearer ${getToken()}`
-      }}
-    );
-    }
-  }, [user])
+  useEffect(() => {
+    const syncUser = async () => {
+      if (user) {
+        const token = await getToken();
+
+        await axios.post(
+          "/api/user/sync",
+          {
+            id: user.id,
+            username: user.fullName,
+            email: user.primaryEmailAddress.emailAddress,
+            profile: user.imageUrl,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+      }
+    };
+
+    syncUser();
+  }, [user]);
 
   useEffect(() => {
     if (user) {
@@ -115,11 +135,10 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     fetchRooms();
   }, []);
-  
-  useEffect(()=>{
-    fetchOffers();
-  }, [])
 
+  useEffect(() => {
+    fetchOffers();
+  }, []);
 
   const value = {
     currency,

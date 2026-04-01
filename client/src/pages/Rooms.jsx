@@ -246,7 +246,12 @@ const Rooms = () => {
 
                 <div className="rating">
                   <StarRating rating={room.rating} />
-                  <p className="reviews">{room.reviewCount}</p>
+                  <p className="reviews">
+                    <span className="text-xs gap-1"> 
+                    ({room.reviewCount})
+                    reviews
+                    </span>
+                  </p>
                 </div>
 
                 <div className="location">

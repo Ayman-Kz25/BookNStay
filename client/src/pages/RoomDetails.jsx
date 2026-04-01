@@ -53,24 +53,39 @@ const RoomDetails = () => {
   const [checkOutDate, setCheckOutDate] = useState(null);
 
   //function to handle Review form submission
-  const handleSubmit = async () => {
-    const res = await addReview(room._id, rating, comment);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Function executed!");
 
-    if (res.success) {
-      const updated = await getRoomsReviews(room._id);
-      setReviews(updated.reviews);
-      setRoom((prev) => ({
-        ...prev,
-        rating: updated.averageRating,
-      }));
-      setRating(0);
-      setComment("");
-      toast.success(res.message)
-    } else {
-      console.log(res.message);
-      toast.error(res.message)
-    }
-  };
+  if (!rating) {
+    toast.error("Please give a rating");
+    return;
+  }
+
+  if (!comment) {
+    toast.error("Please write a review");
+    return;
+  }
+
+  const res = await addReview(room._id, rating, comment);
+
+  if (res.success) {
+    const updated = await getRoomsReviews(room._id);
+    setReviews(updated.reviews);
+
+    setRoom((prev) => ({
+      ...prev,
+      rating: updated.rating,
+      reviewCount: updated.reviews.length
+    }));
+
+    setRating(0);
+    setComment("");
+    toast.success(res.message);
+  } else {
+    toast.error(res.message);
+  }
+};
 
   //check if the room is available
   const checkAvailability = async () => {
@@ -342,7 +357,7 @@ const RoomDetails = () => {
             placeholder="Write your review"
           ></textarea>
 
-          <button type="button" onClick={handleSubmit}>
+          <button onClick={handleSubmit}>
             Submit Review
           </button>
         </div>

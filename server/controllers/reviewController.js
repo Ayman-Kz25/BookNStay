@@ -27,21 +27,23 @@ export const addReview = async (req, res) => {
     //create review
     await Review.create({
       user: user._id,
-      room: roomId,
+      room: roomId.toString(),
       rating,
       comment,
     });
 
     //re-calculate rating
-    const reviews = await Review.find({ room: roomId });
+    const reviews = await Review.find({ room: roomId.toString() });
 
     const avgRating =
       reviews.reduce((acc, item) => acc + item.rating, 0) / reviews.length;
 
     await Room.findByIdAndUpdate(roomId, {
-      rating: avgRating.toFixed(1),
-      reviewsCount: reviews.length,
+      rating: Number(avgRating.toFixed(1)),
+      reviewCount: reviews.length,
     });
+
+    console.log("Review Found: ", reviews.length);
 
     res.json({ success: true, message: "Review Added" });
   } catch (error) {
@@ -52,7 +54,7 @@ export const addReview = async (req, res) => {
 export const getRoomReviews = async (req, res) => {
   try {
     const { roomId } = req.params;
-    const reviews = await Review.find({ room: roomId }).populate("user", "username profile").sort({ createdAt: -1 });
+    const reviews = await Review.find({ room: roomId.toString() }).populate("user", "username profile").sort({ createdAt: -1 });
 
     res.json({ success: true, reviews });
   } catch (error) {
