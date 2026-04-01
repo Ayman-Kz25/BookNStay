@@ -5,7 +5,7 @@ import Room from "../models/Room.js";
 import User from "../models/User.js";
 import { clerkClient, getAuth } from "@clerk/express";
 import { sendBookingEmail } from "../services/emailService.js";
-import stripe from "stripe";
+import Stripe from "stripe";
 
 // Function to check room availability
 export const checkAvailability = async (checkInDate, checkOutDate, room) => {
@@ -194,7 +194,7 @@ export const stripePayment = async (req, res) => {
 
     const { origin } = req.headers;
 
-    const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
+    const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
     console.log("Stripe Secret Key", process.env.STRIPE_SECRET_KEY)
 
     const line_items = [
