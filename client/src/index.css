@@ -84,7 +84,7 @@
 }
 
 .navbar-mobile-menu {
-  @apply fixed top-0 left-0 w-full h-[calc(100vh-64px)] md:h-screen bg-white text-gray-800 flex flex-col items-center justify-center gap-6 font-medium transition-all duration-500 -translate-x-full md:hidden;
+  @apply fixed top-0 left-0 w-full h-screen bg-white text-gray-800 flex flex-col items-center justify-center gap-6 font-medium transition-all duration-500 -translate-x-full md:hidden;
 }
 
 .navbar-mobile-menu.open {
