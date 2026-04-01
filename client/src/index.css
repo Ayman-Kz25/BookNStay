@@ -286,7 +286,7 @@
 
 /* Home - Searchbar */
 .search-overlay {
-  @apply fixed inset-0 h-[calc(100vh-64px)] md:h-screen bg-black/40 backdrop-blur-sm z-40 flex items-start justify-center pt-32;
+  @apply fixed inset-0 h-[calc(100vh-64px)] md:h-screen bg-black/40 backdrop-blur-sm z-[1000] flex items-start justify-center pt-32;
 }
 
 .search-box {
