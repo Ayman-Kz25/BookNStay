@@ -17,7 +17,7 @@ import Offers from "./pages/Offers.jsx";
 import OfferDetails from "./pages/OfferDetails.jsx";
 import { useState } from "react";
 import SearchBar from "./components/SearchBar.jsx";
-import { Loader } from "lucide-react";
+import Loader from "./components/Loader.jsx";
 
 const App = () => {
 
@@ -41,7 +41,7 @@ const App = () => {
           <Route path="/rooms/:id" element={<RoomDetails />} />
           <Route path="/my-bookings" element={<Bookings />} />
           <Route path="/loader/:nextUrl" element={<Loader />} />
-          
+
           <Route path="/owner" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="add-room" element={<AddRoom />} />

@@ -186,25 +186,35 @@ export const getHotelBookings = async (req, res) => {
 
 export const stripePayment = async (req, res) => {
   try {
-    const { bookingId } = req.body;
+    // console.log("Stripe Payment API called!")
 
+    const { bookingId } = req.body;
+    // console.log("Booking Id: ",bookingId)
+    
     const booking = await Booking.findById(bookingId);
+    // console.log("Booking: ",booking)
+    
     const rooms = await Room.findById(booking.room).populate("hotel");
+    // console.log("Room: ",rooms)
+
     const totalPrice = booking.totalPrice;
+    const PKR_TO_USD = 290.3422;
+    const priceInUSD = totalPrice / PKR_TO_USD;
 
     const { origin } = req.headers;
 
     const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
-    console.log("Stripe Secret Key", process.env.STRIPE_SECRET_KEY)
+
+    // console.log("Stripe Secret Key: ", process.env.STRIPE_SECRET_KEY);
 
     const line_items = [
       {
         price_data: {
-          currency: "pkr",
+          currency: "usd",
           product_data: {
             name: rooms.hotel.name,
           },
-          unit_amount: totalPrice * 100,
+          unit_amount: Math.round(priceInUSD * 100),
         },
         quantity: 1,
       },
@@ -223,8 +233,8 @@ export const stripePayment = async (req, res) => {
 
     res.json({ success: true, url: session.url });
   } catch (error) {
-    console.log("Stripe Payment:", error.message);
-    // res.json({ success: false, message: "Payment Failed" });
-    res.json({ success: false, message: error.message });
+    // console.log("Stripe Payment Err:", error.message);
+    res.json({ success: false, message: "Payment Failed" });
+    // res.json({ success: false, message: error.message });
   }
 };
