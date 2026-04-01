@@ -5,6 +5,7 @@ import { useAppContext } from "../context/AppContext";
 
 const ExclusiveOffers = () => {
   const { navigate } = useAppContext();
+  
   return (
     <section className="exclusive-offers">
       <div className="exclusive-offers-header">

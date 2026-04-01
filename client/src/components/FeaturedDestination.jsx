@@ -4,6 +4,8 @@ import { useAppContext } from "../context/AppContext";
 
 const FeaturedDestination = () => {
   const { rooms, navigate } = useAppContext();
+
+  const shuffledRooms = [...rooms].sort(() => 0.5 - Math.random()).slice(0, 4);
   // console.log(rooms);
   return (
     rooms.length > 0 && (
@@ -14,7 +16,7 @@ const FeaturedDestination = () => {
         />
 
         <div className="featured-destination-list">
-          {rooms.slice(0, 4).map((room, index) => (
+          {shuffledRooms.map((room, index) => (
             <HotelCard key={room._id} room={room} index={index} />
           ))}
         </div>
