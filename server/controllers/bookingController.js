@@ -199,7 +199,7 @@ export const stripePayment = async (req, res) => {
     const line_items = [
       {
         price_data: {
-          currency: "usd",
+          currency: "pkr",
           product_data: {
             name: rooms.hotel.name,
           },
@@ -214,7 +214,7 @@ export const stripePayment = async (req, res) => {
       line_items,
       mode: "payment",
       success_url: `${origin}/loader/my-bookings`,
-      cancel_url: "${origin}/my-bookings",
+      cancel_url: `${origin}/my-bookings`,
       metadata: {
         bookingId,
       },
