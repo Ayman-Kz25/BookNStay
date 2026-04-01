@@ -67,7 +67,7 @@ export const getLatestReviews = async (req, res) => {
       .sort({ createdAt: -1 })
       .limit(3); // show 3 testimonials
 
-      console.log("Reviews Data:", reviews)
+      // console.log("Reviews Data:", reviews)
 
     res.json({
       success: true,
