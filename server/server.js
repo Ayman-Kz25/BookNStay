@@ -13,10 +13,10 @@ import reviewRouter from "./routes/reviewRoutes.js";
 import offerRouter from "./routes/offerRoutes.js";
 
 
-connectDB();
-connectCloudinary();
 
 const app = express();
+connectDB();
+connectCloudinary();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors()); //Enable Cross-Origin Resource Sharing
