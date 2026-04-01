@@ -211,7 +211,7 @@
 /* ===== Components ==== */
 /* Registration Form */
 .reg-overlay {
-  @apply fixed inset-0 z-40 flex items-center justify-center bg-black/50;
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
 }
 
 .reg-container {
@@ -273,15 +273,15 @@
 }
 
 .tagline {
-  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-24 max-sm:text-xs z-50;
+  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-24 max-sm:text-xs z-40;
 }
 
 .title {
-  @apply text-lg sm:text-xl md:text-2xl lg:text-4xl md:leading-14 tracking-wide font-bold md:font-extrabold max-w-xl mt-2 md:mt-4 z-50;
+  @apply text-lg sm:text-xl md:text-2xl lg:text-4xl md:leading-14 tracking-wide font-bold md:font-extrabold max-w-xl mt-2 md:mt-4 z-40;
 }
 
 .subtitle {
-  @apply max-w-104 mt-2 text-sm md:text-base z-50;
+  @apply max-w-104 mt-2 text-sm md:text-base z-40;
 }
 
 /* Home - Searchbar */
