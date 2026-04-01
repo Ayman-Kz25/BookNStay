@@ -40,7 +40,7 @@ const Booking = () => {
 
   const handlePayment = async (bookingId) => {
     try {
-      const { data } = axios.post(
+      const { data } = await axios.post(
         "/api/bookings/stripe-payment",
         { bookingId },
         { headers: { Authorization: `Bearer ${await getToken()}` } },
