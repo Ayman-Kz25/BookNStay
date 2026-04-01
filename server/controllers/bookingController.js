@@ -223,6 +223,7 @@ export const stripePayment = async (req, res) => {
     res.json({ success: true, url: session.url });
   } catch (error) {
     console.log("Stripe Payment:", error.message);
-    res.json({ success: false, message: "Payment Failed" });
+    // res.json({ success: false, message: "Payment Failed" });
+    res.json({ success: false, message: error.message });
   }
 };
