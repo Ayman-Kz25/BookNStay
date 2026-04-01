@@ -21,6 +21,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors()); //Enable Cross-Origin Resource Sharing
 
+//API to Listen to Stripe webhooks
+app.post("/api/stripe", express.raw({type: "application/json"}), stripeWebhooks);
 
 //Middleware
 app.use(express.json());
@@ -29,8 +31,6 @@ app.use(clerkMiddleware());
 // API to listen to Clerk Webhooks
 app.use("/api/clerk", clerkWebhooks)
 
-//API to Listen to Stripe webhooks
-app.post("/api/stripe", express.raw({type: "application/json"}), stripeWebhooks);
 
 
 app.get("/", (req, res) => res.send("API is working"));

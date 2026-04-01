@@ -12,10 +12,10 @@ export const stripeWebhooks = async (req, res) => {
 
     try {
 
-        event = stripeInstance.webhooks.constructEvent(req.body, sign, process.env.STRIPE_SECRET_KEY);
+        event = stripeInstance.webhooks.constructEvent(req.body, sign, process.env.STRIPE_WEBHOOK_SECRET);
 
     } catch (error) {
-        res.status(400).send(`Webhook Error: ${error.message}`);
+        return res.status(400).send(`Webhook Error: ${error.message}`);
     }
 
     //Handle the event
@@ -36,6 +36,6 @@ export const stripeWebhooks = async (req, res) => {
     } else {
         console.log("Unhandled Event type: ", event.type);
     }
-    
+
     res.json({received: true});
 }
