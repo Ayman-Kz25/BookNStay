@@ -96,7 +96,7 @@ const Dashboard = () => {
 
               return (
                 <tr key={index}>
-                  <td className="db-recent-list-td">{item.user.name}</td>
+                  <td className="db-recent-list-td">{item.user.username}</td>
                   <td className="db-recent-list-td max-sm:hidden">
                     {item.room.type}
                   </td>
