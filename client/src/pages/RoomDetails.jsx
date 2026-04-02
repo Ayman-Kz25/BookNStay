@@ -141,7 +141,8 @@ const RoomDetails = () => {
         }
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Login to proceed")
+      console.log(error.message);
     }
   };
 

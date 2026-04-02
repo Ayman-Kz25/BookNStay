@@ -112,6 +112,7 @@ export const createBooking = async (req, res) => {
     try {
       await sendBookingEmail(email, mailBody);
     } catch (err) {
+      res.json({success: false, message: "Failed to send email"})
       console.log("Email Err:", err.message);
     }
 
