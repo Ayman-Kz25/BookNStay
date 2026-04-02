@@ -10,12 +10,16 @@ const OfferCard = ({ limit }) => {
   }
 
   return (
-    <div className="offer-card-grid">
+    <div className="offer-card-grid" >
       {displayOffers.map((item) => (
         <div
           key={item._id || item.id}
           className="offer-card"
           style={{ backgroundImage: `url(${item.img})` }}
+          onClick={() => {
+                navigate(`/offers/${item._id || item.id}`);
+                scrollTo(0, 0);
+              }}
         >
           <div className="offer-card-overlay"></div>
 
