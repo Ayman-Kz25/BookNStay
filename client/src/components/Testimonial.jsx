@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SectionTitle from "./SectionTitle";
 import StarRating from "./StarRating";
-import { useAppContext } from "../context/AppContext";
+import { useAppContext } from "../context/AppContext.jsx";
 
 const Testimonial = () => {
 

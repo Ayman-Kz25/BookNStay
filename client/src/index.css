@@ -29,7 +29,7 @@
 /* ===== Main Components ===== */
 /* Navbar */
 .navbar {
-  @apply fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 py-4 md:py-6 transition-all duration-500 z-50 text-white;
+  @apply fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 py-4 md:py-6 transition-all duration-500 z-40 text-white;
   backdrop-filter: blur(0);
 }
 
@@ -262,7 +262,7 @@
 }
 
 .hero-container::after {
-  @apply z-30;
+  @apply z-1;
   content: "";
   position: absolute;
   top: 0;
@@ -273,20 +273,20 @@
 }
 
 .tagline {
-  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-24 max-sm:text-xs z-40;
+  @apply bg-[var(--secondary)] px-3.5 py-1 rounded-full mt-24 max-sm:text-xs z-20;
 }
 
 .title {
-  @apply text-lg sm:text-xl md:text-2xl lg:text-4xl md:leading-14 tracking-wide font-bold md:font-extrabold max-w-xl mt-2 md:mt-4 z-40;
+  @apply text-lg sm:text-xl md:text-2xl lg:text-4xl md:leading-14 tracking-wide font-bold md:font-extrabold max-w-xl mt-2 md:mt-4 z-20;
 }
 
 .subtitle {
-  @apply max-w-104 mt-2 text-sm md:text-base z-40;
+  @apply max-w-104 mt-2 text-sm md:text-base z-20;
 }
 
 /* Home - Searchbar */
 .search-overlay {
-  @apply fixed inset-0 h-[calc(100vh-64px)] md:h-screen bg-black/40 backdrop-blur-sm z-[1000] flex items-start justify-center pt-32;
+  @apply fixed inset-0 h-[calc(100vh-64px)] md:h-screen bg-black/40 backdrop-blur-sm z-50 flex items-start justify-center pt-32;
 }
 
 .search-box {
@@ -323,7 +323,7 @@
 
 /* Home - Hero - Booking Form */
 .booking-form {
-  @apply bg-white text-[var(--primary)]/60 rounded-lg p-6 mt-6 mb-12 grid grid-cols-1 md:grid-cols-2 lg:flex flex-row max-md:items-start gap-4 max-md:mx-auto z-40;
+  @apply bg-white text-[var(--primary)]/60 rounded-lg p-6 mt-6 mb-12 grid grid-cols-1 md:grid-cols-2 lg:flex flex-row max-md:items-start gap-4 max-md:mx-auto z-20;
 }
 
 .booking-field {

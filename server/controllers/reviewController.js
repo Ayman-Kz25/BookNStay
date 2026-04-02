@@ -12,21 +12,21 @@ export const addReview = async (req, res) => {
       return res.json({ success: false, message: "Not Authenticated" });
     }
 
-    const user = await User.findOne({id: userId});
+    const user = await User.findOne({ id: userId });
 
     if (!user) {
       return res.json({ success: false, message: "User Not Found" });
     }
 
-    const existing = await Review.findOne({user: user._id, room: roomId});
+    const existing = await Review.findOne({ user: user._id, room: roomId });
 
-    if(existing){
-        return res.json({success: false, message: "Already Reviewed"});
+    if (existing) {
+      return res.json({ success: false, message: "Already Reviewed" });
     }
 
     //create review
     await Review.create({
-      user: user._id,
+      user: user.id,
       room: roomId.toString(),
       rating,
       comment,
@@ -54,9 +54,26 @@ export const addReview = async (req, res) => {
 export const getRoomReviews = async (req, res) => {
   try {
     const { roomId } = req.params;
-    const reviews = await Review.find({ room: roomId.toString() }).populate("user", "username profile").sort({ createdAt: -1 });
+    const reviews = await Review.find({ room: roomId.toString() }).sort({
+      createdAt: -1,
+    });
 
-    res.json({ success: true, reviews });
+    //fetch user info for each review
+    const reviewsWithUser = await Promise.all(
+      reviews.map(async (review) => {
+        const user = await User.findOne(
+          { id: review.user },
+          "username profile",
+        );
+
+        return {
+          ...review.toObject(),
+          user: user || { username: "Guest", profile: "" },
+        };
+      }),
+    );
+
+    res.json({ success: true, reviews: reviewsWithUser });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
@@ -64,22 +81,31 @@ export const getRoomReviews = async (req, res) => {
 
 export const getLatestReviews = async (req, res) => {
   try {
-    const reviews = await Review.find()
-      .populate("user", "username profile")
-      .sort({ createdAt: -1 })
-      .limit(3); // show 3 testimonials
+    const reviews = await Review.find().sort({ createdAt: -1 }).limit(3); // show 3 testimonials
 
-      // console.log("Reviews Data:", reviews)
+    // console.log("Reviews Data:", reviews)
+    const reviewsWithUser = await Promise.all(
+      reviews.map(async (review) => {
+        const user = await User.findOne(
+          { id: review.user },
+          "username profile",
+        );
+
+        return {
+          ...review.toObject(),
+          user: user || { username: "Guest", profile: "" },
+        };
+      }),
+    );
 
     res.json({
       success: true,
-      reviews
+      reviews: reviewsWithUser,
     });
-
   } catch (error) {
     res.json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
