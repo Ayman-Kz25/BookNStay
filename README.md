@@ -84,6 +84,7 @@ The platform is designed with a modern UI, responsive design, and scalable backe
 ---
 
 # 📂 Project Structure
+```
 Book&Stay
 │
 ├── client
@@ -99,7 +100,7 @@ Book&Stay
 │ ├── routes
 │ ├── middleware
 │ └── server.js
-
+```
 
 ---
 
