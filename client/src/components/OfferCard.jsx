@@ -14,7 +14,7 @@ const OfferCard = ({ limit }) => {
       {displayOffers.map((item) => (
         <div
           key={item._id || item.id}
-          className="offer-card"
+          className="offer-card cursor-pointer"
           style={{ backgroundImage: `url(${item.img})` }}
           onClick={() => {
                 navigate(`/offers/${item._id || item.id}`);

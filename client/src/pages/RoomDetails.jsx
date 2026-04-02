@@ -34,14 +34,8 @@ const amenityIcons = {
 
 const RoomDetails = () => {
   const { id } = useParams();
-  const {
-    rooms,
-    getToken,
-    axios,
-    navigate,
-    addReview,
-    getRoomsReviews,
-  } = useAppContext();
+  const { rooms, getToken, axios, navigate, addReview, getRoomsReviews } =
+    useAppContext();
   const [room, setRoom] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
@@ -57,40 +51,39 @@ const RoomDetails = () => {
     e.preventDefault();
     console.log("Function executed!");
 
-  if (!rating) {
-    toast.error("Please give a rating");
-    return;
-  }
+    if (!rating) {
+      toast.error("Please give a rating");
+      return;
+    }
 
-  if (!comment) {
-    toast.error("Please write a review");
-    return;
-  }
+    if (!comment) {
+      toast.error("Please write a review");
+      return;
+    }
 
-  const res = await addReview(room._id, rating, comment);
+    const res = await addReview(room._id, rating, comment);
 
-  if (res.success) {
-    const updated = await getRoomsReviews(room._id);
-    setReviews(updated.reviews);
+    if (res.success) {
+      const updated = await getRoomsReviews(room._id);
+      setReviews(updated.reviews);
 
-    setRoom((prev) => ({
-      ...prev,
-      rating: updated.rating,
-      reviewCount: updated.reviews.length
-    }));
+      setRoom((prev) => ({
+        ...prev,
+        rating: updated.rating,
+        reviewCount: updated.reviews.length,
+      }));
 
-    setRating(0);
-    setComment("");
-    toast.success(res.message);
-  } else {
-    toast.error(res.message);
-  }
-};
+      setRating(0);
+      setComment("");
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+    }
+  };
 
   //check if the room is available
   const checkAvailability = async () => {
     try {
-
       //check is Check-In Date is greater than Check-Out Date
       if (checkInDate >= checkOutDate) {
         toast.error("Check-In Date should be less than Check-Out Date");
@@ -171,7 +164,13 @@ const RoomDetails = () => {
   return (
     room && (
       <div className="rd-container">
-        <BreadCrumbs />
+        <BreadCrumbs
+          items={[
+            { label: "Home", to: "/" },
+            { label: "Hotels", to: "/rooms" },
+            { label: room.hotel.name },
+          ]}
+        />
 
         {/* Title */}
         <div className="rd-title-row">
@@ -319,10 +318,7 @@ const RoomDetails = () => {
           {reviews.map((rev, i) => (
             <div key={i} className="rd-review">
               <div className="flex items-center gap-2">
-                <img 
-                  src={rev.user?.profile}
-                  className="w-8 h-8 rounded-full"
-                />
+                <img src={rev.user?.profile} className="w-8 h-8 rounded-full" />
                 <strong>{rev.user?.username || "User"}</strong>
               </div>
               <StarRating rating={rev.rating} />
@@ -357,9 +353,7 @@ const RoomDetails = () => {
             placeholder="Write your review"
           ></textarea>
 
-          <button onClick={handleSubmit}>
-            Submit Review
-          </button>
+          <button onClick={handleSubmit}>Submit Review</button>
         </div>
 
         {/* Owner */}

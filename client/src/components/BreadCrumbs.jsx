@@ -1,26 +1,27 @@
-import { ChevronRight, Home } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
-import { rooms } from "../data/data";
+import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const BreadCrumbs = () => {
-  const { id } = useParams();
-  const room = rooms.find((room) => room._id === id);
+const BreadCrumbs = ({ items }) => {
   return (
-    <div className="flex flex-wrap items-center justify-start space-x-2 text-sm text-gray-500 font-medium bg-white pb-6 px-4  rounded-lg">
-      <Link to="/" aria-label="Home">
-        <img src="/logo.png" alt="Home" className="h-6 w-6 opacity-60 hover:opacity-80" />
-      </Link>
+    <div className="flex flex-wrap items-center justify-start space-x-2 text-sm text-gray-500 font-medium bg-white pb-6 px-4 rounded-lg md:hidden">
+      {items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        return (
+          <span key={index} className="flex items-center">
+            {item.to ? (
+              <Link to={item.to} className={`hover:text-[var(--primary)]`}>
+                {item.label}
+              </Link>
+            ) : (
+              <span className="text-[var(--primary)]">{item.label}</span>
+            )}
 
-      <ChevronRight />
-
-      <Link to="/rooms" className="hover:text-[var(--primary)]">Hotels</Link>
-
-      <ChevronRight />
-
-      <span className="text-[var(--primary)]">
-        {room ? room.hotel.name : "Room"}
-      </span>
+            {!isLast && <ChevronRight className="mx-1" size={16} />}
+          </span>
+        );
+      })}
     </div>
   );
 };
+
 export default BreadCrumbs;
