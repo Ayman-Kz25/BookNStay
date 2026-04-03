@@ -21,22 +21,31 @@ const Navbar = ({ setShowSearch }) => {
   const { user, navigate, isOwner, setShowHotelReg } = useAppContext();
 
   useEffect(() => {
+    
+    const handleScroll = () => {
+      if(location.pathname === "/"){
+        setIsScrolled(window.scrollY > 10);
+      }
+    }
     if (location.pathname !== "/") {
       setIsScrolled(true);
-      return;
+    } else {
+      setIsScrolled(window.scrollY > 10);
     }
-
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
 
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
+  useEffect(()=>{
+    window.scrollTo({top: 0, behavior: "instant"});
+  }, [location.pathname])
+
   return (
     <nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
       {/* Logo */}
-      <Link to="/" className="navbar-logo">
+      <Link to="/" className="navbar-logo" onClick={() => scrollTo(0, 0)}>
         <img
           src="/logo7.png"
           alt="logo"
@@ -51,6 +60,7 @@ const Navbar = ({ setShowSearch }) => {
             key={i}
             to={link.path}
             className={`navbar-link group ${isScrolled ? "text-[var(--primary)]" : "text-white"}`}
+            onClick={() => scrollTo(0, 0)}
           >
             {link.name}
             <div
@@ -61,9 +71,10 @@ const Navbar = ({ setShowSearch }) => {
         {user && (
           <button
             className={`navbar-dashboard-btn ${isScrolled ? "border-[var(--primary)] text-[var(--primary)] bg-transparent" : "border-white text-white bg-transparent"}`}
-            onClick={() =>
-              isOwner ? navigate("/owner") : setShowHotelReg(true)
-            }
+            onClick={() => {
+              isOwner ? navigate("/owner") : setShowHotelReg(true);
+              scrollTo(0, 0);
+            }}
           >
             {isOwner ? "Dashboard" : "List Your Hotel"}
           </button>
@@ -83,7 +94,10 @@ const Navbar = ({ setShowSearch }) => {
               <UserButton.Action
                 label="My Bookings"
                 labelIcon={<BookUser size={16} />}
-                onClick={() => navigate("/my-bookings")}
+                onClick={() => {
+                  navigate("/my-bookings");
+                  scrollTo(0, 0);
+                }}
               />
             </UserButton.MenuItems>
           </UserButton>
